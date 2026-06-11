@@ -1,40 +1,15 @@
-# Project: NOME_PROGETTO
+# Project AI Notes
 
-Template per nuovi progetti — personalizza questo file dopo aver clonato il repository.
-Compila le sezioni sottostanti per tracciare obiettivi, decisioni e progresso delle sessioni OpenCode.
+## Vincoli operativi
+- **Constraint:** Preventivo con costo manodopera azzerato (risorsa interna).
+- **Secret:** ZetaByteNexus (in fase di setup, non esporre).
+- **Feature (Campionature):** Modulo "Richiesta Campione" automatizzato (limiti, validazione, spedizione a carico cliente).
+- **Roadmap:** Integrazione ERP/Magazzino posticipata (Fase 2).
+- **Localization:** Supporto bilingue (IT/EN) nativo.
+- **Infrastruttura:** Cloud-native, zero-manual.
+- **Approccio:** "Cosa" definito (perimetro MVP), "Come" da definire con approccio conservativo.
 
-## Obiettivo
-- Scopo:
-- Stato attuale:
-- Risultato atteso della sessione:
+## Documentazione
+- `docs/leads/ecommerce-vetronaviglio-positioning.md` - Definito.
+- `docs/project/ecommerce-vetronaviglio-mvp-scope.md` - Definito.
 
-## Stack e vincoli
-- Frontend: React 19 + TypeScript + Vite + TailwindCSS
-- Backend: Supabase (Auth, Postgres RLS, Storage)
-- Database: Postgres con RLS multi-tenancy
-- Infra: Vercel + GitHub Actions
-- Vincoli tecnici:
-- Vincoli di piano/free tier:
-
-## Decisioni prese
-- [YYYY-MM-DD] ...
-
-## Lavoro svolto
-- File creati:
-- File modificati:
-- Test eseguiti:
-
-## TODO aperti
-1. ...
-2. ...
-
-## Problemi aperti
-- Problema:
-- Ipotesi:
-- Blocco attuale:
-
-## File toccati
-- ...
-
-## Prossimo step suggerito
-- ...

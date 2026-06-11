@@ -1,0 +1,220 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - list [ref=e6]:
+      - listitem [ref=e7]:
+        - link "IT" [ref=e8] [cursor=pointer]:
+          - /url: /it/packaging-vetro-online-store/onlinestorecategories/1/flaconi-vetro
+      - listitem [ref=e9]:
+        - generic [ref=e10]: "|"
+      - listitem [ref=e11]:
+        - link "EN" [ref=e12] [cursor=pointer]:
+          - /url: /en/packaging-glass-online-store/onlinestorecategories/1/glass-bottles
+    - paragraph [ref=e14]:
+      - link "Vetronaviglio - packaging primario cosmetici e make up" [ref=e15] [cursor=pointer]:
+        - /url: /it
+        - img [ref=e16]
+    - list [ref=e18]:
+      - listitem [ref=e19]:
+        - link " 0" [ref=e20] [cursor=pointer]:
+          - /url: https://www.vetronaviglio.eu/it/cart
+          - generic [ref=e21]: 
+          - generic [ref=e23]: "0"
+      - listitem [ref=e24]:
+        - link [ref=e25] [cursor=pointer]:
+          - /url: https://www.vetronaviglio.eu/it/myaccount
+          - generic [ref=e26]: 
+  - paragraph [ref=e29]:
+    - link "Online Store" [ref=e30] [cursor=pointer]:
+      - /url: /it/online-store
+      - img "Online Store" [ref=e31]
+  - heading "Online Store / Packaging Vetro / Flaconi vetro" [level=3] [ref=e36]:
+    - link "Online Store" [ref=e37] [cursor=pointer]:
+      - /url: /it/online-store
+    - text: /
+    - link "Packaging Vetro" [ref=e38] [cursor=pointer]:
+      - /url: /it/packaging-vetro-online-store/
+    - text: / Flaconi vetro
+  - generic [ref=e40]:
+    - generic:
+      - generic [ref=e42]:
+        - link "Ambra" [ref=e43] [cursor=pointer]:
+          - /url: /it/packaging-vetro-online-store/onlinestoresubcategories/72/ambra-flaconi-vetro
+          - img "Ambra" [ref=e44]
+        - generic [ref=e45]:
+          - heading "Ambra" [level=2] [ref=e46]
+          - paragraph [ref=e47]:
+            - button "Scopri" [ref=e48] [cursor=pointer]
+      - generic [ref=e50]:
+        - link "Charme" [ref=e51] [cursor=pointer]:
+          - /url: /it/packaging-vetro-online-store/onlinestoresubcategories/2/charme-flaconi-vetro
+          - img "Charme" [ref=e52]
+        - generic [ref=e53]:
+          - heading "Charme" [level=2] [ref=e54]
+          - paragraph [ref=e55]:
+            - button "Scopri" [ref=e56] [cursor=pointer]
+      - generic [ref=e58]:
+        - link "Clio" [ref=e59] [cursor=pointer]:
+          - /url: /it/packaging-vetro-online-store/onlinestoresubcategories/74/clio-flaconi-vetro
+          - img "Clio" [ref=e60]
+        - generic [ref=e61]:
+          - heading "Clio" [level=2] [ref=e62]
+          - paragraph [ref=e63]:
+            - button "Scopri" [ref=e64] [cursor=pointer]
+      - generic [ref=e66]:
+        - link "Cristal" [ref=e67] [cursor=pointer]:
+          - /url: /it/packaging-vetro-online-store/onlinestoresubcategories/73/cristal-flaconi-vetro
+          - img "Cristal" [ref=e68]
+        - generic [ref=e69]:
+          - heading "Cristal" [level=2] [ref=e70]
+          - paragraph [ref=e71]:
+            - button "Scopri" [ref=e72] [cursor=pointer]
+      - generic [ref=e74]:
+        - link "Double" [ref=e75] [cursor=pointer]:
+          - /url: /it/packaging-vetro-online-store/onlinestoresubcategories/3/double-flaconi-vetro
+          - img "Double" [ref=e76]
+        - generic [ref=e77]:
+          - heading "Double" [level=2] [ref=e78]
+          - paragraph [ref=e79]:
+            - button "Scopri" [ref=e80] [cursor=pointer]
+      - generic [ref=e82]:
+        - link "Etoile" [ref=e83] [cursor=pointer]:
+          - /url: /it/packaging-vetro-online-store/onlinestoresubcategories/4/etoile-flaconi-vetro
+          - img "Etoile" [ref=e84]
+        - generic [ref=e85]:
+          - heading "Etoile" [level=2] [ref=e86]
+          - paragraph [ref=e87]:
+            - button "Scopri" [ref=e88] [cursor=pointer]
+      - generic [ref=e90]:
+        - link "Flora" [ref=e91] [cursor=pointer]:
+          - /url: /it/packaging-vetro-online-store/onlinestoresubcategories/5/flora-flaconi-vetro
+          - img "Flora" [ref=e92]
+        - generic [ref=e93]:
+          - heading "Flora" [level=2] [ref=e94]
+          - paragraph [ref=e95]:
+            - button "Scopri" [ref=e96] [cursor=pointer]
+      - generic [ref=e98]:
+        - link "Juliet" [ref=e99] [cursor=pointer]:
+          - /url: /it/packaging-vetro-online-store/onlinestoresubcategories/6/juliet-flaconi-vetro
+          - img "Juliet" [ref=e100]
+        - generic [ref=e101]:
+          - heading "Juliet" [level=2] [ref=e102]
+          - paragraph [ref=e103]:
+            - button "Scopri" [ref=e104] [cursor=pointer]
+      - generic [ref=e106]:
+        - link "Kappa" [ref=e107] [cursor=pointer]:
+          - /url: /it/packaging-vetro-online-store/onlinestoresubcategories/75/flaconi-vetro-kappa
+          - img "Kappa" [ref=e108]
+        - generic [ref=e109]:
+          - heading "Kappa" [level=2] [ref=e110]
+          - paragraph [ref=e111]:
+            - button "Scopri" [ref=e112] [cursor=pointer]
+      - generic [ref=e114]:
+        - link "Mabel" [ref=e115] [cursor=pointer]:
+          - /url: /it/packaging-vetro-online-store/onlinestoresubcategories/7/mabel-flaconi-vetro
+          - img "Mabel" [ref=e116]
+        - generic [ref=e117]:
+          - heading "Mabel" [level=2] [ref=e118]
+          - paragraph [ref=e119]:
+            - button "Scopri" [ref=e120] [cursor=pointer]
+      - generic [ref=e122]:
+        - link "Reve" [ref=e123] [cursor=pointer]:
+          - /url: /it/packaging-vetro-online-store/onlinestoresubcategories/9/reve-flaconi-vetro
+          - img "Reve" [ref=e124]
+        - generic [ref=e125]:
+          - heading "Reve" [level=2] [ref=e126]
+          - paragraph [ref=e127]:
+            - button "Scopri" [ref=e128] [cursor=pointer]
+      - generic [ref=e130]:
+        - link "Square" [ref=e131] [cursor=pointer]:
+          - /url: /it/packaging-vetro-online-store/onlinestoresubcategories/193/square
+          - img "Square" [ref=e132]
+        - generic [ref=e133]:
+          - heading "Square" [level=2] [ref=e134]
+          - paragraph [ref=e135]:
+            - button "Scopri" [ref=e136] [cursor=pointer]
+      - generic [ref=e138]:
+        - link "Venus" [ref=e139] [cursor=pointer]:
+          - /url: /it/packaging-vetro-online-store/onlinestoresubcategories/10/venus-flaconi-vetro
+          - img "Venus" [ref=e140]
+        - generic [ref=e141]:
+          - heading "Venus" [level=2] [ref=e142]
+          - paragraph [ref=e143]:
+            - button "Scopri" [ref=e144] [cursor=pointer]
+  - generic [ref=e145]:
+    - generic [ref=e152]:
+      - paragraph [ref=e154]:
+        - link "Vetronaviglio - packaging primario cosmetici e make up" [ref=e155] [cursor=pointer]:
+          - /url: /it
+          - img [ref=e156]
+      - generic [ref=e157]:
+        - heading "Follow us" [level=2] [ref=e158]
+        - paragraph [ref=e159]:
+          - link " " [ref=e160] [cursor=pointer]:
+            - /url: https://www.instagram.com/vetronaviglio_packaging/
+            - generic [ref=e161]:
+              - generic [ref=e162]: 
+              - generic [ref=e163]: 
+          - link " " [ref=e164] [cursor=pointer]:
+            - /url: https://www.facebook.com/VetronaviglioSrl/
+            - generic [ref=e165]:
+              - generic [ref=e166]: 
+              - generic [ref=e167]: 
+          - link " " [ref=e168] [cursor=pointer]:
+            - /url: https://www.linkedin.com/company/vetronaviglio-srl/
+            - generic [ref=e169]:
+              - generic [ref=e170]: 
+              - generic [ref=e171]: 
+          - link " " [ref=e172] [cursor=pointer]:
+            - /url: https://www.youtube.com/channel/UCvvWwynB1cH3Haf_lR6zEzQ
+            - generic [ref=e173]:
+              - generic [ref=e174]: 
+              - generic [ref=e175]: 
+    - generic [ref=e179]:
+      - heading "Vetronaviglio S.r.l." [level=4] [ref=e180]
+      - paragraph [ref=e181]:
+        - text: Via Don Severino Fracassi, 31/39 - 20008 Bareggio (MI) Italy
+        - text: T.
+        - link "+39 02 9036 4184" [ref=e182] [cursor=pointer]:
+          - /url: tel:+39 02 9036 4184
+        - text: "- F. +39 02 9036 4185 - P.IVA IT03366120271"
+      - paragraph [ref=e183]:
+        - text: Per informazioni scrivere a
+        - link "infostore@vetronaviglio.eu" [ref=e184] [cursor=pointer]:
+          - /url: mailto:infostore@vetronaviglio.eu
+        - text: .
+    - list [ref=e189]:
+      - listitem [ref=e190]:
+        - link "IT" [ref=e191] [cursor=pointer]:
+          - /url: /it
+      - listitem [ref=e192]:
+        - generic [ref=e193]: "|"
+      - listitem [ref=e194]:
+        - link "EN" [ref=e195] [cursor=pointer]:
+          - /url: /en
+    - generic [ref=e198]:
+      - paragraph [ref=e200]: © Vetronaviglio S.r.l. 2026 - Tutti i diritti riservati
+      - list [ref=e202]:
+        - listitem [ref=e203]:
+          - link "Contatti" [ref=e204] [cursor=pointer]:
+            - /url: /it/contatti
+        - listitem [ref=e205]:
+          - link "Condizioni di vendita" [ref=e206] [cursor=pointer]:
+            - /url: /it/condizioni-di-vendita
+        - listitem [ref=e207]:
+          - link "Privacy" [ref=e208] [cursor=pointer]:
+            - /url: /it/privacy
+        - listitem [ref=e209]:
+          - link "Cookie" [ref=e210] [cursor=pointer]:
+            - /url: /it/cookie-policy
+        - listitem [ref=e211]:
+          - link "Crediti" [ref=e212] [cursor=pointer]:
+            - /url: /it/crediti
+  - generic [ref=e215]:
+    - heading "Informativa sui Cookie" [level=4] [ref=e216]
+    - paragraph [ref=e217]: Questo sito utilizza cookie tecnici e di profilazione per migliorare la tua esperienza di navigazione. Continuando a navigare nel sito acconsenti all'uso dei cookie.
+    - generic [ref=e218]:
+      - button "Accetta tutti" [ref=e219] [cursor=pointer]
+      - button "Solo necessari" [ref=e220] [cursor=pointer]
+      - link "Maggiori informazioni" [ref=e221] [cursor=pointer]:
+        - /url: /it/cookie-policy
+  - generic: 

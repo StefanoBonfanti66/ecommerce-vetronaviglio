@@ -1,0 +1,148 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - list [ref=e6]:
+      - listitem [ref=e7]:
+        - link "IT" [ref=e8] [cursor=pointer]:
+          - /url: /it/packaging-plastica-online-store/onlinestorecategories/3/flaconi-plastica
+      - listitem [ref=e9]:
+        - generic [ref=e10]: "|"
+      - listitem [ref=e11]:
+        - link "EN" [ref=e12] [cursor=pointer]:
+          - /url: /en/packaging-plastic-online-store/onlinestorecategories/3/plastic-bottles
+    - paragraph [ref=e14]:
+      - link "Vetronaviglio - packaging primario cosmetici e make up" [ref=e15] [cursor=pointer]:
+        - /url: /it
+        - img [ref=e16]
+    - list [ref=e18]:
+      - listitem [ref=e19]:
+        - link " 0" [ref=e20] [cursor=pointer]:
+          - /url: https://www.vetronaviglio.eu/it/cart
+          - generic [ref=e21]: 
+          - generic [ref=e23]: "0"
+      - listitem [ref=e24]:
+        - link [ref=e25] [cursor=pointer]:
+          - /url: https://www.vetronaviglio.eu/it/myaccount
+          - generic [ref=e26]: 
+  - paragraph [ref=e29]:
+    - link "Online Store" [ref=e30] [cursor=pointer]:
+      - /url: /it/online-store
+      - img "Online Store" [ref=e31]
+  - heading "Online Store / Packaging Plastica / Flaconi plastica" [level=3] [ref=e36]:
+    - link "Online Store" [ref=e37] [cursor=pointer]:
+      - /url: /it/online-store
+    - text: /
+    - link "Packaging Plastica" [ref=e38] [cursor=pointer]:
+      - /url: /it/packaging-plastica-online-store/
+    - text: / Flaconi plastica
+  - generic [ref=e40]:
+    - generic:
+      - generic [ref=e42]:
+        - link "Ambra" [ref=e43] [cursor=pointer]:
+          - /url: /it/packaging-plastica-online-store/onlinestoresubcategories/21/ambra-flaconi-plastica
+          - img "Ambra" [ref=e44]
+        - generic [ref=e45]:
+          - heading "Ambra" [level=2] [ref=e46]
+          - paragraph [ref=e47]:
+            - button "Scopri" [ref=e48] [cursor=pointer]
+      - generic [ref=e50]:
+        - link "Cristal" [ref=e51] [cursor=pointer]:
+          - /url: /it/packaging-plastica-online-store/onlinestoresubcategories/22/cristal-flaconi-plastica
+          - img "Cristal" [ref=e52]
+        - generic [ref=e53]:
+          - heading "Cristal" [level=2] [ref=e54]
+          - paragraph [ref=e55]:
+            - button "Scopri" [ref=e56] [cursor=pointer]
+      - generic [ref=e58]:
+        - link "Giada" [ref=e59] [cursor=pointer]:
+          - /url: /it/packaging-plastica-online-store/onlinestoresubcategories/69/giada-flaconi-plastica
+          - img "Giada" [ref=e60]
+        - generic [ref=e61]:
+          - heading "Giada" [level=2] [ref=e62]
+          - paragraph [ref=e63]:
+            - button "Scopri" [ref=e64] [cursor=pointer]
+      - generic [ref=e66]:
+        - link "Kappa" [ref=e67] [cursor=pointer]:
+          - /url: /it/packaging-plastica-online-store/onlinestoresubcategories/26/kappa-flaconi-plastica
+          - img "Kappa" [ref=e68]
+        - generic [ref=e69]:
+          - heading "Kappa" [level=2] [ref=e70]
+          - paragraph [ref=e71]:
+            - button "Scopri" [ref=e72] [cursor=pointer]
+  - generic [ref=e73]:
+    - generic [ref=e80]:
+      - paragraph [ref=e82]:
+        - link "Vetronaviglio - packaging primario cosmetici e make up" [ref=e83] [cursor=pointer]:
+          - /url: /it
+          - img [ref=e84]
+      - generic [ref=e85]:
+        - heading "Follow us" [level=2] [ref=e86]
+        - paragraph [ref=e87]:
+          - link " " [ref=e88] [cursor=pointer]:
+            - /url: https://www.instagram.com/vetronaviglio_packaging/
+            - generic [ref=e89]:
+              - generic [ref=e90]: 
+              - generic [ref=e91]: 
+          - link " " [ref=e92] [cursor=pointer]:
+            - /url: https://www.facebook.com/VetronaviglioSrl/
+            - generic [ref=e93]:
+              - generic [ref=e94]: 
+              - generic [ref=e95]: 
+          - link " " [ref=e96] [cursor=pointer]:
+            - /url: https://www.linkedin.com/company/vetronaviglio-srl/
+            - generic [ref=e97]:
+              - generic [ref=e98]: 
+              - generic [ref=e99]: 
+          - link " " [ref=e100] [cursor=pointer]:
+            - /url: https://www.youtube.com/channel/UCvvWwynB1cH3Haf_lR6zEzQ
+            - generic [ref=e101]:
+              - generic [ref=e102]: 
+              - generic [ref=e103]: 
+    - generic [ref=e107]:
+      - heading "Vetronaviglio S.r.l." [level=4] [ref=e108]
+      - paragraph [ref=e109]:
+        - text: Via Don Severino Fracassi, 31/39 - 20008 Bareggio (MI) Italy
+        - text: T.
+        - link "+39 02 9036 4184" [ref=e110] [cursor=pointer]:
+          - /url: tel:+39 02 9036 4184
+        - text: "- F. +39 02 9036 4185 - P.IVA IT03366120271"
+      - paragraph [ref=e111]:
+        - text: Per informazioni scrivere a
+        - link "infostore@vetronaviglio.eu" [ref=e112] [cursor=pointer]:
+          - /url: mailto:infostore@vetronaviglio.eu
+        - text: .
+    - list [ref=e117]:
+      - listitem [ref=e118]:
+        - link "IT" [ref=e119] [cursor=pointer]:
+          - /url: /it
+      - listitem [ref=e120]:
+        - generic [ref=e121]: "|"
+      - listitem [ref=e122]:
+        - link "EN" [ref=e123] [cursor=pointer]:
+          - /url: /en
+    - generic [ref=e126]:
+      - paragraph [ref=e128]: © Vetronaviglio S.r.l. 2026 - Tutti i diritti riservati
+      - list [ref=e130]:
+        - listitem [ref=e131]:
+          - link "Contatti" [ref=e132] [cursor=pointer]:
+            - /url: /it/contatti
+        - listitem [ref=e133]:
+          - link "Condizioni di vendita" [ref=e134] [cursor=pointer]:
+            - /url: /it/condizioni-di-vendita
+        - listitem [ref=e135]:
+          - link "Privacy" [ref=e136] [cursor=pointer]:
+            - /url: /it/privacy
+        - listitem [ref=e137]:
+          - link "Cookie" [ref=e138] [cursor=pointer]:
+            - /url: /it/cookie-policy
+        - listitem [ref=e139]:
+          - link "Crediti" [ref=e140] [cursor=pointer]:
+            - /url: /it/crediti
+  - generic [ref=e143]:
+    - heading "Informativa sui Cookie" [level=4] [ref=e144]
+    - paragraph [ref=e145]: Questo sito utilizza cookie tecnici e di profilazione per migliorare la tua esperienza di navigazione. Continuando a navigare nel sito acconsenti all'uso dei cookie.
+    - generic [ref=e146]:
+      - button "Accetta tutti" [ref=e147] [cursor=pointer]
+      - button "Solo necessari" [ref=e148] [cursor=pointer]
+      - link "Maggiori informazioni" [ref=e149] [cursor=pointer]:
+        - /url: /it/cookie-policy
+  - generic: 

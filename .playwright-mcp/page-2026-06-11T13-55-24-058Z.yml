@@ -1,0 +1,131 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - list [ref=e6]:
+      - listitem [ref=e7]:
+        - link "IT" [ref=e8] [cursor=pointer]:
+          - /url: /it/packaging-vetro-online-store
+      - listitem [ref=e9]:
+        - generic [ref=e10]: "|"
+      - listitem [ref=e11]:
+        - link "EN" [ref=e12] [cursor=pointer]:
+          - /url: /en/packaging-glass-online-store
+    - paragraph [ref=e14]:
+      - link "Vetronaviglio - packaging primario cosmetici e make up" [ref=e15] [cursor=pointer]:
+        - /url: /it
+        - img [ref=e16]
+    - list [ref=e18]:
+      - listitem [ref=e19]:
+        - link " 0" [ref=e20] [cursor=pointer]:
+          - /url: https://www.vetronaviglio.eu/it/cart
+          - generic [ref=e21]: 
+          - generic [ref=e23]: "0"
+      - listitem [ref=e24]:
+        - link [ref=e25] [cursor=pointer]:
+          - /url: https://www.vetronaviglio.eu/it/myaccount
+          - generic [ref=e26]: 
+  - paragraph [ref=e29]:
+    - link "Online Store" [ref=e30] [cursor=pointer]:
+      - /url: /it/online-store
+      - img "Online Store" [ref=e31]
+  - heading "Online Store / Packaging Vetro" [level=3] [ref=e36]:
+    - link "Online Store" [ref=e37] [cursor=pointer]:
+      - /url: /it/online-store
+    - text: /
+    - link "Packaging Vetro" [ref=e38] [cursor=pointer]:
+      - /url: /it/packaging-vetro-online-store/
+  - generic [ref=e40]:
+    - generic:
+      - generic [ref=e43]:
+        - link "Flaconi vetro" [ref=e44] [cursor=pointer]:
+          - /url: /it/packaging-vetro-online-store/onlinestorecategories/1/flaconi-vetro
+          - img "Flaconi vetro" [ref=e45]
+        - generic [ref=e46]:
+          - heading "Flaconi vetro" [level=2] [ref=e47]
+          - paragraph [ref=e48]:
+            - button "Scopri" [ref=e49] [cursor=pointer]
+      - generic [ref=e51]:
+        - link "Vasi vetro" [ref=e52] [cursor=pointer]:
+          - /url: /it/packaging-vetro-online-store/onlinestorecategories/2/vasi-vetro
+          - img "Vasi vetro" [ref=e53]
+        - generic [ref=e54]:
+          - heading "Vasi vetro" [level=2] [ref=e55]
+          - paragraph [ref=e56]:
+            - button "Scopri" [ref=e57] [cursor=pointer]
+  - generic [ref=e58]:
+    - generic [ref=e65]:
+      - paragraph [ref=e67]:
+        - link "Vetronaviglio - packaging primario cosmetici e make up" [ref=e68] [cursor=pointer]:
+          - /url: /it
+          - img [ref=e69]
+      - generic [ref=e70]:
+        - heading "Follow us" [level=2] [ref=e71]
+        - paragraph [ref=e72]:
+          - link " " [ref=e73] [cursor=pointer]:
+            - /url: https://www.instagram.com/vetronaviglio_packaging/
+            - generic [ref=e74]:
+              - generic [ref=e75]: 
+              - generic [ref=e76]: 
+          - link " " [ref=e77] [cursor=pointer]:
+            - /url: https://www.facebook.com/VetronaviglioSrl/
+            - generic [ref=e78]:
+              - generic [ref=e79]: 
+              - generic [ref=e80]: 
+          - link " " [ref=e81] [cursor=pointer]:
+            - /url: https://www.linkedin.com/company/vetronaviglio-srl/
+            - generic [ref=e82]:
+              - generic [ref=e83]: 
+              - generic [ref=e84]: 
+          - link " " [ref=e85] [cursor=pointer]:
+            - /url: https://www.youtube.com/channel/UCvvWwynB1cH3Haf_lR6zEzQ
+            - generic [ref=e86]:
+              - generic [ref=e87]: 
+              - generic [ref=e88]: 
+    - generic [ref=e92]:
+      - heading "Vetronaviglio S.r.l." [level=4] [ref=e93]
+      - paragraph [ref=e94]:
+        - text: Via Don Severino Fracassi, 31/39 - 20008 Bareggio (MI) Italy
+        - text: T.
+        - link "+39 02 9036 4184" [ref=e95] [cursor=pointer]:
+          - /url: tel:+39 02 9036 4184
+        - text: "- F. +39 02 9036 4185 - P.IVA IT03366120271"
+      - paragraph [ref=e96]:
+        - text: Per informazioni scrivere a
+        - link "infostore@vetronaviglio.eu" [ref=e97] [cursor=pointer]:
+          - /url: mailto:infostore@vetronaviglio.eu
+        - text: .
+    - list [ref=e102]:
+      - listitem [ref=e103]:
+        - link "IT" [ref=e104] [cursor=pointer]:
+          - /url: /it
+      - listitem [ref=e105]:
+        - generic [ref=e106]: "|"
+      - listitem [ref=e107]:
+        - link "EN" [ref=e108] [cursor=pointer]:
+          - /url: /en
+    - generic [ref=e111]:
+      - paragraph [ref=e113]: © Vetronaviglio S.r.l. 2026 - Tutti i diritti riservati
+      - list [ref=e115]:
+        - listitem [ref=e116]:
+          - link "Contatti" [ref=e117] [cursor=pointer]:
+            - /url: /it/contatti
+        - listitem [ref=e118]:
+          - link "Condizioni di vendita" [ref=e119] [cursor=pointer]:
+            - /url: /it/condizioni-di-vendita
+        - listitem [ref=e120]:
+          - link "Privacy" [ref=e121] [cursor=pointer]:
+            - /url: /it/privacy
+        - listitem [ref=e122]:
+          - link "Cookie" [ref=e123] [cursor=pointer]:
+            - /url: /it/cookie-policy
+        - listitem [ref=e124]:
+          - link "Crediti" [ref=e125] [cursor=pointer]:
+            - /url: /it/crediti
+  - generic [ref=e128]:
+    - heading "Informativa sui Cookie" [level=4] [ref=e129]
+    - paragraph [ref=e130]: Questo sito utilizza cookie tecnici e di profilazione per migliorare la tua esperienza di navigazione. Continuando a navigare nel sito acconsenti all'uso dei cookie.
+    - generic [ref=e131]:
+      - button "Accetta tutti" [ref=e132] [cursor=pointer]
+      - button "Solo necessari" [ref=e133] [cursor=pointer]
+      - link "Maggiori informazioni" [ref=e134] [cursor=pointer]:
+        - /url: /it/cookie-policy
+  - generic: 

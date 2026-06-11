@@ -1,0 +1,219 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - list [ref=e6]:
+      - listitem [ref=e7]:
+        - link "IT" [ref=e8] [cursor=pointer]:
+          - /url: /it/packaging-vetro-online-store/onlinestoreproducts/72/ambra-flaconi-vetro/361/flacone-ambra-15-vetro-trasparente-e5
+      - listitem [ref=e9]:
+        - generic [ref=e10]: "|"
+      - listitem [ref=e11]:
+        - link "EN" [ref=e12] [cursor=pointer]:
+          - /url: /en/packaging-glass-online-store/onlinestoreproducts/72/ambra-glass-bottles/361/bottle-ambra-15-transparent-glass-e5
+    - paragraph [ref=e14]:
+      - link "Vetronaviglio - packaging primario cosmetici e make up" [ref=e15] [cursor=pointer]:
+        - /url: /it
+        - img [ref=e16]
+    - list [ref=e18]:
+      - listitem [ref=e19]:
+        - link " 0" [ref=e20] [cursor=pointer]:
+          - /url: https://www.vetronaviglio.eu/it/cart
+          - generic [ref=e21]: 
+          - generic [ref=e23]: "0"
+      - listitem [ref=e24]:
+        - link [ref=e25] [cursor=pointer]:
+          - /url: https://www.vetronaviglio.eu/it/myaccount
+          - generic [ref=e26]: 
+  - paragraph [ref=e29]:
+    - link "Online Store" [ref=e30] [cursor=pointer]:
+      - /url: /it/online-store
+      - img "Online Store" [ref=e31]
+  - heading "Online Store / Packaging Vetro / Flaconi vetro / Ambra" [level=3] [ref=e36]:
+    - link "Online Store" [ref=e37] [cursor=pointer]:
+      - /url: /it/online-store
+    - text: /
+    - link "Packaging Vetro" [ref=e38] [cursor=pointer]:
+      - /url: /it/packaging-vetro-online-store/
+    - text: /
+    - link "Flaconi vetro" [ref=e39] [cursor=pointer]:
+      - /url: /it/packaging-vetro-online-store/onlinestorecategories/1/flaconi-vetro
+    - text: /
+    - link "Ambra" [ref=e40] [cursor=pointer]:
+      - /url: /it/packaging-vetro-online-store/onlinestoresubcategories/72/ambra-flaconi-vetro
+  - generic [ref=e42]:
+    - generic:
+      - generic [ref=e44]:
+        - img "Ambra" [ref=e47]
+        - generic [ref=e48]:
+          - heading "Ambra" [level=2] [ref=e49]
+          - paragraph [ref=e50]: Il flacone in vetro Ambra 15 ml è ideale per prodotti cosmetici viso, corpo, capelli, detergenza e make-up.
+          - 'heading "Tipologia: Flacone" [level=4] [ref=e51]'
+          - 'heading "Capacità: 15 ml" [level=4] [ref=e52]'
+          - 'heading "Materiale: Vetro" [level=4] [ref=e53]'
+          - 'heading "Colore: Trasparente" [level=4] [ref=e54]'
+          - 'heading "Finitura: Lucido" [level=4] [ref=e55]'
+          - 'heading "Collo: EUROPA 5" [level=4] [ref=e56]'
+          - 'heading "Codice: QC015.0034" [level=4] [ref=e57]'
+          - 'heading "Quantità disponibile: 107274 pz" [level=4] [ref=e58]'
+          - 'heading "Quantità per scatola: 70 pz" [level=4] [ref=e59]'
+          - 'heading "Prezzo unitario: € 1,48" [level=4] [ref=e60]'
+          - generic [ref=e62]:
+            - generic [ref=e63]: Quantità
+            - generic [ref=e64] [cursor=pointer]: "-"
+            - textbox [ref=e65]: "70"
+            - generic [ref=e66] [cursor=pointer]: +
+            - button "Aggiungi al carrello" [ref=e68] [cursor=pointer]
+          - generic [ref=e69]:
+            - generic [ref=e70]:
+              - img [ref=e72]
+              - 'heading "Importo minimo fatturabile per ciascun ordine: € 250 IVA esclusa." [level=5] [ref=e74]':
+                - paragraph [ref=e75]:
+                  - strong [ref=e76]: Importo minimo fatturabile per ciascun ordine
+                  - text: ": € 250 IVA esclusa."
+            - generic [ref=e77]:
+              - img [ref=e79]
+              - heading "I prodotti sono venduti a scatole secondo i multipli d'imballo indicati per ciascun articolo, fino a un massimo di 3.000 pezzi. Contattaci se desideri ordinare quantitativi superiori." [level=5] [ref=e81]:
+                - paragraph [ref=e82]:
+                  - strong [ref=e83]: I prodotti sono venduti a scatole
+                  - text: secondo i multipli d'imballo indicati per ciascun articolo, fino a un massimo di
+                  - strong [ref=e84]: "3.000"
+                  - text: pezzi.
+                  - strong [ref=e85]:
+                    - link "Contattaci" [ref=e86] [cursor=pointer]:
+                      - /url: "#"
+                    - text: se desideri ordinare quantitativi superiori.
+            - generic [ref=e87]:
+              - img [ref=e89]
+              - 'heading "Più ordini, più risparmi: il prezzo unitario varia in base alle quantità che aggiungi al carrello e lo sconto viene applicato in tempo reale." [level=5] [ref=e91]':
+                - paragraph [ref=e92]:
+                  - strong [ref=e93]: Più ordini, più risparmi
+                  - text: ": il prezzo unitario varia in base alle quantità che aggiungi al carrello e lo sconto viene applicato in tempo reale."
+            - generic [ref=e94]:
+              - img [ref=e96]
+              - 'heading "Personalizzazione disponibile: serigrafia da 500 pezzi (1 o 2 colori, previa verifica di fattibilità), verniciatura da 1.000 pezzi." [level=5] [ref=e98]':
+                - paragraph [ref=e99]:
+                  - strong [ref=e100]: Personalizzazione disponibile
+                  - text: ": serigrafia da 500 pezzi (1 o 2 colori, previa verifica di fattibilità), verniciatura da 1.000 pezzi."
+            - generic [ref=e101]:
+              - img [ref=e103]
+              - 'heading "Consegna in modalità ex-works: i prodotti possono essere ritirati presso Vetronaviglio oppure, su richiesta, possiamo fornire un preventivo per la spedizione." [level=5] [ref=e105]':
+                - paragraph [ref=e106]:
+                  - strong [ref=e107]: Consegna in modalità ex-works
+                  - text: ": i prodotti possono essere ritirati presso Vetronaviglio oppure, su richiesta, possiamo fornire un preventivo per la spedizione."
+      - table [ref=e109]:
+        - rowgroup [ref=e110]:
+          - row "Materiale Tipologia Capacità Collo Larghezza Altezza" [ref=e111]:
+            - columnheader "Materiale" [ref=e112]:
+              - paragraph [ref=e113]: Materiale
+            - columnheader "Tipologia" [ref=e114]:
+              - paragraph [ref=e115]: Tipologia
+            - columnheader "Capacità" [ref=e116]:
+              - paragraph [ref=e117]: Capacità
+            - columnheader "Collo" [ref=e118]:
+              - paragraph [ref=e119]: Collo
+            - columnheader "Larghezza" [ref=e120]:
+              - paragraph [ref=e121]: Larghezza
+            - columnheader "Altezza" [ref=e122]:
+              - paragraph [ref=e123]: Altezza
+        - rowgroup [ref=e124]:
+          - row "Vetro Flacone 15 ml EUROPA 5 35 mm 49 mm" [ref=e125]:
+            - cell "Vetro" [ref=e126]
+            - cell "Flacone" [ref=e127]
+            - cell "15 ml" [ref=e128]
+            - cell "EUROPA 5" [ref=e129]
+            - cell "35 mm" [ref=e130]
+            - cell "49 mm" [ref=e131]
+      - generic [ref=e135]:
+        - heading "Accessori con lo stesso collo" [level=5] [ref=e137]
+        - generic [ref=e138]:
+          - link "Georgia" [ref=e140] [cursor=pointer]:
+            - /url: /it/packaging-accessori-online-store/onlinestoreproducts/38/georgia-capsule/226/georgia-E5-pp-bianca
+            - img "Georgia" [ref=e141]
+          - heading "Capsula Georgia" [level=4] [ref=e142]
+        - generic [ref=e143]:
+          - link "Georgia" [ref=e145] [cursor=pointer]:
+            - /url: /it/packaging-accessori-online-store/onlinestoreproducts/38/georgia-capsule/257/georgia-E5-pp-bianca-tige
+            - img "Georgia" [ref=e146]
+          - heading "Capsula Georgia *" [level=4] [ref=e147]
+      - heading "Torna a Flaconi vetro " [level=3] [ref=e151]:
+        - link "Torna a Flaconi vetro " [ref=e152] [cursor=pointer]:
+          - /url: /it/packaging-vetro-online-store/onlinestorecategories/1/flaconi-vetro
+          - text: Torna a Flaconi vetro
+          - generic [ref=e153]: 
+  - generic [ref=e154]:
+    - generic [ref=e161]:
+      - paragraph [ref=e163]:
+        - link "Vetronaviglio - packaging primario cosmetici e make up" [ref=e164] [cursor=pointer]:
+          - /url: /it
+          - img [ref=e165]
+      - generic [ref=e166]:
+        - heading "Follow us" [level=2] [ref=e167]
+        - paragraph [ref=e168]:
+          - link " " [ref=e169] [cursor=pointer]:
+            - /url: https://www.instagram.com/vetronaviglio_packaging/
+            - generic [ref=e170]:
+              - generic [ref=e171]: 
+              - generic [ref=e172]: 
+          - link " " [ref=e173] [cursor=pointer]:
+            - /url: https://www.facebook.com/VetronaviglioSrl/
+            - generic [ref=e174]:
+              - generic [ref=e175]: 
+              - generic [ref=e176]: 
+          - link " " [ref=e177] [cursor=pointer]:
+            - /url: https://www.linkedin.com/company/vetronaviglio-srl/
+            - generic [ref=e178]:
+              - generic [ref=e179]: 
+              - generic [ref=e180]: 
+          - link " " [ref=e181] [cursor=pointer]:
+            - /url: https://www.youtube.com/channel/UCvvWwynB1cH3Haf_lR6zEzQ
+            - generic [ref=e182]:
+              - generic [ref=e183]: 
+              - generic [ref=e184]: 
+    - generic [ref=e188]:
+      - heading "Vetronaviglio S.r.l." [level=4] [ref=e189]
+      - paragraph [ref=e190]:
+        - text: Via Don Severino Fracassi, 31/39 - 20008 Bareggio (MI) Italy
+        - text: T.
+        - link "+39 02 9036 4184" [ref=e191] [cursor=pointer]:
+          - /url: tel:+39 02 9036 4184
+        - text: "- F. +39 02 9036 4185 - P.IVA IT03366120271"
+      - paragraph [ref=e192]:
+        - text: Per informazioni scrivere a
+        - link "infostore@vetronaviglio.eu" [ref=e193] [cursor=pointer]:
+          - /url: mailto:infostore@vetronaviglio.eu
+        - text: .
+    - list [ref=e198]:
+      - listitem [ref=e199]:
+        - link "IT" [ref=e200] [cursor=pointer]:
+          - /url: /it
+      - listitem [ref=e201]:
+        - generic [ref=e202]: "|"
+      - listitem [ref=e203]:
+        - link "EN" [ref=e204] [cursor=pointer]:
+          - /url: /en
+    - generic [ref=e207]:
+      - paragraph [ref=e209]: © Vetronaviglio S.r.l. 2026 - Tutti i diritti riservati
+      - list [ref=e211]:
+        - listitem [ref=e212]:
+          - link "Contatti" [ref=e213] [cursor=pointer]:
+            - /url: /it/contatti
+        - listitem [ref=e214]:
+          - link "Condizioni di vendita" [ref=e215] [cursor=pointer]:
+            - /url: /it/condizioni-di-vendita
+        - listitem [ref=e216]:
+          - link "Privacy" [ref=e217] [cursor=pointer]:
+            - /url: /it/privacy
+        - listitem [ref=e218]:
+          - link "Cookie" [ref=e219] [cursor=pointer]:
+            - /url: /it/cookie-policy
+        - listitem [ref=e220]:
+          - link "Crediti" [ref=e221] [cursor=pointer]:
+            - /url: /it/crediti
+  - generic [ref=e224]:
+    - heading "Informativa sui Cookie" [level=4] [ref=e225]
+    - paragraph [ref=e226]: Questo sito utilizza cookie tecnici e di profilazione per migliorare la tua esperienza di navigazione. Continuando a navigare nel sito acconsenti all'uso dei cookie.
+    - generic [ref=e227]:
+      - button "Accetta tutti" [ref=e228] [cursor=pointer]
+      - button "Solo necessari" [ref=e229] [cursor=pointer]
+      - link "Maggiori informazioni" [ref=e230] [cursor=pointer]:
+        - /url: /it/cookie-policy
+  - generic: 
