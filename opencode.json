@@ -13,14 +13,14 @@
         "@modelcontextprotocol/server-github"
       ],
       "environment": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "SET_IN_LOCAL_CONFIG"
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "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"
       }
     },
     "supabase": {
       "type": "remote",
       "url": "https://mcp.supabase.com/mcp",
       "headers": {
-        "Authorization": "Bearer SET_IN_LOCAL_CONFIG"
+        "Authorization": "Bearer sbp_8a58a550095152ae4842c97b4fe509f0677ff96c"
       },
       "oauth": false
     },
@@ -28,7 +28,7 @@
       "type": "remote",
       "url": "https://mcp.vercel.com",
       "headers": {
-        "Authorization": "Bearer SET_IN_LOCAL_CONFIG"
+        "Authorization": "Bearer vcp_7v8rq0E0Gl6b0DZddT8ZSta61peVCYEt6dBVtodyDttOSgrclF3KbRpj"
       },
       "oauth": false
     },
