@@ -27,3 +27,6 @@ Bettina (Vetronaviglio srl) richiede la realizzazione di un sito e-commerce. La 
 - Quali sono le specifiche tecniche minime necessarie per garantire il "prodotto finito" richiesto?
 - Esistono preferenze o vincoli di piattaforma tecnologica?
 - Quali sono le aspettative temporali e di budget per un progetto che richiede totale autonomia?
+
+### Note Governance ZBN
+- **Requisito Posticipato:** Richiesta di "Login cliente e listini personalizzati" posticipata a Fase 2 (approvato CEO). Da monitorare nel flusso Amministrazione (@amministrazione) per impatti fiscali/commerciali futuri.

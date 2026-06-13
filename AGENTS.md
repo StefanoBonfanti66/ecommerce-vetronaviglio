@@ -12,7 +12,7 @@
 - Use `PROJECT_AI_NOTES.md` to track decisions, checkpoints, and pending items across sessions.
 - If you use custom commands in your OpenCode setup, document project-specific ones here or in the repository docs.
 
-## Current Focus — 2026-06-12
+## Current Focus — 2026-06-13
 
 ### Completato
 - Analisi e salvataggio lead Vetronaviglio.
@@ -25,13 +25,15 @@
 - Implementazione workflow Rollup Economico (`/rollup`).
 - Creazione template executive report (`docs/admin/executive-report.md`).
 - Standardizzazione template processi Obsidian (`process.md`).
+- Integrazione workflow `/billing-watch`.
+- Audit pipeline Lead to Project.
 
 ### In corso
 - Milestone 2: Governance e implementazione RLS (DRAFT).
 - Milestone 3.1: Data Ingestion (Analisi e Scripting).
 
 ### Prossimo step concreto
-- Esecuzione effettiva della migrazione `005_catalog_rls_policies.sql` (Applicazione RLS).
+- Esecuzione script di importazione catalogo (M3.1) e validazione RLS catalogo.
 - Aggiornamento summary di progetto con dati reali.
 
 ### Data Ultimo Aggiornamento: 2026-06-13

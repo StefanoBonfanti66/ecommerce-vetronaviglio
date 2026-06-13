@@ -34,3 +34,6 @@
 ## 7. Decisioni rimandate alla Fase 2
 - Integrazione completa con ERP aziendale.
 - Analisi approfondita dati di vendita storici.
+
+## 8. Decisioni rimandate alla Fase 2 (Aggiunte)
+- Login cliente e listini personalizzati/riservati (richiede modellazione utente e RLS dinamica).
