@@ -22,13 +22,16 @@
 - Definizione Governance (M2), Pricing e formalizzazione preventivo.
 - Setup iniziale RBAC (M2).
 - Implementazione calendario documentale via `docs/admin/scadenze.md`.
+- Implementazione workflow Rollup Economico (`/rollup`).
+- Creazione template executive report (`docs/admin/executive-report.md`).
+- Standardizzazione template processi Obsidian (`process.md`).
 
 ### In corso
 - Milestone 2: Governance e implementazione RLS (DRAFT).
 - Milestone 3.1: Data Ingestion (Analisi e Scripting).
 
 ### Prossimo step concreto
-- Popolare `docs/admin/scadenze.md` con le milestone di progetto correnti.
 - Esecuzione effettiva della migrazione `005_catalog_rls_policies.sql` (Applicazione RLS).
+- Aggiornamento summary di progetto con dati reali.
 
-### Data Ultimo Aggiornamento: 2026-06-12
+### Data Ultimo Aggiornamento: 2026-06-13
