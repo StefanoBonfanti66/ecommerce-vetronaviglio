@@ -1,18 +1,12 @@
-# /billing-watch (Workflow Locale)
-
-## Nota bene
-Il comando master `/billing-watch` è definito nel repository globale `opencode-config`.
-Questa documentazione descrive esclusivamente l'integrazione e il workflow locale di questo progetto.
+# /billing-watch
 
 ## Descrizione
-Strumento operativo per il monitoraggio dello stato di fatturazione e incassi. Legge i dati dai repository di progetto (`docs/admin/`, `docs/invoices/`) per identificare scadenze, ritardi o anomalie e verifica la coerenza tra `docs/invoices/` e i dati consolidati aziendali.
+Strumento operativo per il monitoraggio dello stato di fatturazione e incassi. Legge i dati dai repository di progetto per identificare scadenze, ritardi o anomalie e verifica la coerenza tra `docs/invoices/` e i dati consolidati aziendali.
 
 ## Utilizzo
-Utilizza il comando globale:
 ```bash
-/billing-watch
+python3 scripts/monitor_billing.py
 ```
-*(Lo script locale `scripts/monitor_billing.py` è richiamato internamente se necessario per logiche di progetto specifiche).*
 
 ## Output atteso
 - Elenco sintetico fatture (scadenze, stati).
