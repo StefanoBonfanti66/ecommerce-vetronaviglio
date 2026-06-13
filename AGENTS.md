@@ -12,19 +12,23 @@
 - Use `PROJECT_AI_NOTES.md` to track decisions, checkpoints, and pending items across sessions.
 - If you use custom commands in your OpenCode setup, document project-specific ones here or in the repository docs.
 
-## Current Focus — 2026-06-11
+## Current Focus — 2026-06-12
 
 ### Completato
 - Analisi e salvataggio lead Vetronaviglio.
 - Definizione perimetro funzionale (MVP Scope) e posizionamento (Positioning).
 - Inizializzazione `PROJECT_AI_NOTES.md` e configurazione vincoli operativi ZBN.
-- Diagnosi e fix CI (precedente).
+- Setup infrastruttura (M1) e validazione modello dati (PoC v2).
+- Definizione Governance (M2), Pricing e formalizzazione preventivo.
+- Setup iniziale RBAC (M2).
+- Implementazione calendario documentale via `docs/admin/scadenze.md`.
 
-### Da fare / miglioramenti futuri
-- Definizione architettura tecnica (fase "come").
-- Aggiungere ESLint configurato.
-- Aggiungere test framework (Vitest/Jest).
-- Valutare se serve `dependabot.yml` e CodeQL workflow.
+### In corso
+- Milestone 2: Governance e implementazione RLS (DRAFT).
+- Milestone 3.1: Data Ingestion (Analisi e Scripting).
 
 ### Prossimo step concreto
-Validazione della documentazione prodotta (`docs/leads/ecommerce-vetronaviglio-positioning.md` e `docs/project/ecommerce-vetronaviglio-mvp-scope.md`) da parte dell'utente.
+- Popolare `docs/admin/scadenze.md` con le milestone di progetto correnti.
+- Esecuzione effettiva della migrazione `005_catalog_rls_policies.sql` (Applicazione RLS).
+
+### Data Ultimo Aggiornamento: 2026-06-12
