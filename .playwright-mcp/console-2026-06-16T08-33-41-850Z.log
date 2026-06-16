@@ -1,0 +1,9 @@
+[    1010ms] [LOG] JQMIGRATE: Migrate is installed, version 1.4.1 @ https://www.vetronaviglio.eu/public/dist/js/jquery/jquery-migrate-1.4.1.min.js?version=1.26:1
+[    1225ms] [LOG] Cart intervals loaded: {quantity_intervals: Object, price_intervals: Object} @ https://www.vetronaviglio.eu/it:722
+[ 1888417ms] [LOG] JQMIGRATE: Migrate is installed, version 1.4.1 @ https://www.vetronaviglio.eu/public/dist/js/jquery/jquery-migrate-1.4.1.min.js?version=1.26:1
+[ 1888640ms] [LOG] Cart intervals loaded: {quantity_intervals: Object, price_intervals: Object} @ https://www.vetronaviglio.eu/it/vetro-colorato-stock/:637
+[ 1892055ms] [LOG] JQMIGRATE: Migrate is installed, version 1.4.1 @ https://www.vetronaviglio.eu/public/dist/js/jquery/jquery-migrate-1.4.1.min.js?version=1.26:1
+[ 1892086ms] [LOG] Cart intervals loaded: {quantity_intervals: Object, price_intervals: Object} @ https://www.vetronaviglio.eu/it/vetro-colorato-stock/onlinestorecategories/28/flaconi-colorati:739
+[ 1893998ms] [LOG] JQMIGRATE: Migrate is installed, version 1.4.1 @ https://www.vetronaviglio.eu/public/dist/js/jquery/jquery-migrate-1.4.1.min.js?version=1.26:1
+[ 1894134ms] [LOG] Cart intervals loaded: {quantity_intervals: Object, price_intervals: Object} @ https://www.vetronaviglio.eu/it/vetro-colorato-stock/onlinestoreproducts/207/charme/1385/QC030-0685:1199
+[ 1894144ms] [LOG] Quantità: 120 Soglia usata: 2.8 Prezzo finale: 1.3439999999999999 @ https://www.vetronaviglio.eu/public/dist/js/app.js?version=1.26:1625
