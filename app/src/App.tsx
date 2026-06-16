@@ -1,13 +1,21 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
+import Layout from './components/layout/Layout'
+import Home from './pages/Home'
+import Catalog from './components/Catalog'
+import CollectionsPage from './pages/CollectionsPage'
+import ProductPage from './pages/ProductPage'
 
 function App() {
   return (
-    <div className="min-h-screen bg-slate-50">
-      <Routes>
-        <Route path="/" element={<div className="p-8 text-center font-bold text-slate-700">Race Planner</div>} />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </div>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="catalog" element={<Catalog />} />
+        <Route path="collections" element={<CollectionsPage />} />
+        <Route path="product/:sku" element={<ProductPage />} />
+      </Route>
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   )
 }
 

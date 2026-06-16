@@ -12,28 +12,20 @@
 - Use `PROJECT_AI_NOTES.md` to track decisions, checkpoints, and pending items across sessions.
 - If you use custom commands in your OpenCode setup, document project-specific ones here or in the repository docs.
 
-## Current Focus — 2026-06-13
+## Current Focus — 2026-06-16
 
 ### Completato
-- Analisi e salvataggio lead Vetronaviglio.
-- Definizione perimetro funzionale (MVP Scope) e posizionamento (Positioning).
-- Inizializzazione `PROJECT_AI_NOTES.md` e configurazione vincoli operativi ZBN.
-- Setup infrastruttura (M1) e validazione modello dati (PoC v2).
-- Definizione Governance (M2), Pricing e formalizzazione preventivo.
-- Setup iniziale RBAC (M2).
-- Implementazione calendario documentale via `docs/admin/scadenze.md`.
-- Implementazione workflow Rollup Economico (`/rollup`).
-- Creazione template executive report (`docs/admin/executive-report.md`).
-- Standardizzazione template processi Obsidian (`process.md`).
-- Integrazione workflow `/billing-watch`.
-- Audit pipeline Lead to Project.
+- Milestone 2: Governance e implementazione RLS (DB Schema flessibile).
+- Milestone 3.1: Data Ingestion catalogo (Excel -> Supabase DB).
+- Migrazione immagini: Normalizzazione URL e migrazione in Supabase Storage (ecommerceBUK).
+- Frontend Prototipo: Layout Shell (Header/Footer), Catalogo (1-2-4 grid), Pagina Prodotto.
+- Validazione estetica: Direzione creativa "Industrial Luxury" applicata.
 
 ### In corso
-- Milestone 2: Governance e implementazione RLS (DRAFT).
-- Milestone 3.1: Data Ingestion (Analisi e Scripting).
+- Nessuno (Prototipo MVP validato tecnicamente).
 
 ### Prossimo step concreto
-- Esecuzione script di importazione catalogo (M3.1) e validazione RLS catalogo.
-- Aggiornamento summary di progetto con dati reali.
+- Validazione con il CEO del "Piano di Delivery MVP" e dei costi infrastrutturali (Vercel/Supabase).
+- Fase M3.2: Polish visuale, Motion e accessibilità frontend.
 
-### Data Ultimo Aggiornamento: 2026-06-13
+### Data Ultimo Aggiornamento: 2026-06-16
