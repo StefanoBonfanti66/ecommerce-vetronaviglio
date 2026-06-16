@@ -12,20 +12,18 @@
 - Use `PROJECT_AI_NOTES.md` to track decisions, checkpoints, and pending items across sessions.
 - If you use custom commands in your OpenCode setup, document project-specific ones here or in the repository docs.
 
-## Current Focus — 2026-06-16
+## Current Focus — 2026-06-16 (Sessione 2)
 
 ### Completato
-- Milestone 2: Governance e implementazione RLS (DB Schema flessibile).
-- Milestone 3.1: Data Ingestion catalogo (Excel -> Supabase DB).
-- Migrazione immagini: Normalizzazione URL e migrazione in Supabase Storage (ecommerceBUK).
-- Frontend Prototipo: Layout Shell (Header/Footer), Catalogo (1-2-4 grid), Pagina Prodotto.
-- Validazione estetica: Direzione creativa "Industrial Luxury" applicata.
+- Risoluzione blocchi immagini (OpaqueResponseBlocking) via MIME-type fix su storage.
+- Raffinamento UI Catalogo (Filtri ordinati, Paginazione, Layout Grid 1-2-4).
+- Creazione `CollectionsPage.tsx` e relativa navigazione.
+- Implementazione pagina Login (Fase 2 Auth).
 
 ### In corso
-- Nessuno (Prototipo MVP validato tecnicamente).
+- Fase 2: Implementazione autenticazione e aree riservate.
 
 ### Prossimo step concreto
-- Validazione con il CEO del "Piano di Delivery MVP" e dei costi infrastrutturali (Vercel/Supabase).
-- Fase M3.2: Polish visuale, Motion e accessibilità frontend.
+- Implementazione `ProtectedRoute` per proteggere le rotte riservate (Admin/Cart).
 
 ### Data Ultimo Aggiornamento: 2026-06-16

@@ -17,7 +17,6 @@ export default function Catalog() {
 
   useEffect(() => {
     async function fetchProducts() {
-      let query;
       if (collectionSlug) {
         const { data, error } = await supabase
           .from('product_collections')

@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
+import { useCart } from '../context/CartContext';
 
 export default function ProductPage() {
   const { sku } = useParams<{ sku: string }>();
   const [product, setProduct] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const { addToCart } = useCart();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    console.log('ProductPage rendered with sku:', sku);
     async function fetchProduct() {
       if (!sku) return;
       const { data, error } = await supabase
@@ -19,13 +21,24 @@ export default function ProductPage() {
       
       if (error) console.error('Error:', error);
       else {
-        console.log('Product data:', data);
         setProduct(data);
       }
       setLoading(false);
     }
     fetchProduct();
   }, [sku]);
+
+  const handleAddToCart = async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+    
+    if (!session) {
+      navigate('/login');
+      return;
+    }
+    
+    addToCart(product);
+    alert('Prodotto aggiunto alla richiesta di campionatura');
+  };
 
   if (loading) return <div className="p-12">Caricamento...</div>;
   if (!product) return <div className="p-12">Prodotto non trovato</div>;
@@ -76,7 +89,10 @@ export default function ProductPage() {
             ))}
           </div>
 
-          <button className="w-full bg-onyx text-bone py-4 uppercase text-xs tracking-[0.2em] hover:bg-aluminum transition-colors">
+          <button 
+            onClick={handleAddToCart}
+            className="w-full bg-onyx text-bone py-4 uppercase text-xs tracking-[0.2em] hover:bg-aluminum transition-colors"
+          >
             Richiedi Campione
           </button>
         </div>
