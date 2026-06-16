@@ -1,8 +1,25 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { supabase } from '../../supabaseClient';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [session, setSession] = useState<any>(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => setSession(session));
+    
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    window.location.reload();
+  };
 
   const navLinks = [
     { name: 'Catalogo', path: '/catalog' },
@@ -21,12 +38,21 @@ export default function Header() {
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex gap-8">
+        <div className="hidden md:flex gap-8 items-center">
           {navLinks.map(link => (
             <Link key={link.name} to={link.path} className="text-xs uppercase tracking-[0.2em] text-onyx hover:text-aluminum transition-colors">
               {link.name}
             </Link>
           ))}
+          {session ? (
+            <button onClick={handleLogout} className="text-xs uppercase tracking-[0.2em] text-aluminum hover:text-onyx transition-colors">
+              Logout
+            </button>
+          ) : (
+            <Link to="/login" className="text-xs uppercase tracking-[0.2em] text-onyx hover:text-aluminum transition-colors">
+              Login
+            </Link>
+          )}
         </div>
 
         {/* Mobile Toggle */}
@@ -43,6 +69,11 @@ export default function Header() {
               {link.name}
             </Link>
           ))}
+          {session ? (
+            <button onClick={handleLogout} className="text-sm uppercase tracking-widest">Logout</button>
+          ) : (
+            <Link to="/login" className="text-sm uppercase tracking-widest" onClick={() => setIsOpen(false)}>Login</Link>
+          )}
         </div>
       )}
     </header>

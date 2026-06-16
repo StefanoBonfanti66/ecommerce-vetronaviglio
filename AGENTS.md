@@ -12,18 +12,18 @@
 - Use `PROJECT_AI_NOTES.md` to track decisions, checkpoints, and pending items across sessions.
 - If you use custom commands in your OpenCode setup, document project-specific ones here or in the repository docs.
 
-## Current Focus — 2026-06-16 (Sessione 2)
+## Current Focus — 2026-06-16 (Sessione 3 - Finale)
 
 ### Completato
-- Risoluzione blocchi immagini (OpaqueResponseBlocking) via MIME-type fix su storage.
-- Raffinamento UI Catalogo (Filtri ordinati, Paginazione, Layout Grid 1-2-4).
-- Creazione `CollectionsPage.tsx` e relativa navigazione.
-- Implementazione pagina Login (Fase 2 Auth).
+- Implementazione autenticazione completa (Login/Logout) e ruoli (Admin/Customer).
+- Protezione rotte (ProtectedRoute, AdminRoute) e Logging (Audit Logs).
+- Sviluppo Admin Dashboard completo: Product Editor con editor visuale Tiptap, Image Uploader integrato in Supabase Storage.
+- Gestione collezioni e migrazione immagini massiva su Supabase.
 
 ### In corso
-- Fase 2: Implementazione autenticazione e aree riservate.
+- Nessuno.
 
 ### Prossimo step concreto
-- Implementazione `ProtectedRoute` per proteggere le rotte riservate (Admin/Cart).
+- Validazione con il CEO del "Piano di Delivery MVP" e dei costi infrastrutturali.
 
 ### Data Ultimo Aggiornamento: 2026-06-16

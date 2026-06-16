@@ -11,15 +11,11 @@ Tracciare decisioni, checkpoint, inventario documenti e TODOs per il progetto Ve
 - `docs/invoices/`: Fatture.
 
 ## Decision Log
-- 2026-06-16: Creato il file `PROJECT_AI_NOTES.md` per allineamento con `AGENTS.md`.
-- 2026-06-16: Implementazione architettura DB flessibile (JSONB) e migrazione immagini in Supabase Storage.
-- 2026-06-16: Popolamento collezioni e mappatura automatica prodotti.
+- 2026-06-16: Creato il file `PROJECT_AI_NOTES.md`.
+- 2026-06-16: Implementazione architettura DB flessibile (JSONB) e migrazione immagini.
+- 2026-06-16: Evoluzione Governance: introdotto controllo granulare ruoli (admin, ceo, magazzino, acquisti) e tabella Audit Log.
 
 ## TODOs
-- [x] Inizializzare struttura `docs/`.
-- [x] M3.1: Esecuzione script di importazione catalogo.
-- [x] M2: Validazione RLS catalogo.
-- [x] M3.1-Fix: Normalizzazione URL immagini catalogo.
-- [x] M3.1-Mig: Migrazione immagini da dominio esterno a Supabase Storage (ecommerceBUK).
-- [x] M3.1-Collections: Popolamento collezioni e mappatura automatica prodotti.
-- [ ] Admin Interface: Sviluppo pannello "Admin-Simple" per gestione assegnazioni (NO SQL manuale).
+- [x] Admin Interface: Sviluppo pannello base.
+- [ ] Admin Interface: Upgrade a "Master Control Editor" (gestione dinamica attributi, collezioni, audit).
+- [ ] Implementazione ruoli Magazzino/Acquisti nell'interfaccia.
