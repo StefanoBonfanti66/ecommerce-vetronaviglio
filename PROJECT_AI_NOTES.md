@@ -64,7 +64,14 @@
 
 ## TODOs
 - [x] Admin Interface: Sviluppo pannello base.
-- [x] Admin Interface: Upgrade a "Master Control Editor" (gestione dinamica attributi, collezioni, audit).
+- [x] Admin Interface: Master Control Editor (attributi, collezioni, audit).
 - [x] Implementazione ruoli Magazzino/Acquisti nell'interfaccia.
 - [ ] Validazione piano MVP con il CEO.
-- [ ] Configurazione DNS e validazione dominio `vetronaviglio.it` su Resend per email transazionali (in attesa di accesso al pannello DNS).
+- [ ] Configurazione DNS e validazione dominio `vetronaviglio.it` su Resend (Pending: in attesa di accesso al pannello DNS).
+- [ ] **Admin Panel: Gestione logistica e pricing avanzato (Master Control Editor evoluzione):**
+    - [ ] Aggiunta campi `box_quantity`, `stock_quantity`, `is_active` (prodotti) nel pannello Admin.
+    - [ ] Aggiunta interfaccia configurazione "Sconti Quantità" (tier di prezzo) gestibile dall'Admin.
+- [ ] **Implementazione logica Frontend (basata su dati Admin):**
+    - [ ] Visualizzazione prezzi dinamici e sconti nel carrello.
+    - [ ] Validazione acquisto a multipli d'imballo.
+    - [ ] Logica note logistica Ex-Works in Checkout.

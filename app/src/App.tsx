@@ -13,6 +13,7 @@ import ProductEditor from './pages/admin/ProductEditor'
 import ProductCreator from './pages/admin/ProductCreator'
 import AttributeManager from './pages/admin/AttributeManager'
 import CollectionManager from './pages/admin/CollectionManager'
+import AccessoryManager from './pages/admin/AccessoryManager'
 import SampleRequestsManager from './pages/admin/SampleRequestsManager'
 import UserManager from './pages/admin/UserManager'
 import Settings from './pages/admin/Settings'
@@ -54,6 +55,11 @@ function App() {
         <Route path="admin/collections" element={
           <RoleRoute allowedRoles={['admin', 'ceo']}>
             <CollectionManager />
+          </RoleRoute>
+        } />
+        <Route path="admin/accessories" element={
+          <RoleRoute allowedRoles={['admin', 'ceo', 'acquisti']}>
+            <AccessoryManager />
           </RoleRoute>
         } />
         <Route path="admin/samples" element={

@@ -1,31 +1,55 @@
 import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 import { useCart } from '../context/CartContext';
 
 export default function ProductPage() {
   const { sku } = useParams<{ sku: string }>();
   const [product, setProduct] = useState<any>(null);
+  const [accessories, setAccessories] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const { addToCart } = useCart();
   const navigate = useNavigate();
 
   useEffect(() => {
-    async function fetchProduct() {
+    async function fetchProductData() {
       if (!sku) return;
-      const { data, error } = await supabase
+      
+      // 1. Fetch prodotto
+      const { data: p, error: pError } = await supabase
         .from('products')
         .select('*')
         .eq('sku', sku)
         .single();
       
-      if (error) console.error('Error:', error);
-      else {
-        setProduct(data);
+      if (pError || !p) {
+        console.error('Error:', pError);
+        setLoading(false);
+        return;
       }
+      setProduct(p);
+
+      // 2. Fetch accessori (FORCE_INCLUDE)
+      const { data: accData, error: accError } = await supabase
+        .from('product_accessory_overrides')
+        .select(`
+          accessory:products!product_accessory_overrides_accessory_id_fkey(
+            id, title_it, sku
+          )
+        `)
+        .eq('product_id', p.id)
+        .eq('action', 'FORCE_INCLUDE');
+      
+      console.log('Accessory fetch result:', accData, accError);
+      
+      if (accData) {
+          setAccessories(accData.map((item: any) => item.accessory));
+      }
+
+      
       setLoading(false);
     }
-    fetchProduct();
+    fetchProductData();
   }, [sku]);
 
   const handleAddToCart = async (type: 'sale' | 'sample') => {
@@ -88,6 +112,20 @@ export default function ProductPage() {
               </div>
             ))}
           </div>
+
+          {/* Accessori */}
+          {accessories.length > 0 && (
+              <div className="py-4">
+                  <div className="text-[9px] uppercase tracking-[0.2em] text-aluminum mb-3">Accessori compatibili</div>
+                  <div className="flex gap-4">
+                      {accessories.map(acc => (
+                          <Link key={acc.sku} to={`/product/${acc.sku}`} className="text-xs border border-aluminum/20 p-2 hover:border-onyx transition-colors">
+                              {acc.title_it}
+                          </Link>
+                      ))}
+                  </div>
+              </div>
+          )}
 
           <div className="space-y-4 pt-4">
             <button 

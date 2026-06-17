@@ -26,6 +26,11 @@ export default function AdminDashboard() {
             <p className="text-sm text-aluminum mb-6">Gestisci i nomi e le immagini delle collezioni.</p>
             <span className="text-[10px] uppercase tracking-[0.2em] border border-onyx py-2 px-4">Accedi</span>
         </Link>
+        <Link to="/admin/accessories" className="border border-aluminum/20 p-8 hover:border-onyx transition-all">
+            <h3 className="font-serif text-xl mb-4">Gestione Accessori</h3>
+            <p className="text-sm text-aluminum mb-6">Definisci regole di compatibilità tra prodotti.</p>
+            <span className="text-[10px] uppercase tracking-[0.2em] border border-onyx py-2 px-4">Accedi</span>
+        </Link>
         <Link to="/admin/samples" className="border border-aluminum/20 p-8 hover:border-onyx transition-all">
             <h3 className="font-serif text-xl mb-4">Richieste Campioni</h3>
             <p className="text-sm text-aluminum mb-6">Visualizza e gestisci le richieste di campioni.</p>
