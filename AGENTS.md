@@ -26,9 +26,9 @@
 - Sistema accessori correlati (FORCE_INCLUDE) con pannello di gestione.
 
 ### In corso
-- Nessuno.
+- Validazione del Piano di Delivery MVP e dei costi infrastrutturali con il CEO.
 
 ### Prossimo step concreto
-- Validazione con il CEO del "Piano di Delivery MVP" e dei costi infrastrutturali.
+- Attesa validazione CEO per avvio M2.
 
 ### Data Ultimo Aggiornamento: 2026-06-17
