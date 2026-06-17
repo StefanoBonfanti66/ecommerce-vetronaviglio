@@ -21,12 +21,16 @@ export default function Catalog() {
         const { data, error } = await supabase
           .from('product_collections')
           .select('products(*), collections!inner(slug)')
-          .eq('collections.slug', collectionSlug);
+          .eq('collections.slug', collectionSlug)
+          .eq('products.is_active', true);
         
         if (error) console.error('Error fetching relations:', error);
         setProducts(data ? data.map(item => item.products) : []);
       } else {
-        const { data, error } = await supabase.from('products').select('*');
+        const { data, error } = await supabase
+            .from('products')
+            .select('*')
+            .eq('is_active', true);
         if (error) console.error('Error fetching products:', error);
         setProducts(data || []);
       }

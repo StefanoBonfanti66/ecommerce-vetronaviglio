@@ -7,7 +7,10 @@ export default function CollectionsPage() {
 
   useEffect(() => {
     async function fetchCollections() {
-      const { data } = await supabase.from('collections').select('*');
+      const { data } = await supabase
+        .from('collections')
+        .select('*')
+        .eq('is_active', true);
       setCollections(data || []);
     }
     fetchCollections();
@@ -21,9 +24,16 @@ export default function CollectionsPage() {
           <Link 
             key={col.id} 
             to={`/catalog?collection=${col.slug}`} 
-            className="group border border-aluminum/20 p-8 h-[300px] flex items-end hover:border-onyx transition-all duration-300"
+            className="group border border-aluminum/20 p-8 h-[300px] flex items-end hover:border-onyx transition-all duration-300 relative overflow-hidden"
           >
-            <span className="font-serif text-3xl group-hover:pl-4 transition-all duration-300">{col.name_it}</span>
+            {col.image_url && (
+              <img 
+                src={col.image_url} 
+                alt={col.name_it} 
+                className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity duration-300"
+              />
+            )}
+            <span className="font-serif text-3xl group-hover:pl-4 transition-all duration-300 absolute top-6 left-6 z-10">{col.name_it}</span>
           </Link>
         ))}
       </div>

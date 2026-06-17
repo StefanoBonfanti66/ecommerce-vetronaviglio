@@ -56,3 +56,15 @@
 - **Strumento:** Calendarizzazione documentale introdotta.
 - **Path:** `docs/admin/scadenze.md` (Master list).
 - **Azione:** Migrazione milestone correnti da `PROJECT_AI_NOTES.md` e `...-plan.md` verso `scadenze.md`.
+
+## Decision Log
+- 2026-06-16: Creato il file `PROJECT_AI_NOTES.md` (unificato).
+- 2026-06-16: Implementazione architettura DB flessibile (JSONB) e migrazione immagini.
+- 2026-06-16: Evoluzione Governance: introdotto controllo granulare ruoli (admin, ceo, magazzino, acquisti) e tabella Audit Log.
+
+## TODOs
+- [x] Admin Interface: Sviluppo pannello base.
+- [x] Admin Interface: Upgrade a "Master Control Editor" (gestione dinamica attributi, collezioni, audit).
+- [x] Implementazione ruoli Magazzino/Acquisti nell'interfaccia.
+- [ ] Validazione piano MVP con il CEO.
+- [ ] Configurazione DNS e validazione dominio `vetronaviglio.it` su Resend per email transazionali (in attesa di accesso al pannello DNS).

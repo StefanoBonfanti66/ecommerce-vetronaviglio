@@ -12,13 +12,14 @@
 - Use `PROJECT_AI_NOTES.md` to track decisions, checkpoints, and pending items across sessions.
 - If you use custom commands in your OpenCode setup, document project-specific ones here or in the repository docs.
 
-## Current Focus — 2026-06-16 (Sessione 3 - Finale)
+## Current Focus — 2026-06-17 (Sessione 4)
 
 ### Completato
-- Implementazione autenticazione completa (Login/Logout) e ruoli (Admin/Customer).
-- Protezione rotte (ProtectedRoute, AdminRoute) e Logging (Audit Logs).
-- Sviluppo Admin Dashboard completo: Product Editor con editor visuale Tiptap, Image Uploader integrato in Supabase Storage.
-- Gestione collezioni e migrazione immagini massiva su Supabase.
+- Riequilibrio sito "Commerce-First" (ProductPage, Catalogo, Carrello).
+- Implementazione Master Control Editor (Admin panel per prodotti, attributi, collezioni, utenti, impostazioni).
+- Logica campionature (flusso separato, gestione 0€, disclaimer logistico).
+- Gestione dinamica ruoli e attributi via database.
+- Importazione immagini collezioni.
 
 ### In corso
 - Nessuno.
@@ -26,4 +27,4 @@
 ### Prossimo step concreto
 - Validazione con il CEO del "Piano di Delivery MVP" e dei costi infrastrutturali.
 
-### Data Ultimo Aggiornamento: 2026-06-16
+### Data Ultimo Aggiornamento: 2026-06-17

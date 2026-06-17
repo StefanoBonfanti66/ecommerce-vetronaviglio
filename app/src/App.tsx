@@ -6,11 +6,21 @@ import CollectionsPage from './pages/CollectionsPage'
 import ProductPage from './pages/ProductPage'
 import LoginPage from './pages/LoginPage'
 import ProtectedRoute from './components/ProtectedRoute'
-import AdminRoute from './components/AdminRoute'
+import RoleRoute from './components/RoleRoute'
 import AdminDashboard from './pages/AdminDashboard'
 import ProductList from './pages/admin/ProductList'
 import ProductEditor from './pages/admin/ProductEditor'
+import ProductCreator from './pages/admin/ProductCreator'
+import AttributeManager from './pages/admin/AttributeManager'
+import CollectionManager from './pages/admin/CollectionManager'
+import SampleRequestsManager from './pages/admin/SampleRequestsManager'
+import UserManager from './pages/admin/UserManager'
+import Settings from './pages/admin/Settings'
 import CatalogTools from './pages/admin/CatalogTools'
+import Cart from './pages/Cart'
+import Checkout from './pages/Checkout'
+import Payment from './pages/Payment'
+
 
 function App() {
   return (
@@ -22,28 +32,68 @@ function App() {
         <Route path="product/:sku" element={<ProductPage />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="admin" element={
-          <AdminRoute>
+          <RoleRoute allowedRoles={['admin', 'ceo']}>
             <AdminDashboard />
-          </AdminRoute>
+          </RoleRoute>
         } />
         <Route path="admin/products" element={
-          <AdminRoute>
+          <RoleRoute allowedRoles={['admin', 'ceo', 'magazzino']}>
             <ProductList />
-          </AdminRoute>
+          </RoleRoute>
+        } />
+        <Route path="admin/products/new" element={
+          <RoleRoute allowedRoles={['admin', 'ceo', 'acquisti']}>
+            <ProductCreator />
+          </RoleRoute>
+        } />
+        <Route path="admin/attributes" element={
+          <RoleRoute allowedRoles={['admin', 'ceo']}>
+            <AttributeManager />
+          </RoleRoute>
+        } />
+        <Route path="admin/collections" element={
+          <RoleRoute allowedRoles={['admin', 'ceo']}>
+            <CollectionManager />
+          </RoleRoute>
+        } />
+        <Route path="admin/samples" element={
+          <RoleRoute allowedRoles={['admin', 'ceo', 'magazzino']}>
+            <SampleRequestsManager />
+          </RoleRoute>
+        } />
+        <Route path="admin/users" element={
+          <RoleRoute allowedRoles={['admin', 'ceo']}>
+            <UserManager />
+          </RoleRoute>
+        } />
+        <Route path="admin/settings" element={
+          <RoleRoute allowedRoles={['admin', 'ceo']}>
+            <Settings />
+          </RoleRoute>
         } />
         <Route path="admin/products/edit/:sku" element={
-          <AdminRoute>
+          <RoleRoute allowedRoles={['admin', 'ceo', 'acquisti']}>
             <ProductEditor />
-          </AdminRoute>
+          </RoleRoute>
         } />
         <Route path="admin/tools" element={
-          <AdminRoute>
+          <RoleRoute allowedRoles={['admin', 'ceo', 'acquisti']}>
             <CatalogTools />
-          </AdminRoute>
+          </RoleRoute>
         } />
         <Route path="cart" element={
           <ProtectedRoute>
-             <div className="p-12">Carrello (Work in progress)</div>
+             <Cart />
+          </ProtectedRoute>
+        } />
+        <Route path="checkout" element={
+          <ProtectedRoute>
+             <Checkout />
+          </ProtectedRoute>
+        } />
+        <Route path="payment/:orderId" element={
+          <ProtectedRoute>
+             <Payment />
           </ProtectedRoute>
         } />
       </Route>

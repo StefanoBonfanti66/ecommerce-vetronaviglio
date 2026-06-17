@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../../supabaseClient';
+import { useCart } from '../../context/CartContext';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [session, setSession] = useState<any>(null);
+  const { cart } = useCart();
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => setSession(session));
@@ -27,7 +29,7 @@ export default function Header() {
     { name: 'Campionature', path: '/samples' },
     { name: 'Azienda', path: '/about' },
     { name: 'Contatti', path: '/contact' },
-    { name: 'Carrello (0)', path: '/cart' },
+    { name: `Carrello (${cart.length})`, path: '/cart' },
   ];
 
   return (

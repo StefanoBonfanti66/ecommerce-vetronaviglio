@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useCart } from '../context/CartContext';
 
 interface Product {
   id: string;
@@ -11,6 +12,7 @@ interface Product {
 
 export default function ProductCard({ product }: { product: Product }) {
   const [hasError, setHasError] = useState(false);
+  const { addToCart } = useCart();
   const imageUrl = product.image_urls && product.image_urls.length > 0 
     ? product.image_urls[0] 
     : '';
@@ -36,8 +38,14 @@ export default function ProductCard({ product }: { product: Product }) {
         <div className="font-sans text-[10px] uppercase tracking-[0.15em] text-aluminum mb-4 font-medium">
           {product.sku} · {product.attributes?.materiale || 'N/A'} · {product.attributes?.ml || 'N/A'}ML
         </div>
-        <button className="w-full border border-onyx py-2 text-[10px] uppercase tracking-[0.15em] font-medium group-hover:bg-onyx group-hover:text-bone transition-all">
-          Richiedi Campione
+        <button 
+          onClick={(e) => {
+              e.preventDefault();
+              addToCart(product, 'sale');
+          }}
+          className="w-full border border-onyx py-2 text-[10px] uppercase tracking-[0.15em] font-medium group-hover:bg-onyx group-hover:text-bone transition-all"
+        >
+          Aggiungi al carrello
         </button>
       </div>
     </div>

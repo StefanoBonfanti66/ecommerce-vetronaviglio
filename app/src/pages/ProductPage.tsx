@@ -28,7 +28,7 @@ export default function ProductPage() {
     fetchProduct();
   }, [sku]);
 
-  const handleAddToCart = async () => {
+  const handleAddToCart = async (type: 'sale' | 'sample') => {
     const { data: { session } } = await supabase.auth.getSession();
     
     if (!session) {
@@ -36,8 +36,8 @@ export default function ProductPage() {
       return;
     }
     
-    addToCart(product);
-    alert('Prodotto aggiunto alla richiesta di campionatura');
+    addToCart(product, type);
+    alert(type === 'sample' ? 'Campione aggiunto alla richiesta' : 'Prodotto aggiunto al carrello');
   };
 
   if (loading) return <div className="p-12">Caricamento...</div>;
@@ -89,12 +89,23 @@ export default function ProductPage() {
             ))}
           </div>
 
-          <button 
-            onClick={handleAddToCart}
-            className="w-full bg-onyx text-bone py-4 uppercase text-xs tracking-[0.2em] hover:bg-aluminum transition-colors"
-          >
-            Richiedi Campione
-          </button>
+          <div className="space-y-4 pt-4">
+            <button 
+                onClick={() => handleAddToCart('sale')}
+                className="w-full bg-onyx text-bone py-4 uppercase text-xs tracking-[0.2em] hover:bg-aluminum transition-colors font-medium"
+            >
+                Aggiungi al carrello
+            </button>
+            <button 
+                onClick={() => handleAddToCart('sample')}
+                className="w-full border border-onyx text-onyx py-4 uppercase text-xs tracking-[0.2em] hover:bg-aluminum/10 transition-colors"
+            >
+                Richiedi Campione
+            </button>
+            <p className="text-[10px] text-aluminum text-center pt-2">
+                * La merce è gratuita. Spedizione a carico del cliente.
+            </p>
+          </div>
         </div>
       </div>
     </div>

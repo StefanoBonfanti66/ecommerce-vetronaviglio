@@ -1,15 +1,21 @@
 import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { supabase } from '../../supabaseClient';
 import Tiptap from '../../components/admin/Tiptap';
 import ImageUploader from '../../components/admin/ImageUploader';
 import { PREDEFINED_ATTRIBUTES } from '../../constants/attributes';
 
-export default function ProductEditor() {
-  const { sku } = useParams<{ sku: string }>();
+export default function ProductCreator() {
   const navigate = useNavigate();
-  const [product, setProduct] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+  const [product, setProduct] = useState<any>({
+    sku: '',
+    title_it: '',
+    price: 0,
+    description_it: '',
+    attributes: {},
+    image_urls: [],
+    is_active: true
+  });
   const [saving, setSaving] = useState(false);
   const [attributeOptions, setAttributeOptions] = useState<Record<string, string[]>>({});
   const [openSections, setOpenSections] = useState({
@@ -46,21 +52,14 @@ export default function ProductEditor() {
         }
     }
     fetchOptions();
+  }, []);
 
-    async function fetchProduct() {
-      if (!sku) return;
-      const { data, error } = await supabase
-        .from('products')
-        .select('*')
-        .eq('sku', sku)
-        .single();
-      
-      if (error) console.error('Error:', error);
-      else setProduct(data);
-      setLoading(false);
-    }
-    fetchProduct();
-  }, [sku]);
+  const addAttribute = () => {
+    setProduct({
+      ...product,
+      attributes: { ...product.attributes, 'nuovo_attributo': '' }
+    });
+  };
 
   const updateAttributeKey = (oldKey: string, newKey: string) => {
     if (oldKey === newKey) return;
@@ -71,25 +70,18 @@ export default function ProductEditor() {
     });
   };
 
+  const updateAttributeValue = (key: string, value: string) => {
+    setProduct({
+      ...product,
+      attributes: { ...product.attributes, [key]: value }
+    });
+  };
+
   const removeAttribute = (key: string) => {
     const { [key]: _, ...rest } = product.attributes;
     setProduct({
       ...product,
       attributes: rest
-    });
-  };
-
-  const addAttribute = () => {
-    setProduct({
-      ...product,
-      attributes: { ...product.attributes, 'nuovo_attributo': '' }
-    });
-  };
-
-  const updateAttributeValue = (key: string, value: string) => {
-    setProduct({
-      ...product,
-      attributes: { ...product.attributes, [key]: value }
     });
   };
 
@@ -102,36 +94,34 @@ export default function ProductEditor() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!product) return;
-    
     setSaving(true);
     
     const { data: { user } } = await supabase.auth.getUser();
 
     const { error } = await supabase
       .from('products')
-      .update({
+      .insert({
+        sku: product.sku,
         title_it: product.title_it,
         price: product.price,
         description_it: product.description_it,
         attributes: product.attributes,
         image_urls: product.image_urls,
         is_active: product.is_active
-      })
-      .eq('sku', sku);
+      });
     
     if (!error && user) {
         await supabase.from('audit_logs').insert({
             user_id: user.id,
             table_name: 'products',
-            record_id: product.id,
-            action: 'UPDATE',
+            action: 'INSERT',
             new_data: product
         });
     }
 
     setSaving(false);
     if (!error) navigate('/admin/products');
+    else console.error('Error inserting product:', error);
   };
 
   const CollapsibleSection = ({ title, children, isOpen, onToggle }: { title: string, children: React.ReactNode, isOpen: boolean, onToggle: () => void }) => (
@@ -144,22 +134,29 @@ export default function ProductEditor() {
     </div>
   );
 
-  if (loading) return <div className="p-12">Caricamento...</div>;
-  if (!product) return <div className="p-12">Prodotto non trovato</div>;
-
   return (
     <div className="max-w-3xl mx-auto px-6 py-vs-16">
       <header className="mb-12 border-b border-aluminum/20 pb-8">
-        <h1 className="font-serif text-3xl uppercase tracking-[0.05em]">Modifica: {sku}</h1>
+        <h1 className="font-serif text-3xl uppercase tracking-[0.05em]">Nuovo Prodotto</h1>
       </header>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <CollapsibleSection title="Informazioni Generali" isOpen={openSections.general} onToggle={() => toggleSection('general')}>
           <div className="space-y-6">
             <div>
+              <label className="block text-[9px] uppercase tracking-[0.2em] text-aluminum mb-3">SKU</label>
+              <input 
+                required
+                value={product.sku} 
+                onChange={e => setProduct({...product, sku: e.target.value})}
+                className="w-full border-b border-aluminum/40 bg-transparent py-2 focus:border-onyx outline-none text-lg font-mono"
+              />
+            </div>
+            <div>
               <label className="block text-[9px] uppercase tracking-[0.2em] text-aluminum mb-3">Titolo</label>
               <input 
-                value={product.title_it || ''} 
+                required
+                value={product.title_it} 
                 onChange={e => setProduct({...product, title_it: e.target.value})}
                 className="w-full border-b border-aluminum/40 bg-transparent py-2 focus:border-onyx outline-none text-lg font-serif"
               />
@@ -169,7 +166,8 @@ export default function ProductEditor() {
               <input 
                 type="number" 
                 step="0.01"
-                value={product.price || ''} 
+                required
+                value={product.price} 
                 onChange={e => setProduct({...product, price: parseFloat(e.target.value)})}
                 className="w-full border-b border-aluminum/40 bg-transparent py-2 focus:border-onyx outline-none text-lg font-sans"
               />
@@ -186,10 +184,10 @@ export default function ProductEditor() {
         </CollapsibleSection>
 
         <CollapsibleSection title="Descrizione (IT)" isOpen={openSections.description} onToggle={() => toggleSection('description')}>
-            <Tiptap 
-                content={product.description_it || ''} 
-                onChange={(html) => setProduct({...product, description_it: html})} 
-            />
+          <Tiptap 
+            content={product.description_it} 
+            onChange={(html) => setProduct({...product, description_it: html})} 
+          />
         </CollapsibleSection>
 
         <CollapsibleSection title="Attributi" isOpen={openSections.attributes} onToggle={() => toggleSection('attributes')}>
@@ -240,17 +238,17 @@ export default function ProductEditor() {
         </CollapsibleSection>
 
         <CollapsibleSection title="Immagini" isOpen={openSections.images} onToggle={() => toggleSection('images')}>
-            <ImageUploader 
-                currentImages={product.image_urls || []} 
-                onUpload={handleImageUpload} 
-            />
+          <ImageUploader 
+            currentImages={product.image_urls} 
+            onUpload={handleImageUpload} 
+          />
         </CollapsibleSection>
 
         <button 
           disabled={saving}
           className="bg-onyx text-bone px-10 py-4 uppercase text-[10px] tracking-[0.2em] hover:bg-aluminum transition-all"
         >
-          {saving ? 'Salvataggio...' : 'Salva Modifiche'}
+          {saving ? 'Creazione...' : 'Crea Prodotto'}
         </button>
       </form>
     </div>

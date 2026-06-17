@@ -16,6 +16,31 @@ export default function AdminDashboard() {
             <p className="text-sm text-aluminum mb-6">Importazione ed esportazione massiva dati.</p>
             <span className="text-[10px] uppercase tracking-[0.2em] border border-onyx py-2 px-4">Accedi</span>
         </Link>
+        <Link to="/admin/attributes" className="border border-aluminum/20 p-8 hover:border-onyx transition-all">
+            <h3 className="font-serif text-xl mb-4">Configurazione Attributi</h3>
+            <p className="text-sm text-aluminum mb-6">Gestisci le opzioni per i dropdown attributi.</p>
+            <span className="text-[10px] uppercase tracking-[0.2em] border border-onyx py-2 px-4">Accedi</span>
+        </Link>
+        <Link to="/admin/collections" className="border border-aluminum/20 p-8 hover:border-onyx transition-all">
+            <h3 className="font-serif text-xl mb-4">Gestione Collezioni</h3>
+            <p className="text-sm text-aluminum mb-6">Gestisci i nomi e le immagini delle collezioni.</p>
+            <span className="text-[10px] uppercase tracking-[0.2em] border border-onyx py-2 px-4">Accedi</span>
+        </Link>
+        <Link to="/admin/samples" className="border border-aluminum/20 p-8 hover:border-onyx transition-all">
+            <h3 className="font-serif text-xl mb-4">Richieste Campioni</h3>
+            <p className="text-sm text-aluminum mb-6">Visualizza e gestisci le richieste di campioni.</p>
+            <span className="text-[10px] uppercase tracking-[0.2em] border border-onyx py-2 px-4">Accedi</span>
+        </Link>
+        <Link to="/admin/users" className="border border-aluminum/20 p-8 hover:border-onyx transition-all">
+            <h3 className="font-serif text-xl mb-4">Gestione Utenti</h3>
+            <p className="text-sm text-aluminum mb-6">Gestisci i ruoli e gli accessi del team.</p>
+            <span className="text-[10px] uppercase tracking-[0.2em] border border-onyx py-2 px-4">Accedi</span>
+        </Link>
+        <Link to="/admin/settings" className="border border-aluminum/20 p-8 hover:border-onyx transition-all">
+            <h3 className="font-serif text-xl mb-4">Impostazioni</h3>
+            <p className="text-sm text-aluminum mb-6">Configura email notifiche e parametri generali.</p>
+            <span className="text-[10px] uppercase tracking-[0.2em] border border-onyx py-2 px-4">Accedi</span>
+        </Link>
       </div>
     </div>
   );

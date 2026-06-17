@@ -1,0 +1,185 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e5]:
+      - link "Istituzionale Vetronaviglio" [ref=e7] [cursor=pointer]:
+        - /url: https://www.vetronaviglio.it
+        - img "Istituzionale Vetronaviglio" [ref=e8]
+      - heading "Le collezioni" [level=1] [ref=e10]:
+        - generic [ref=e11]: Le collezioni
+      - button [ref=e14] [cursor=pointer]
+    - text:     
+  - generic [ref=e17]:
+    - link "Ambra Ambra" [ref=e19] [cursor=pointer]:
+      - /url: https://www.vetronaviglio.it/collezioni/ambra
+      - generic [ref=e20]:
+        - img "Ambra" [ref=e21]
+        - heading "Ambra" [level=3] [ref=e23]
+    - link "Charme Charme" [ref=e25] [cursor=pointer]:
+      - /url: https://www.vetronaviglio.it/collezioni/charme
+      - generic [ref=e26]:
+        - img "Charme" [ref=e27]
+        - heading "Charme" [level=3] [ref=e29]
+    - link "Cristal Cristal" [ref=e31] [cursor=pointer]:
+      - /url: https://www.vetronaviglio.it/collezioni/cristal
+      - generic [ref=e32]:
+        - img "Cristal" [ref=e33]
+        - heading "Cristal" [level=3] [ref=e35]
+    - link "New Cristal New Cristal" [ref=e37] [cursor=pointer]:
+      - /url: https://www.vetronaviglio.it/collezioni/new-cristal
+      - generic [ref=e38]:
+        - img "New Cristal" [ref=e39]
+        - heading "New Cristal" [level=3] [ref=e41]
+    - link "Double Double" [ref=e43] [cursor=pointer]:
+      - /url: https://www.vetronaviglio.it/collezioni/double
+      - generic [ref=e44]:
+        - img "Double" [ref=e45]
+        - heading "Double" [level=3] [ref=e47]
+    - link "Etoile Etoile" [ref=e49] [cursor=pointer]:
+      - /url: https://www.vetronaviglio.it/collezioni/etoile
+      - generic [ref=e50]:
+        - img "Etoile" [ref=e51]
+        - heading "Etoile" [level=3] [ref=e53]
+    - link "Flora Flora" [ref=e55] [cursor=pointer]:
+      - /url: https://www.vetronaviglio.it/collezioni/flora
+      - generic [ref=e56]:
+        - img "Flora" [ref=e57]
+        - heading "Flora" [level=3] [ref=e59]
+    - link "Giada Giada" [ref=e61] [cursor=pointer]:
+      - /url: https://www.vetronaviglio.it/collezioni/giada
+      - generic [ref=e62]:
+        - img "Giada" [ref=e63]
+        - heading "Giada" [level=3] [ref=e65]
+    - link "Juliet Juliet" [ref=e67] [cursor=pointer]:
+      - /url: https://www.vetronaviglio.it/collezioni/juliet
+      - generic [ref=e68]:
+        - img "Juliet" [ref=e69]
+        - heading "Juliet" [level=3] [ref=e71]
+    - link "Kappa Kappa" [ref=e73] [cursor=pointer]:
+      - /url: https://www.vetronaviglio.it/collezioni/kappa
+      - generic [ref=e74]:
+        - img "Kappa" [ref=e75]
+        - heading "Kappa" [level=3] [ref=e77]
+    - link "Mabel Mabel" [ref=e79] [cursor=pointer]:
+      - /url: https://www.vetronaviglio.it/collezioni/mabel
+      - generic [ref=e80]:
+        - img "Mabel" [ref=e81]
+        - heading "Mabel" [level=3] [ref=e83]
+    - link "Reve Reve" [ref=e85] [cursor=pointer]:
+      - /url: https://www.vetronaviglio.it/collezioni/reve
+      - generic [ref=e86]:
+        - img "Reve" [ref=e87]
+        - heading "Reve" [level=3] [ref=e89]
+    - link "Royal Royal" [ref=e91] [cursor=pointer]:
+      - /url: https://www.vetronaviglio.it/collezioni/royal
+      - generic [ref=e92]:
+        - img "Royal" [ref=e93]
+        - heading "Royal" [level=3] [ref=e95]
+    - link "Venus Venus" [ref=e97] [cursor=pointer]:
+      - /url: https://www.vetronaviglio.it/collezioni/venus
+      - generic [ref=e98]:
+        - img "Venus" [ref=e99]
+        - heading "Venus" [level=3] [ref=e101]
+  - generic [ref=e104]:
+    - heading "In primo piano" [level=2] [ref=e106]
+    - generic [ref=e108]:
+      - link "Vetronaviglio a LUXEPACK Monaco" [ref=e111] [cursor=pointer]:
+        - /url: /news/vetronaviglio-a-luxepack-monaco
+        - img "Vetronaviglio a LUXEPACK Monaco" [ref=e112]
+      - generic [ref=e113]:
+        - heading "Vetronaviglio a LUXEPACK Monaco" [level=3] [ref=e114]
+        - heading " 29 settembre - 1 ottobre 2025, Monaco" [level=4] [ref=e115]:
+          - generic [ref=e116]: 
+          - text: 29 settembre - 1 ottobre 2025, Monaco
+        - paragraph [ref=e117]:
+          - text: "Dal 29 settembre al 1° ottobre vi aspettiamo al Booth RE06/RF05 per presentarvi la nostra visione del packaging: design originali, una bellezza senza tempo e soluzioni di personalizzazione uniche."
+          - text: DESIGNed IN MILAN
+          - text: Cosmetics Packaging Manufacturer
+          - text: Skin Care · Make-Up · Personal Care
+        - paragraph [ref=e118]:
+          - link "Leggi tutto" [ref=e119] [cursor=pointer]:
+            - /url: /news/vetronaviglio-a-luxepack-monaco
+            - generic [ref=e120]: Leggi tutto
+    - paragraph [ref=e122]:
+      - link "Tutte le notizie" [ref=e123] [cursor=pointer]:
+        - /url: /news
+  - generic [ref=e124]:
+    - generic [ref=e127]:
+      - generic [ref=e128]:
+        - link "Istituzionale Vetronaviglio" [ref=e130] [cursor=pointer]:
+          - /url: https://www.vetronaviglio.it
+          - img "Istituzionale Vetronaviglio" [ref=e131]
+        - list [ref=e133]:
+          - listitem [ref=e134]:
+            - generic [ref=e135]: 
+            - generic [ref=e136]: Via Don Severino Fracassi, 31/39, 20008 Bareggio (MI) Italy
+          - listitem [ref=e137]:
+            - generic [ref=e138]: 
+            - link "+390290364184" [ref=e139] [cursor=pointer]:
+              - /url: tel:+390290364184
+          - listitem [ref=e140]:
+            - generic [ref=e141]: 
+            - link "info@vetronaviglio.it" [ref=e142] [cursor=pointer]:
+              - /url: mailto:info@vetronaviglio.it
+          - listitem [ref=e143]: "Partita IVA: 03366120271"
+      - list [ref=e145]:
+        - listitem [ref=e146]:
+          - link "Azienda" [ref=e147] [cursor=pointer]:
+            - /url: /chi-siamo
+        - listitem [ref=e148]:
+          - link "Prodotti" [ref=e149] [cursor=pointer]:
+            - /url: /prodotti
+        - listitem [ref=e150]:
+          - link "Custom Made" [ref=e151] [cursor=pointer]:
+            - /url: /design
+        - listitem [ref=e152]:
+          - link "Produzione" [ref=e153] [cursor=pointer]:
+            - /url: /impianti
+        - listitem [ref=e154]:
+          - link "Sostenibilità" [ref=e155] [cursor=pointer]:
+            - /url: /prodotti
+        - listitem [ref=e156]:
+          - link "Qualità" [ref=e157] [cursor=pointer]:
+            - /url: /qualita
+        - listitem [ref=e158]:
+          - link "News" [ref=e159] [cursor=pointer]:
+            - /url: /news
+        - listitem [ref=e160]:
+          - link "Contatti" [ref=e161] [cursor=pointer]:
+            - /url: /contatti
+      - list [ref=e163]:
+        - listitem [ref=e164]:
+          - link "Privacy Policy" [ref=e165] [cursor=pointer]:
+            - /url: /privacy-policy
+        - listitem [ref=e166]:
+          - link "Cookies Policy" [ref=e167] [cursor=pointer]:
+            - /url: /cookie
+        - listitem [ref=e168]:
+          - link "Credits" [ref=e169] [cursor=pointer]:
+            - /url: /credits
+      - generic [ref=e170]:
+        - paragraph [ref=e171]: Follow Us
+        - generic [ref=e172]:
+          - link "Facebook" [ref=e173] [cursor=pointer]:
+            - /url: https://facebook.com/VetronaviglioSrl
+            - generic [ref=e174]: 
+          - link "Instagram" [ref=e175] [cursor=pointer]:
+            - /url: https://instagram.com/vetronaviglio_packaging
+            - generic [ref=e176]: 
+          - link "Linkedin" [ref=e177] [cursor=pointer]:
+            - /url: https://linkedin.com/company/vetronaviglio-srl
+            - generic [ref=e178]: 
+          - link "Youtube" [ref=e179] [cursor=pointer]:
+            - /url: https://youtube.com/channel/UCvvWwynB1cH3Haf_lR6zEzQ
+            - generic [ref=e180]: 
+    - paragraph [ref=e185]: © 2026 Vetronaviglio S.r.l. - All right reserved
+  - generic [ref=e188]:
+    - heading "Informativa sui Cookie" [level=4] [ref=e189]
+    - paragraph [ref=e190]: Questo sito utilizza cookie tecnici e di profilazione per migliorare la tua esperienza di navigazione. Continuando a navigare nel sito acconsenti all'uso dei cookie.
+    - generic [ref=e191]:
+      - button "Accetta tutti" [ref=e192] [cursor=pointer]
+      - button "Solo necessari" [ref=e193] [cursor=pointer]
+      - link "Maggiori informazioni" [ref=e194] [cursor=pointer]:
+        - /url: /cookie
+  - generic: 
+  - link:
+    - /url: "#"
