@@ -92,9 +92,11 @@ export default function ProductPage() {
     }
     
     const finalQuantity = type === 'sample' ? 1 : totalQuantity;
-    const priceForCart = resolvePrice(product, finalQuantity, priceListItem);
-
     addToCart(product, type, finalQuantity, priceForCart);
+    
+    // Aggiorna lo stock localmente per riflettere l'aggiunta al carrello
+    setProduct((prev: any) => ({ ...prev, stock_quantity: prev.stock_quantity - finalQuantity }));
+    
     alert(type === 'sample' ? 'Campione aggiunto' : `Prodotto aggiunto: ${finalQuantity} pezzi a €${priceForCart.toFixed(2)}/pz`);
   };
 
@@ -115,7 +117,7 @@ export default function ProductPage() {
             {product.image_urls && product.image_urls.length > 0 ? (
               <img src={product.image_urls[0]} alt={product.title_it} className="w-full h-full object-contain p-8" />
             ) : (
-              <span className="text-[10px] uppercase tracking-[0.2em] text-aluminum">Image coming soon</span>
+              <img src="/not-image.png" alt="No image available" className="w-full h-full object-contain p-8 opacity-50" />
             )}
           </div>
         </div>
@@ -131,7 +133,7 @@ export default function ProductPage() {
             {product.image_urls && product.image_urls.length > 0 ? (
               <img src={product.image_urls[0]} alt={product.title_it} className="w-full h-full object-contain p-8" />
             ) : (
-              <span className="text-[10px] uppercase tracking-[0.2em] text-aluminum">Image coming soon</span>
+              <img src="/not-image.png" alt="No image available" className="w-full h-full object-contain p-8 opacity-50" />
             )}
           </div>
 
@@ -162,11 +164,18 @@ export default function ProductPage() {
           {/* Pulsante aggiungi resto stock */}
           {product.stock_quantity > 0 && boxes * (product.box_quantity || 1) < product.stock_quantity && (
              <button 
-                onClick={() => {
+                 onClick={() => {
                     const remainingBoxes = Math.floor(product.stock_quantity / (product.box_quantity || 1));
                     const totalQty = remainingBoxes * (product.box_quantity || 1);
+                    
+                    if (totalQty <= 0) return;
+
+                    // Aggiungiamo direttamente al carrello con la quantità calcolata
                     addToCart(product, 'sale', totalQty, currentPrice);
+                    
+                    // Aggiorniamo la UI e lo stock localmente
                     setBoxes(remainingBoxes);
+                    setProduct((prev: any) => ({ ...prev, stock_quantity: prev.stock_quantity - totalQty }));
                     alert(`Aggiunti ${totalQty} pezzi al carrello.`);
                 }}
                 className="w-full mt-2 py-2 text-[10px] uppercase tracking-[0.2em] border border-aluminum/40 hover:bg-aluminum/10 transition-colors"
