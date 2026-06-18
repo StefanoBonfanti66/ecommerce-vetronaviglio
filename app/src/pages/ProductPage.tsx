@@ -113,8 +113,9 @@ export default function ProductPage() {
     <div className="max-w-7xl mx-auto px-6 pt-24 pb-vs-8 md:py-vs-16">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-vs-8 md:gap-vs-16">
         {/* Sinistra: Galleria (Sticky solo su desktop) */}
-        <div className="md:col-span-6 md:sticky top-24 self-start hidden md:block">
-          <div className="aspect-square bg-aluminum/5 border border-aluminum/20 flex items-center justify-center relative">
+            <div className="absolute inset-0 flex items-center justify-center text-sm uppercase tracking-[0.2em] text-aluminum font-bold text-center">
+                IMAGE<br/>COMING SOON
+            </div>
             {product.image_urls && product.image_urls.length > 0 ? (
               <img 
                 src={product.image_urls[0]} 
@@ -123,9 +124,29 @@ export default function ProductPage() {
                 onError={(e) => (e.currentTarget.style.display = 'none')}
               />
             ) : null}
-            <div className="absolute inset-0 flex items-center justify-center text-sm uppercase tracking-[0.2em] text-aluminum font-bold text-center">
+          </div>
+        </div>
+
+        <div className="md:col-span-6 space-y-vs-8 flex flex-col items-center md:items-start text-center md:text-left">
+          <div>
+            <h1 className="font-serif text-5xl mb-2">{displayTitle}</h1>
+            <p className="font-sans text-sm uppercase tracking-[0.2em] text-aluminum">{product.sku}</p>
+          </div>
+
+          {/* Immagine su Mobile (visibile solo su mobile) */}
+          <div className="md:hidden aspect-square bg-aluminum/5 border border-aluminum/20 flex items-center justify-center w-full max-w-sm relative">
+            <div className="absolute inset-0 flex items-center justify-center text-xs uppercase tracking-[0.2em] text-aluminum font-bold text-center">
                 IMAGE<br/>COMING SOON
             </div>
+            {product.image_urls && product.image_urls.length > 0 ? (
+              <img 
+                src={product.image_urls[0]} 
+                alt={product.title_it} 
+                className="w-full h-full object-contain absolute inset-0 z-10"
+                onError={(e) => (e.currentTarget.style.display = 'none')}
+              />
+            ) : null}
+          </div>
           </div>
         </div>
 
