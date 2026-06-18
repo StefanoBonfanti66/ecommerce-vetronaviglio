@@ -190,9 +190,30 @@ export const translations = {
     'PET': 'PET',
     'PP + SAN (LENS)': 'PP + SAN (LENS)',
     'PE': 'PE',
+    add: 'Aggiungi al carrello',
+    previous: 'Precedente',
+    next: 'Successiva',
+    page_of: 'Pagina {current} di {total}',
+    capacity: 'Capacità',
+    material: 'Materiale',
+    mouth: 'Imboccatura',
+    finish: 'Finitura',
+    pieces_per_box: 'Pezzi per scatola',
+    compatible_accessories: 'Accessori compatibili'
+  },
+  en: {
+...
+    'PE': 'PE',
     add: 'Add to cart',
     previous: 'Previous',
     next: 'Next',
-    page_of: 'Page {current} of {total}'
+    page_of: 'Page {current} of {total}',
+    capacity: 'Capacity',
+    material: 'Material',
+    mouth: 'Mouth',
+    finish: 'Finish',
+    pieces_per_box: 'Pieces per box',
+    compatible_accessories: 'Compatible accessories'
   }
 };
+

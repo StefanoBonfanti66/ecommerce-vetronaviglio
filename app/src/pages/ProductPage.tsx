@@ -212,11 +212,11 @@ export default function ProductPage() {
           {/* Griglia Tecnica */}
           <div className="grid grid-cols-2 gap-y-6 py-8 border-y border-aluminum/20 w-full max-w-sm">
             {[
-              { label: 'Capacità', value: attributes.ml ? `${attributes.ml} ml` : 'N/A' },
-              { label: 'Materiale', value: attributes.materiale || 'N/A' },
-              { label: 'Imboccatura', value: attributes.imboccatura || 'N/A' },
-              { label: 'Finitura', value: attributes.finitura || 'N/A' },
-              { label: 'Pezzi per scatola', value: `${product.box_quantity || 0}` },
+              { label: t('capacity'), value: attributes.ml ? `${attributes.ml} ml` : 'N/A' },
+              { label: t('material'), value: t(attributes.materiale) || attributes.materiale || 'N/A' },
+              { label: t('mouth'), value: attributes.imboccatura || 'N/A' },
+              { label: t('finish'), value: t(attributes.finitura) || attributes.finitura || 'N/A' },
+              { label: t('pieces_per_box'), value: `${product.box_quantity || 0}` },
             ].map(attr => (
               <div key={attr.label}>
                 <div className="text-[9px] uppercase tracking-[0.2em] text-aluminum mb-1">{attr.label}</div>
@@ -224,12 +224,12 @@ export default function ProductPage() {
               </div>
             ))}
           </div>
-          
-          {/* Sezione Accessori e Bottoni */}
-          <div className="w-full max-w-sm flex flex-col items-center">
-              {accessories.length > 0 && (
-                  <div className="py-4 w-full">
-                      <div className="text-[9px] uppercase tracking-[0.2em] text-aluminum mb-4 text-center">Accessori compatibili</div>
+
+          {/* Accessori */}
+          {accessories.length > 0 && (
+              <div className="py-4 w-full">
+                  <div className="text-[9px] uppercase tracking-[0.2em] text-aluminum mb-4 text-center">{t('compatible_accessories')}</div>
+
                       <div className="flex gap-4 overflow-x-auto pb-4 snap-x scrollbar-hide px-6">
                           {accessories.map(acc => (
                               <Link key={acc.sku} to={`/product/${encodeURIComponent(acc.sku)}`} className="border border-aluminum/20 p-3 hover:border-onyx transition-colors flex flex-col gap-2 min-w-[140px] snap-start">
