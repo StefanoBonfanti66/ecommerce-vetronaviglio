@@ -96,16 +96,6 @@ export default function ProductPage() {
           <div className="text-2xl font-light">€{product.price}</div>
           <div className="text-sm text-aluminum">Disponibilità: {product.stock_quantity} pezzi</div>
  
-          {/* Selettore Scatole */}
-          <div className="flex items-center gap-4 py-4">
-            <button onClick={() => setBoxes(b => Math.max(1, b - 1))} className="px-4 py-2 border border-aluminum/40 hover:bg-aluminum/10 transition-colors">-</button>
-            <div className="text-sm font-medium w-48 text-center border-b border-onyx">
-                {boxes} scatole ({boxes * (product.box_quantity || 1)} pezzi)
-            </div>
-            <button 
-                onClick={() => {
-                    const nextBoxes = boxes + 1;
-                    const nextQty = nextBoxes * (product.box_quantity || 1);
                     if (nextQty > product.stock_quantity) {
                         alert(`Massima disponibilità raggiunta: ${product.stock_quantity} pezzi.`);
                     } else {
@@ -115,15 +105,25 @@ export default function ProductPage() {
                 className="px-4 py-2 border border-aluminum/40 hover:bg-aluminum/10 transition-colors"
             >+</button>
           </div>
+
+          {/* Pulsante aggiungi resto stock */}
+          {product.stock_quantity > 0 && boxes * (product.box_quantity || 1) < product.stock_quantity && (
+             <button 
+                onClick={() => {
+                    const remainingBoxes = Math.floor(product.stock_quantity / (product.box_quantity || 1));
+                    setBoxes(remainingBoxes);
+                }}
+                className="text-[10px] underline text-aluminum hover:text-onyx"
+             >
+                Aggiungi tutto lo stock disponibile ({product.stock_quantity} pz)
+             </button>
+          )}
+          
           {product.box_quantity > 0 && (
-            <div className="space-y-1">
+            <div className="space-y-1 mt-4">
                 <p className="text-[10px] text-aluminum">
                     Multipli d'imballo: <b>{product.box_quantity} pezzi per scatola</b>
                 </p>
-                {/* Avviso rimanenza */}
-                {/* Nota: con la logica delle scatole, non avremo più rimanenza sfusa nella selezione delle scatole, 
-                    a meno che non aggiungiamo un selettore specifico per pezzi sfusi.
-                    Per ora garantiamo il multiplo d'imballo come da richiesta. */}
             </div>
           )}
 
