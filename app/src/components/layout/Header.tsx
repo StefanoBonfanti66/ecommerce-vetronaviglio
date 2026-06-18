@@ -34,7 +34,7 @@ export default function Header() {
   return (
     <header className="fixed top-0 w-full bg-bone/90 backdrop-blur-sm z-50 border-b border-aluminum/20">
       <nav className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-        <Link to="/" className="flex items-center">
+        <Link to="/" className="flex items-center mr-8">
           <img src="/logo-full.svg" alt="Vetronaviglio" className="h-16 w-auto" />
         </Link>
 
