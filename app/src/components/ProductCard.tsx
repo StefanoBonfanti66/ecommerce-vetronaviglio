@@ -34,8 +34,8 @@ export default function ProductCard({ product }: { product: Product }) {
         )}
       </div>
       <div className="px-5 pb-5">
-        <h3 className="font-serif text-lg mb-1">{product.title_it}</h3>
-        <div className="font-sans text-[10px] uppercase tracking-[0.15em] text-aluminum mb-4 font-medium">
+        <h3 className="font-serif text-base md:text-lg mb-1">{product.title_it}</h3>
+        <div className="font-sans text-[9px] md:text-[10px] uppercase tracking-[0.15em] text-aluminum mb-4 font-medium">
           {product.sku} · {product.attributes?.materiale || 'N/A'} · {product.attributes?.ml || 'N/A'}ML
         </div>
         <button 
