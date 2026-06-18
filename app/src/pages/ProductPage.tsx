@@ -194,9 +194,9 @@ export default function ProductPage() {
 
           {/* Accessori */}
           {accessories.length > 0 && (
-              <div className="py-4">
+              <div className="py-4 -mx-6 px-6">
                   <div className="text-[9px] uppercase tracking-[0.2em] text-aluminum mb-4">Accessori compatibili</div>
-                  <div className="flex gap-4 overflow-x-auto pb-4 snap-x">
+                  <div className="flex gap-4 overflow-x-auto pb-4 snap-x scrollbar-hide">
                       {accessories.map(acc => (
                           <Link key={acc.sku} to={`/product/${acc.sku}`} className="border border-aluminum/20 p-3 hover:border-onyx transition-colors flex flex-col gap-2 min-w-[140px] snap-start">
                               {acc.image_urls && acc.image_urls.length > 0 && (
