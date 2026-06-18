@@ -129,7 +129,7 @@ export default function Catalog() {
         <>
           <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
             {paginatedProducts.map((product) => (
-              <Link key={product.id} to={`/product/${product.sku}`}>
+              <Link key={product.id} to={`/product/${encodeURIComponent(product.sku)}`}>
                 <ProductCard product={product} />
               </Link>
             ))}
