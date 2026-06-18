@@ -49,7 +49,8 @@ export const translations = {
     email_placeholder: 'Email',
     password_placeholder: 'Password',
     login_button: 'Accedi',
-    collections_title: 'Collezioni'
+    collections_title: 'Collezioni',
+    collection_title: 'Collezione {name}'
   },
   en: {
     collections: 'Collections',
@@ -101,6 +102,8 @@ export const translations = {
     email_placeholder: 'Email',
     password_placeholder: 'Password',
     login_button: 'Sign In',
-    collections_title: 'Collections'
+    collections_title: 'Collections',
+    collection_title: 'Collection {name}'
   }
 };
+
