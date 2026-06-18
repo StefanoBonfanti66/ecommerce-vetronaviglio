@@ -48,7 +48,7 @@ export default function ProductCard({ product }: { product: Product }) {
           }}
           className="w-full border border-onyx py-2 text-[9px] md:text-[10px] uppercase tracking-[0.15em] font-medium group-hover:bg-onyx group-hover:text-bone transition-all"
         >
-          {t('add')}
+          {t('add_to_cart')}
         </button>
       </div>
     </div>
