@@ -57,7 +57,7 @@ export default function Header() {
         </div>
 
         {/* Cart Icon & Mobile Nav Actions */}
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-6 ml-auto md:ml-0">
             <button className="md:hidden text-xs uppercase tracking-widest" onClick={() => setIsOpen(!isOpen)}>
               {isOpen ? 'Chiudi' : 'Menu'}
             </button>
