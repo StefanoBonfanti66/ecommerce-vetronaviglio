@@ -11,6 +11,8 @@ export default function Cart() {
   const sampleItems = cart.filter((item: any) => item.cartType === 'sample');
 
   const totalProducts = saleItems.reduce((sum: number, item: any) => sum + (item.price || 0) * (item.quantity || 1), 0);
+  const minOrderAmount = 250;
+  const isBelowMin = saleItems.length > 0 && totalProducts < minOrderAmount;
 
   if (cart.length === 0) {
     return <div className="p-12 text-center text-aluminum">Il carrello è vuoto.</div>;
@@ -98,8 +100,14 @@ export default function Cart() {
             <span>€{totalProducts.toFixed(2)}</span>
           </div>
 
+          {isBelowMin && (
+            <div className="p-4 bg-amber-50 text-amber-800 text-[10px] uppercase tracking-[0.1em] border border-amber-200">
+                ⚠️ Importo minimo fatturabile non raggiunto (Min. €{minOrderAmount}). Aggiungi altri articoli al carrello.
+            </div>
+          )}
+
           <div className="pt-6">
-            <Link to="/checkout" className="block w-full bg-onyx text-bone py-4 text-center uppercase text-[10px] tracking-[0.2em] hover:bg-aluminum transition-all">
+            <Link to={isBelowMin ? "#" : "/checkout"} className={`block w-full py-4 text-center uppercase text-[10px] tracking-[0.2em] transition-all ${isBelowMin ? 'bg-aluminum text-bone cursor-not-allowed opacity-50' : 'bg-onyx text-bone hover:bg-aluminum'}`}>
                 Procedi al Checkout
             </Link>
           </div>
