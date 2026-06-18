@@ -21,6 +21,8 @@ import CatalogTools from './pages/admin/CatalogTools'
 import Cart from './pages/Cart'
 import Checkout from './pages/Checkout'
 import Payment from './pages/Payment'
+import About from './pages/About'
+import Contact from './pages/Contact'
 
 
 function App() {
@@ -102,6 +104,8 @@ function App() {
              <Payment />
           </ProtectedRoute>
         } />
+        <Route path="about" element={<About />} />
+        <Route path="contact" element={<Contact />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
