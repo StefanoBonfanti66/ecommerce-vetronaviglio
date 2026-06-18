@@ -9,49 +9,78 @@ export default function ProductPage() {
   const [boxes, setBoxes] = useState(1);
   const [accessories, setAccessories] = useState<any[]>([]);
   const [settings, setSettings] = useState<any>({});
+  const [userProfile, setUserProfile] = useState<any>(null);
+  const [priceListItem, setPriceListItem] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const { addToCart } = useCart();
   const navigate = useNavigate();
+
+  // Funzione centralizzata risoluzione prezzo
+  const resolvePrice = (product: any, quantity: number, customPrice: number | null) => {
+    let price = customPrice !== null ? customPrice : product.price;
+    if (customPrice === null && product.price_tiers && Array.isArray(product.price_tiers)) {
+      const sortedTiers = [...product.price_tiers].sort((a, b) => b.min_qty - a.min_qty);
+      const applicableTier = sortedTiers.find(tier => quantity >= tier.min_qty);
+      if (applicableTier) price = applicableTier.price;
+    }
+    return price;
+  };
 
   useEffect(() => {
     async function fetchAllData() {
       if (!sku) return;
       
-      // 1. Fetch prodotto
-      const { data: p, error: pError } = await supabase
-        .from('products')
-        .select('*')
-        .eq('sku', sku)
-        .single();
-      
-      // 2. Fetch impostazioni
-      const { data: sData } = await supabase.from('settings').select('key, value');
-      
-      if (sData) {
-        const settingsMap = sData.reduce((acc: any, curr: any) => ({ ...acc, [curr.key]: curr.value }), {});
-        setSettings(settingsMap);
-      }
-      
-      if (pError || !p) {
-        console.error('Error:', pError);
+      // 1. Fetch prodotto e impostazioni in parallelo
+      const [productRes, settingsRes] = await Promise.all([
+        supabase.from('products').select('*').eq('sku', sku).single(),
+        supabase.from('settings').select('key, value')
+      ]);
+
+      if (productRes.error || !productRes.data) {
         setLoading(false);
         return;
       }
+      const p = productRes.data;
       setProduct(p);
 
-      const { data: accData } = await supabase
-        .from('product_accessory_overrides')
-        .select(`
-          accessory:products!product_accessory_overrides_accessory_id_fkey(
-            id, title_it, sku
-          )
-        `)
-        .eq('product_id', p.id)
-        .eq('action', 'FORCE_INCLUDE');
-      
-      if (accData) {
-          setAccessories(accData.map((item: any) => item.accessory));
+      if (settingsRes.data) {
+        const settingsMap = settingsRes.data.reduce((acc: any, curr: any) => ({ ...acc, [curr.key]: curr.value }), {});
+        setSettings(settingsMap);
       }
+      
+      // 2. Fetch profilo e prezzo listino
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+          const { data: profile } = await supabase.from('profiles').select('price_list_id').eq('id', session.user.id).single();
+          setUserProfile(profile);
+          
+          if (profile?.price_list_id) {
+            const { data: priceItem } = await supabase
+                .from('price_list_items')
+                .select('price')
+                .eq('price_list_id', profile.price_list_id)
+                .eq('sku', p.sku)
+                .single();
+            if (priceItem) setPriceListItem(priceItem.price);
+          }
+      }
+
+      // 3. Fetch accessori e accessori automatici
+      const [accOverrideRes, accAutoRes] = await Promise.all([
+        supabase
+          .from('product_accessory_overrides')
+          .select(`accessory:products!product_accessory_overrides_accessory_id_fkey(id, title_it, sku)`)
+          .eq('product_id', p.id)
+          .eq('action', 'FORCE_INCLUDE'),
+        supabase.rpc('get_compatible_accessories', { principal_sku: p.sku })
+      ]);
+
+      const forced = accOverrideRes.data?.map((item: any) => item.accessory) || [];
+      const suggested = accAutoRes.data || [];
+      
+      // Merge e deduplicazione per SKU
+      const mergedAccessories = [...forced, ...suggested].filter((v, i, a) => a.findIndex(t => t.sku === v.sku) === i);
+      setAccessories(mergedAccessories);
       setLoading(false);
     }
     fetchAllData();
@@ -59,46 +88,48 @@ export default function ProductPage() {
 
   const handleAddToCart = async (type: 'sale' | 'sample') => {
     const { data: { session } } = await supabase.auth.getSession();
-    
-    if (!session) {
-      navigate('/login');
-      return;
-    }
+    if (!session) { navigate('/login'); return; }
     
     const totalQuantity = boxes * (product.box_quantity || 1);
     
-    // Gating logico
     if (totalQuantity > product.stock_quantity) {
-        alert(`Disponibilità insufficiente. Massimo acquistabile: ${product.stock_quantity} pezzi.`);
+        alert(`Disponibilità insufficiente. Massimo: ${product.stock_quantity} pezzi.`);
         return;
     }
     
     const finalQuantity = type === 'sample' ? 1 : totalQuantity;
-    addToCart(product, type, finalQuantity, currentPrice);
-    alert(type === 'sample' ? 'Campione aggiunto alla richiesta' : `Prodotto aggiunto al carrello: ${finalQuantity} pezzi a €${currentPrice.toFixed(2)}/pz`);
+    const priceForCart = resolvePrice(product, finalQuantity, priceListItem);
+
+    addToCart(product, type, finalQuantity, priceForCart);
+    alert(type === 'sample' ? 'Campione aggiunto' : `Prodotto aggiunto: ${finalQuantity} pezzi a €${priceForCart.toFixed(2)}/pz`);
   };
 
   if (loading) return <div className="p-12">Caricamento...</div>;
   if (!product) return <div className="p-12">Prodotto non trovato</div>;
 
-  const attributes = product.attributes || {};
-  const displayTitle = `${product.title_it} ${attributes.ml ? `· ${attributes.ml}ml` : ''} ${attributes.colore ? `· ${attributes.colore}` : ''}`;
-
-  // Logica prezzo dinamico
-  const totalQuantity = boxes * (product.box_quantity || 1);
-  let currentPrice = product.price;
-  if (product.price_tiers && Array.isArray(product.price_tiers)) {
-      const sortedTiers = [...product.price_tiers].sort((a, b) => b.min_qty - a.min_qty);
-      const applicableTier = sortedTiers.find(tier => totalQuantity >= tier.min_qty);
-      if (applicableTier) currentPrice = applicableTier.price;
-  }
-  const totalPrice = currentPrice * totalQuantity;
+  const currentPrice = resolvePrice(product, boxes * (product.box_quantity || 1), priceListItem);
+  const totalPrice = currentPrice * boxes * (product.box_quantity || 1);
 
   return (
     <div className="max-w-7xl mx-auto px-6 pt-24 pb-vs-8 md:py-vs-16">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-vs-8 md:gap-vs-16">
+        {/* Sinistra: Galleria (Sticky solo su desktop) */}
         <div className="md:col-span-6 md:sticky top-24 self-start">
-...
+          <div className="aspect-square bg-aluminum/5 border border-aluminum/20 flex items-center justify-center">
+            {product.image_urls && product.image_urls.length > 0 ? (
+              <img src={product.image_urls[0]} alt={product.title_it} className="w-full h-full object-contain p-8" />
+            ) : (
+              <span className="text-[10px] uppercase tracking-[0.2em] text-aluminum">Image coming soon</span>
+            )}
+          </div>
+        </div>
+
+        <div className="md:col-span-6 space-y-vs-8">
+          <div>
+            <h1 className="font-serif text-5xl mb-2">{displayTitle}</h1>
+            <p className="font-sans text-sm uppercase tracking-[0.2em] text-aluminum">{product.sku}</p>
+          </div>
+
           <div className="text-2xl font-light">€{currentPrice.toFixed(2)} / pz</div>
           <div className="text-lg font-medium text-aluminum">Totale: €{totalPrice.toFixed(2)}</div>
           <div className="text-sm text-aluminum">Disponibilità: {product.stock_quantity} pezzi</div>
@@ -132,7 +163,7 @@ export default function ProductPage() {
                     const totalQty = remainingBoxes * (product.box_quantity || 1);
                     
                     // Aggiungiamo direttamente al carrello con la quantità calcolata
-                    addToCart(product, 'sale', totalQty);
+                    addToCart(product, 'sale', totalQty, currentPrice);
                     
                     // Aggiorniamo la UI
                     setBoxes(remainingBoxes);
