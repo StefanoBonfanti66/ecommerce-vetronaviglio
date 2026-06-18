@@ -17,6 +17,7 @@ import AccessoryManager from './pages/admin/AccessoryManager'
 import SampleRequestsManager from './pages/admin/SampleRequestsManager'
 import UserManager from './pages/admin/UserManager'
 import Settings from './pages/admin/Settings'
+import PriceListManager from './pages/admin/PriceListManager'
 import CatalogTools from './pages/admin/CatalogTools'
 import Cart from './pages/Cart'
 import Checkout from './pages/Checkout'
@@ -72,6 +73,11 @@ function App() {
         <Route path="admin/users" element={
           <RoleRoute allowedRoles={['admin', 'ceo']}>
             <UserManager />
+          </RoleRoute>
+        } />
+        <Route path="admin/price-lists" element={
+          <RoleRoute allowedRoles={['admin', 'ceo']}>
+            <PriceListManager />
           </RoleRoute>
         } />
         <Route path="admin/settings" element={
