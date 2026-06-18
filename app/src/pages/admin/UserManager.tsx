@@ -55,7 +55,12 @@ export default function UserManager() {
     }
 
     // Eliminazione profile e auth user
-    await supabase.from('profiles').delete().eq('id', id);
+    const { error } = await supabase.from('profiles').delete().eq('id', id);
+    if (error) {
+        console.error('Errore durante l\'eliminazione:', error);
+        alert('Errore durante l\'eliminazione dell\'utente: ' + error.message);
+        return;
+    }
     // Nota: l'eliminazione da auth.users potrebbe richiedere privilegi admin (Edge Function)
     // Se non funziona direttamente, gestiremo tramite una RPC o Edge Function
     fetchUsers();
