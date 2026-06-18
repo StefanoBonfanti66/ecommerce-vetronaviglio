@@ -3,6 +3,8 @@ import { supabase } from '../../supabaseClient';
 
 export default function UserManager() {
   const [users, setUsers] = useState<any[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [newUser, setNewUser] = useState({ email: '', password: '', role: 'customer' });
   const roles = ['admin', 'ceo', 'magazzino', 'acquisti', 'customer'];
 
   useEffect(() => {
@@ -12,6 +14,25 @@ export default function UserManager() {
   async function fetchUsers() {
     const { data } = await supabase.from('profiles').select('id, email, role');
     setUsers(data || []);
+  }
+
+  async function createUser() {
+      const { data, error } = await supabase.auth.signUp({
+          email: newUser.email,
+          password: newUser.password,
+      });
+
+      if (error) {
+          alert(error.message);
+          return;
+      }
+
+      if (data.user) {
+          await supabase.from('profiles').update({ role: newUser.role }).eq('id', data.user.id);
+          setIsModalOpen(false);
+          setNewUser({ email: '', password: '', role: 'customer' });
+          fetchUsers();
+      }
   }
 
   async function updateRole(id: string, newRole: string) {
@@ -42,9 +63,32 @@ export default function UserManager() {
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-vs-16">
-      <header className="mb-12 border-b border-aluminum/20 pb-8">
+      <header className="mb-12 border-b border-aluminum/20 pb-8 flex justify-between items-center">
         <h1 className="font-serif text-3xl uppercase tracking-[0.05em]">Gestione Ruoli Utenti</h1>
+        <button 
+            onClick={() => setIsModalOpen(true)}
+            className="bg-onyx text-bone px-6 py-2 uppercase text-[10px] tracking-[0.2em] hover:bg-aluminum transition-all"
+        >
+            Aggiungi Utente
+        </button>
       </header>
+
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-onyx/50 flex items-center justify-center p-6 z-50">
+            <div className="bg-bone p-8 max-w-sm w-full space-y-4">
+                <h2 className="font-serif text-xl uppercase tracking-[0.05em]">Nuovo Utente</h2>
+                <input type="email" placeholder="Email" className="w-full p-2 border border-aluminum/40" value={newUser.email} onChange={e => setNewUser({...newUser, email: e.target.value})} />
+                <input type="password" placeholder="Password" className="w-full p-2 border border-aluminum/40" value={newUser.password} onChange={e => setNewUser({...newUser, password: e.target.value})} />
+                <select className="w-full p-2 border border-aluminum/40" value={newUser.role} onChange={e => setNewUser({...newUser, role: e.target.value})}>
+                    {roles.map(r => <option key={r} value={r}>{r}</option>)}
+                </select>
+                <div className="flex gap-4 pt-4">
+                    <button onClick={createUser} className="flex-1 bg-onyx text-bone py-2 uppercase text-[10px]">Crea</button>
+                    <button onClick={() => setIsModalOpen(false)} className="flex-1 border border-onyx py-2 uppercase text-[10px]">Annulla</button>
+                </div>
+            </div>
+        </div>
+      )}
 
       <div className="border border-aluminum/20">
         {users.map(user => (
