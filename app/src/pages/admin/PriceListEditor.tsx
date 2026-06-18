@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { supabase } from '../../supabaseClient';
+import Papa from 'papaparse';
 
 export default function PriceListEditor() {
   const { id } = useParams<{ id: string }>();
@@ -42,12 +43,32 @@ export default function PriceListEditor() {
     fetchData();
   }
 
+  const handleExport = () => {
+      const data = items.map(item => ({
+          Listino: list.name,
+          SKU: item.sku,
+          Prezzo: item.price
+      }));
+      const csv = Papa.unparse(data);
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `listino_${list.name.replace(/\s+/g, '_')}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+  };
+
   if (!list) return <div className="p-12">Caricamento...</div>;
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-vs-16">
-      <header className="mb-12 border-b border-aluminum/20 pb-8">
+      <header className="mb-12 border-b border-aluminum/20 pb-8 flex justify-between items-center">
         <h1 className="font-serif text-3xl uppercase tracking-[0.05em]">Listino: {list.name}</h1>
+        <button onClick={handleExport} className="border border-onyx px-6 py-2 uppercase text-[10px] tracking-[0.2em] hover:bg-aluminum/10 transition-all">
+            Esporta CSV
+        </button>
       </header>
 
       <div className="mb-8 p-6 border border-aluminum/20 bg-aluminum/5 space-y-4">
