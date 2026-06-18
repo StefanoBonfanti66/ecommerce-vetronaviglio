@@ -92,10 +92,14 @@ export const translations = {
     'PET': 'PET',
     'PP + SAN (LENS)': 'PP + SAN (LENS)',
     'PE': 'PE',
-    add: 'Aggiungi al carrello',
+    add_to_cart: 'Aggiungi al carrello',
+    request_sample: 'Richiedi Campione',
+    add_all_stock: 'Aggiungi tutto lo stock disponibile ({count} pz)',
+    order_info: 'Informazioni Ordine',
     previous: 'Precedente',
     next: 'Successiva',
-    page_of: 'Pagina {current} di {total}'
+    page_of: 'Pagina {current} di {total}',
+    compatible_accessories: 'Accessori compatibili'
   },
   en: {
     collections: 'Collections',
@@ -190,30 +194,11 @@ export const translations = {
     'PET': 'PET',
     'PP + SAN (LENS)': 'PP + SAN (LENS)',
     'PE': 'PE',
-    add: 'Aggiungi al carrello',
-    previous: 'Precedente',
-    next: 'Successiva',
-    page_of: 'Pagina {current} di {total}',
-    capacity: 'Capacità',
-    material: 'Materiale',
-    mouth: 'Imboccatura',
-    finish: 'Finitura',
-    pieces_per_box: 'Pezzi per scatola',
-    compatible_accessories: 'Accessori compatibili'
-  },
-  en: {
-...
-    'PE': 'PE',
     add: 'Add to cart',
     previous: 'Previous',
     next: 'Next',
     page_of: 'Page {current} of {total}',
-    capacity: 'Capacity',
-    material: 'Material',
-    mouth: 'Mouth',
-    finish: 'Finish',
-    pieces_per_box: 'Pieces per box',
     compatible_accessories: 'Compatible accessories'
   }
 };
-
+',filePath: '/home/sbonfanti/Scrivania/Progetti/ecommerce-vetronaviglio/app/src/constants/translations.ts')
