@@ -224,8 +224,10 @@ export default function ProductPage() {
                   <div className="flex gap-4 overflow-x-auto pb-4 snap-x scrollbar-hide px-6">
                       {accessories.map(acc => (
                           <Link key={acc.sku} to={`/product/${encodeURIComponent(acc.sku)}`} className="border border-aluminum/20 p-3 hover:border-onyx transition-colors flex flex-col gap-2 min-w-[140px] snap-start">
-                              {acc.image_urls && acc.image_urls.length > 0 && (
+                              {acc.image_urls && acc.image_urls.length > 0 ? (
                                   <img src={acc.image_urls[0]} alt={acc.title_it} className="w-16 h-16 object-contain" />
+                              ) : (
+                                  <img src="/not-image.png" alt="No image" className="w-16 h-16 object-contain opacity-50" />
                               )}
                               <div>
                                   <div className="text-xs font-medium truncate">{acc.title_it}</div>
