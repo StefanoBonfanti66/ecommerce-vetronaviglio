@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 import { useCart } from '../context/CartContext';
-import notImage from '../assets/not-image.png';
 
 export default function ProductPage() {
   const { sku } = useParams<{ sku: string }>();
@@ -93,9 +92,10 @@ export default function ProductPage() {
     }
     
     const finalQuantity = type === 'sample' ? 1 : totalQuantity;
+    const priceForCart = resolvePrice(product, finalQuantity, priceListItem);
+
     addToCart(product, type, finalQuantity, priceForCart);
     
-    // Aggiorna lo stock localmente per riflettere l'aggiunta al carrello
     setProduct((prev: any) => ({ ...prev, stock_quantity: prev.stock_quantity - finalQuantity }));
     
     alert(type === 'sample' ? 'Campione aggiunto' : `Prodotto aggiunto: ${finalQuantity} pezzi a €${priceForCart.toFixed(2)}/pz`);
@@ -113,9 +113,8 @@ export default function ProductPage() {
     <div className="max-w-7xl mx-auto px-6 pt-24 pb-vs-8 md:py-vs-16">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-vs-8 md:gap-vs-16">
         {/* Sinistra: Galleria (Sticky solo su desktop) */}
-            <div className="absolute inset-0 flex items-center justify-center text-sm uppercase tracking-[0.2em] text-aluminum font-bold text-center">
-                IMAGE<br/>COMING SOON
-            </div>
+        <div className="md:col-span-6 md:sticky top-24 self-start hidden md:block">
+          <div className="aspect-square bg-aluminum/5 border border-aluminum/20 flex items-center justify-center relative">
             {product.image_urls && product.image_urls.length > 0 ? (
               <img 
                 src={product.image_urls[0]} 
@@ -124,6 +123,9 @@ export default function ProductPage() {
                 onError={(e) => (e.currentTarget.style.display = 'none')}
               />
             ) : null}
+            <div className="absolute inset-0 flex items-center justify-center text-sm uppercase tracking-[0.2em] text-aluminum font-bold text-center">
+                IMAGE<br/>COMING SOON
+            </div>
           </div>
         </div>
 
@@ -134,29 +136,6 @@ export default function ProductPage() {
           </div>
 
           {/* Immagine su Mobile (visibile solo su mobile) */}
-          <div className="md:hidden aspect-square bg-aluminum/5 border border-aluminum/20 flex items-center justify-center w-full max-w-sm relative">
-            <div className="absolute inset-0 flex items-center justify-center text-xs uppercase tracking-[0.2em] text-aluminum font-bold text-center">
-                IMAGE<br/>COMING SOON
-            </div>
-            {product.image_urls && product.image_urls.length > 0 ? (
-              <img 
-                src={product.image_urls[0]} 
-                alt={product.title_it} 
-                className="w-full h-full object-contain absolute inset-0 z-10"
-                onError={(e) => (e.currentTarget.style.display = 'none')}
-              />
-            ) : null}
-          </div>
-          </div>
-        </div>
-
-        <div className="md:col-span-6 space-y-vs-8 flex flex-col items-center md:items-start text-center md:text-left">
-          <div>
-            <h1 className="font-serif text-5xl mb-2">{displayTitle}</h1>
-            <p className="font-sans text-sm uppercase tracking-[0.2em] text-aluminum">{product.sku}</p>
-          </div>
-
-            {/* Immagine su Mobile (visibile solo su mobile) */}
           <div className="md:hidden aspect-square bg-aluminum/5 border border-aluminum/20 flex items-center justify-center w-full max-w-sm relative">
             {product.image_urls && product.image_urls.length > 0 ? (
               <img 
@@ -198,16 +177,11 @@ export default function ProductPage() {
           {/* Pulsante aggiungi resto stock */}
           {product.stock_quantity > 0 && boxes * (product.box_quantity || 1) < product.stock_quantity && (
              <button 
-                 onClick={() => {
+                onClick={() => {
                     const remainingBoxes = Math.floor(product.stock_quantity / (product.box_quantity || 1));
                     const totalQty = remainingBoxes * (product.box_quantity || 1);
-                    
                     if (totalQty <= 0) return;
-
-                    // Aggiungiamo direttamente al carrello con la quantità calcolata
                     addToCart(product, 'sale', totalQty, currentPrice);
-                    
-                    // Aggiorniamo la UI e lo stock localmente
                     setBoxes(remainingBoxes);
                     setProduct((prev: any) => ({ ...prev, stock_quantity: prev.stock_quantity - totalQty }));
                     alert(`Aggiunti ${totalQty} pezzi al carrello.`);
