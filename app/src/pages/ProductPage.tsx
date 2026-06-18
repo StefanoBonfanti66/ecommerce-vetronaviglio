@@ -123,7 +123,7 @@ export default function ProductPage() {
                 onError={(e) => (e.currentTarget.style.display = 'none')}
               />
             ) : null}
-            <div className="absolute inset-0 flex items-center justify-center text-[10px] uppercase tracking-[0.2em] text-aluminum font-bold text-center">
+            <div className="absolute inset-0 flex items-center justify-center text-sm uppercase tracking-[0.2em] text-aluminum font-bold text-center">
                 IMAGE<br/>COMING SOON
             </div>
           </div>
@@ -135,7 +135,7 @@ export default function ProductPage() {
             <p className="font-sans text-sm uppercase tracking-[0.2em] text-aluminum">{product.sku}</p>
           </div>
 
-          {/* Immagine su Mobile (visibile solo su mobile) */}
+            {/* Immagine su Mobile (visibile solo su mobile) */}
           <div className="md:hidden aspect-square bg-aluminum/5 border border-aluminum/20 flex items-center justify-center w-full max-w-sm relative">
             {product.image_urls && product.image_urls.length > 0 ? (
               <img 
@@ -145,7 +145,7 @@ export default function ProductPage() {
                 onError={(e) => (e.currentTarget.style.display = 'none')}
               />
             ) : null}
-            <div className="absolute inset-0 flex items-center justify-center text-[10px] uppercase tracking-[0.2em] text-aluminum font-bold text-center">
+            <div className="absolute inset-0 flex items-center justify-center text-xs uppercase tracking-[0.2em] text-aluminum font-bold text-center">
                 IMAGE<br/>COMING SOON
             </div>
           </div>
