@@ -97,7 +97,7 @@ export default function Catalog() {
   );
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-vs-8 md:py-vs-16">
+    <div className="max-w-7xl mx-auto px-6 pt-24 pb-vs-8 md:py-vs-16">
       <header className="mb-vs-8 md:mb-vs-16 border-b border-aluminum/20 pb-vs-4 md:pb-vs-8">
         <h1 className="font-serif text-3xl md:text-5xl uppercase tracking-[0.05em] mb-4 md:mb-8">
           {collectionSlug ? `Collezione ${collectionSlug.toUpperCase()}` : 'Catalogo Prodotti'}

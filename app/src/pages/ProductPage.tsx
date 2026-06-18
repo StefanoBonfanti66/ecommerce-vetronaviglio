@@ -85,7 +85,7 @@ export default function ProductPage() {
   const displayTitle = `${product.title_it} ${attributes.ml ? `· ${attributes.ml}ml` : ''} ${attributes.colore ? `· ${attributes.colore}` : ''}`;
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-vs-8 md:py-vs-16">
+    <div className="max-w-7xl mx-auto px-6 pt-24 pb-vs-8 md:py-vs-16">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-vs-8 md:gap-vs-16">
         {/* Sinistra: Galleria (Sticky solo su desktop) */}
         <div className="md:col-span-6 md:sticky top-24 self-start">
