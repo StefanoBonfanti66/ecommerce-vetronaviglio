@@ -225,23 +225,19 @@ export default function ProductPage() {
                   <div className="flex gap-4 overflow-x-auto pb-4 snap-x scrollbar-hide px-6">
                       {accessories.map(acc => (
                           <Link key={acc.sku} to={`/product/${encodeURIComponent(acc.sku)}`} className="border border-aluminum/20 p-3 hover:border-onyx transition-colors flex flex-col gap-2 min-w-[140px] snap-start">
-                              {acc.image_urls && acc.image_urls.length > 0 ? (
-                                  <div className="relative w-16 h-16">
+                              <div className="relative w-16 h-16 flex items-center justify-center bg-aluminum/10">
+                                  {acc.image_urls && acc.image_urls.length > 0 && (
                                       <img 
                                         src={acc.image_urls[0]} 
                                         alt={acc.title_it} 
-                                        className="w-full h-full object-contain absolute inset-0 z-10" 
+                                        className="w-full h-full object-contain absolute inset-0 z-10"
                                         onError={(e) => (e.currentTarget.style.display = 'none')}
                                       />
-                                      <div className="w-full h-full flex items-center justify-center bg-aluminum/10 text-[6px] text-aluminum uppercase text-center absolute inset-0">
-                                          IMAGE<br/>COMING SOON
-                                      </div>
-                                  </div>
-                              ) : (
-                                  <div className="w-16 h-16 flex items-center justify-center bg-aluminum/10 text-[6px] text-aluminum uppercase text-center">
+                                  )}
+                                  <div className="text-[6px] text-aluminum uppercase text-center">
                                       IMAGE<br/>COMING SOON
                                   </div>
-                              )}
+                              </div>
                               <div>
                                   <div className="text-xs font-medium truncate">{acc.title_it}</div>
                                   <div className="text-[9px] text-aluminum font-mono">{acc.sku}</div>
