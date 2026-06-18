@@ -91,7 +91,8 @@ export const translations = {
     'Resina termoindurente': 'Resina termoindurente',
     'PET': 'PET',
     'PP + SAN (LENS)': 'PP + SAN (LENS)',
-    'PE': 'PE'
+    'PE': 'PE',
+    add: 'Aggiungi'
   },
   en: {
     collections: 'Collections',
@@ -185,6 +186,7 @@ export const translations = {
     'Resina termoindurente': 'Thermosetting resin',
     'PET': 'PET',
     'PP + SAN (LENS)': 'PP + SAN (LENS)',
-    'PE': 'PE'
+    'PE': 'PE',
+    add: 'Add'
   }
 };
