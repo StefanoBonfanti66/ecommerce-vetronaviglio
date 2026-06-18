@@ -66,13 +66,13 @@ export default function ProductPage() {
       const [accOverrideRes, accAutoRes] = await Promise.all([
         supabase
           .from('product_accessory_overrides')
-          .select(`accessory:products!product_accessory_overrides_accessory_id_fkey(id, title_it, sku)`)
+          .select(`accessory:products!product_accessory_overrides_accessory_id_fkey(id, title_it, sku, stock_quantity, image_urls)`)
           .eq('product_id', p.id)
           .eq('action', 'FORCE_INCLUDE'),
         supabase.rpc('get_compatible_accessories', { principal_sku: p.sku })
       ]);
 
-      const forced = accOverrideRes.data?.map((item: any) => item.accessory) || [];
+      const forced = accOverrideRes.data?.map((item: any) => item.accessory).filter(a => a.stock_quantity > 0) || [];
       const suggested = accAutoRes.data || [];
       const mergedAccessories = [...forced, ...suggested].filter((v, i, a) => a.findIndex(t => t.sku === v.sku) === i);
       setAccessories(mergedAccessories);
@@ -196,14 +196,14 @@ export default function ProductPage() {
           {accessories.length > 0 && (
               <div className="py-4">
                   <div className="text-[9px] uppercase tracking-[0.2em] text-aluminum mb-4">Accessori compatibili</div>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="flex gap-4 overflow-x-auto pb-4 snap-x">
                       {accessories.map(acc => (
-                          <Link key={acc.sku} to={`/product/${acc.sku}`} className="border border-aluminum/20 p-3 hover:border-onyx transition-colors flex flex-col gap-2">
+                          <Link key={acc.sku} to={`/product/${acc.sku}`} className="border border-aluminum/20 p-3 hover:border-onyx transition-colors flex flex-col gap-2 min-w-[140px] snap-start">
                               {acc.image_urls && acc.image_urls.length > 0 && (
                                   <img src={acc.image_urls[0]} alt={acc.title_it} className="w-16 h-16 object-contain" />
                               )}
                               <div>
-                                  <div className="text-xs font-medium">{acc.title_it}</div>
+                                  <div className="text-xs font-medium truncate">{acc.title_it}</div>
                                   <div className="text-[9px] text-aluminum font-mono">{acc.sku}</div>
                               </div>
                           </Link>
@@ -212,16 +212,16 @@ export default function ProductPage() {
               </div>
           )}
 
-          <div className="space-y-4 pt-4">
+          <div className="space-y-4 pt-4 border-t border-aluminum/10">
             <button 
                 onClick={() => handleAddToCart('sale')}
-                className="w-full bg-onyx text-bone py-4 uppercase text-xs tracking-[0.2em] hover:bg-aluminum transition-colors font-medium"
+                className="w-full bg-onyx text-bone py-4 uppercase text-xs tracking-[0.2em] hover:bg-aluminum transition-colors font-medium cursor-pointer"
             >
                 Aggiungi al carrello
             </button>
             <button 
                 onClick={() => handleAddToCart('sample')}
-                className="w-full border border-onyx text-onyx py-4 uppercase text-xs tracking-[0.2em] hover:bg-aluminum/10 transition-colors"
+                className="w-full border border-onyx text-onyx py-4 uppercase text-xs tracking-[0.2em] hover:bg-aluminum/10 transition-colors cursor-pointer"
             >
                 Richiedi Campione
             </button>
