@@ -1,0 +1,42 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - navigation [ref=e5]:
+      - link "Vetronaviglio" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - img "Vetronaviglio" [ref=e7]
+      - generic [ref=e8]:
+        - link "Collezioni" [ref=e9] [cursor=pointer]:
+          - /url: /collections
+        - link "Catalogo" [ref=e10] [cursor=pointer]:
+          - /url: /catalog
+        - link "Campionature" [ref=e11] [cursor=pointer]:
+          - /url: /samples
+        - link "Azienda" [ref=e12] [cursor=pointer]:
+          - /url: /about
+        - link "Contatti" [ref=e13] [cursor=pointer]:
+          - /url: /contact
+        - link "Login" [ref=e14] [cursor=pointer]:
+          - /url: /login
+      - link [ref=e16] [cursor=pointer]:
+        - /url: /cart
+        - img [ref=e17]
+  - main [ref=e19]:
+    - generic [ref=e20]: Caricamento...
+  - contentinfo [ref=e21]:
+    - generic [ref=e22]:
+      - generic [ref=e23]:
+        - heading "Vetronaviglio S.r.l." [level=4] [ref=e24]
+        - paragraph [ref=e25]: Via Don Severino Fracassi, 31/39
+        - paragraph [ref=e26]: 20008 Bareggio (MI), Italy
+      - generic [ref=e27]:
+        - heading "Contatti" [level=4] [ref=e28]
+        - paragraph [ref=e29]: T. +39 02 9036 4184
+        - paragraph [ref=e30]: infostore@vetronaviglio.eu
+      - generic [ref=e31]:
+        - heading "Informazioni" [level=4] [ref=e32]
+        - link "Condizioni di vendita" [ref=e33] [cursor=pointer]:
+          - /url: "#"
+        - link "Privacy Policy" [ref=e34] [cursor=pointer]:
+          - /url: "#"
+        - link "Cookie Policy" [ref=e35] [cursor=pointer]:
+          - /url: "#"

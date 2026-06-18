@@ -36,4 +36,9 @@
 - Analisi approfondita dati di vendita storici.
 
 ## 8. Decisioni rimandate alla Fase 2 (Aggiunte)
-- Login cliente e listini personalizzati/riservati (richiede modellazione utente e RLS dinamica).
+
+## 10. Listini Personalizzati (Fase 2)
+- **Logica:** Gestione listini associati all'utente (Cliente).
+- **Priorità:** Il Listino Personalizzato ha priorità assoluta su `price` base e `price_tiers` (sconti quantità).
+- **Governance:** Solo Admin/CEO possono creare/modificare listini.
+

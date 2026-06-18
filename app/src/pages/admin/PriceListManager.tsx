@@ -17,21 +17,14 @@ export default function PriceListManager() {
 
   async function createPriceList() {
     if (!newListName) return;
-    await supabase.from('price_lists').insert({ name: newListName });
+    await supabase.from('price_lists').insert({ name: newListName, discount_percentage: 0 });
     setNewListName('');
     fetchPriceLists();
   }
 
-  async function duplicatePriceList(list: any) {
-    const { data: newList } = await supabase.from('price_lists').insert({ name: `${list.name} (Copia)` }).select().single();
-    if (!newList) return;
-
-    const { data: items } = await supabase.from('price_list_items').select('*').eq('price_list_id', list.id);
-    if (items) {
-        const newItems = items.map(i => ({ price_list_id: newList.id, sku: i.sku, price: i.price }));
-        await supabase.from('price_list_items').insert(newItems);
-    }
-    fetchPriceLists();
+  async function updateDiscount(id: string, discount: number) {
+      await supabase.from('price_lists').update({ discount_percentage: discount }).eq('id', id);
+      fetchPriceLists();
   }
 
   return (
@@ -55,9 +48,16 @@ export default function PriceListManager() {
 
       <div className="border border-aluminum/20">
         {priceLists.map(list => (
-            <div key={list.id} className="p-4 border-b border-aluminum/10 flex justify-between items-center text-sm">
+            <div key={list.id} className="p-4 border-b border-aluminum/10 flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
                 <span className="font-medium">{list.name}</span>
-                <div className="flex gap-4">
+                <div className="flex items-center gap-4">
+                    <span className="text-[10px] uppercase">Sconto %:</span>
+                    <input 
+                        type="number" 
+                        value={list.discount_percentage || 0} 
+                        onChange={(e) => updateDiscount(list.id, parseFloat(e.target.value))}
+                        className="w-16 p-1 border border-aluminum/40 text-center"
+                    />
                     <button onClick={() => duplicatePriceList(list)} className="text-xs uppercase underline text-aluminum hover:text-onyx">Duplica</button>
                     <Link to={`/admin/price-lists/${list.id}`} className="text-xs uppercase underline">Gestisci Prodotti</Link>
                 </div>

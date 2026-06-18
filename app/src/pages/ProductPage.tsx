@@ -116,6 +116,7 @@ export default function ProductPage() {
   return (
     <div className="max-w-7xl mx-auto px-6 pt-24 pb-vs-8 md:py-vs-16">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-vs-8 md:gap-vs-16">
+        
         {/* Sinistra: Galleria (Sticky solo su desktop) */}
         <div className="md:col-span-6 md:sticky top-24 self-start hidden md:block">
           <div className="aspect-square bg-aluminum/5 border border-aluminum/20 flex items-center justify-center relative">
@@ -133,6 +134,7 @@ export default function ProductPage() {
           </div>
         </div>
 
+        {/* Destra: Dettagli */}
         <div className="md:col-span-6 space-y-vs-8 flex flex-col items-center md:items-start text-center md:text-left">
           <div>
             <h1 className="font-serif text-5xl mb-2">{displayTitle}</h1>
@@ -224,12 +226,12 @@ export default function ProductPage() {
               </div>
             ))}
           </div>
-
-          {/* Accessori */}
-          {accessories.length > 0 && (
-              <div className="py-4 w-full">
-                  <div className="text-[9px] uppercase tracking-[0.2em] text-aluminum mb-4 text-center">{t('compatible_accessories')}</div>
-
+          
+          {/* Sezione Accessori e Bottoni */}
+          <div className="w-full max-w-sm flex flex-col items-center">
+              {accessories.length > 0 && (
+                  <div className="py-4 w-full">
+                      <div className="text-[9px] uppercase tracking-[0.2em] text-aluminum mb-4 text-center">{t('compatible_accessories')}</div>
                       <div className="flex gap-4 overflow-x-auto pb-4 snap-x scrollbar-hide px-6">
                           {accessories.map(acc => (
                               <Link key={acc.sku} to={`/product/${encodeURIComponent(acc.sku)}`} className="border border-aluminum/20 p-3 hover:border-onyx transition-colors flex flex-col gap-2 min-w-[140px] snap-start">

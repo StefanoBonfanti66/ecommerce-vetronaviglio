@@ -8,7 +8,54 @@ export default function Checkout() {
   const navigate = useNavigate();
   const { cart } = useCart();
   const { t } = useLang();
-...
+  const [shipping, setShipping] = useState({ name: '', address: '', city: '', cap: '', phone: '' });
+  const [loading, setLoading] = useState(false);
+
+  const saleItems = cart.filter((item: any) => item.cartType === 'sale');
+  const totalAmount = saleItems.reduce((sum: number, item: any) => sum + (item.price || 0) * (item.quantity || 1), 0);
+
+  const createOrder = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+
+    // 1. Inserisci Ordine
+    const { data: order, error: orderError } = await supabase
+        .from('orders')
+        .insert({
+            user_id: user.id,
+            total_amount: totalAmount,
+            shipping_address: shipping,
+            status: 'pending_payment'
+        })
+        .select()
+        .single();
+
+    if (orderError) {
+        console.error(orderError);
+        setLoading(false);
+        return;
+    }
+
+    // 2. Inserisci Dettaglio
+    const items = cart.map(item => ({
+        order_id: order.id,
+        product_id: item.id,
+        quantity: item.quantity || 1,
+        price_at_time: item.price || 0,
+        item_type: item.cartType
+    }));
+
+    await supabase.from('order_items').insert(items);
+    
+    setLoading(false);
+    navigate(`/payment/${order.id}`);
+  };
+
+  return (
+    <div className="max-w-3xl mx-auto px-6 py-vs-16">
       <header className="mb-12 border-b border-aluminum/20 pb-8">
         <h1 className="font-serif text-3xl uppercase tracking-[0.05em]">{t('checkout_title')}</h1>
       </header>
@@ -25,7 +72,6 @@ export default function Checkout() {
             {loading ? '...' : t('proceed_payment')}
         </button>
       </form>
-
     </div>
   );
 }
