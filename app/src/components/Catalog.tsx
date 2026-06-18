@@ -12,8 +12,12 @@ export default function Catalog() {
   const processedProducts = useMemo(() => {
     let list = products.filter(p => {
       const catMatch = activeCategory === 'Tutti' || (p.attributes?.[`categoria_${lang}`] || p.attributes?.categoria || 'Varie') === activeCategory;
-...
-    return list.sort((a, b) => (p[`title_${lang}`] || p.title_it).localeCompare(b[`title_${lang}`] || b.title_it));
+      const capMatch = activeCapacity === 'Tutti' || (p.attributes?.ml ? `${p.attributes.ml}ml` : 'N/A') === activeCapacity;
+      const matMatch = activeMaterial === 'Tutti' || (p.attributes?.materiale || 'Varie') === activeMaterial;
+      const skuMatch = skuSearch === '' || p.sku.toLowerCase().includes(skuSearch.toLowerCase());
+      return catMatch && capMatch && matMatch && skuMatch;
+    });
+    return list.sort((a, b) => (a[`title_${lang}`] || a.title_it).localeCompare(b[`title_${lang}`] || b.title_it));
   }, [products, activeCategory, activeCapacity, activeMaterial, skuSearch, lang]);
 
 
