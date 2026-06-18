@@ -10,7 +10,7 @@ export default function Checkout() {
   const [loading, setLoading] = useState(false);
 
   const saleItems = cart.filter((item: any) => item.cartType === 'sale');
-  const totalAmount = saleItems.reduce((sum: number, item: any) => sum + (item.price || 0), 0);
+  const totalAmount = saleItems.reduce((sum: number, item: any) => sum + (item.price || 0) * (item.quantity || 1), 0);
 
   const createOrder = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,7 +41,7 @@ export default function Checkout() {
     const items = cart.map(item => ({
         order_id: order.id,
         product_id: item.id,
-        quantity: 1,
+        quantity: item.quantity || 1,
         price_at_time: item.price || 0,
         item_type: item.cartType
     }));
@@ -49,7 +49,7 @@ export default function Checkout() {
     await supabase.from('order_items').insert(items);
     
     setLoading(false);
-    navigate(`/payment/${order.id}`); // Prossimo passo: integrazione PayPal
+    navigate(`/payment/${order.id}`);
   };
 
   return (

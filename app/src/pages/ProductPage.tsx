@@ -96,8 +96,6 @@ export default function ProductPage() {
 
     addToCart(product, type, finalQuantity, priceForCart);
     
-    setProduct((prev: any) => ({ ...prev, stock_quantity: prev.stock_quantity - finalQuantity }));
-    
     alert(type === 'sample' ? 'Campione aggiunto' : `Prodotto aggiunto: ${finalQuantity} pezzi a €${priceForCart.toFixed(2)}/pz`);
   };
 
