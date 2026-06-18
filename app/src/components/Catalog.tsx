@@ -2,75 +2,20 @@ import { useEffect, useState, useMemo } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 import ProductCard from './ProductCard';
+import { useLang } from '../context/LanguageContext';
 
 const ITEMS_PER_PAGE = 16;
 
 export default function Catalog() {
-  const [products, setProducts] = useState<any[]>([]);
-  const [activeCategory, setActiveCategory] = useState<string>('Tutti');
-  const [activeCapacity, setActiveCapacity] = useState<string>('Tutti');
-  const [activeMaterial, setActiveMaterial] = useState<string>('Tutti');
-  const [skuSearch, setSkuSearch] = useState<string>('');
-  
-  const [currentPage, setCurrentPage] = useState(1);
-  const [searchParams] = useSearchParams();
-  const collectionSlug = searchParams.get('collection');
-
-  useEffect(() => {
-    async function fetchProducts() {
-      if (collectionSlug) {
-        const { data, error } = await supabase
-          .from('product_collections')
-          .select('products(*), collections!inner(slug)')
-          .eq('collections.slug', collectionSlug)
-          .eq('products.is_active', true);
-        
-        if (error) console.error('Error fetching relations:', error);
-        setProducts(data ? data.map(item => item.products).filter(p => p.stock_quantity > 0) : []);
-      } else {
-        const { data, error } = await supabase
-            .from('products')
-            .select('*')
-            .eq('is_active', true)
-            .gt('stock_quantity', 0);
-        if (error) console.error('Error fetching products:', error);
-        setProducts(data || []);
-      }
-      setCurrentPage(1);
-    }
-    fetchProducts();
-  }, [collectionSlug]);
-
-  const filters = useMemo(() => {
-    const catsSet = new Set(products.map(p => p.attributes?.categoria || 'Varie'));
-    const capsSet = new Set(products.map(p => p.attributes?.ml ? `${p.attributes.ml}ml` : 'N/A'));
-    const matsSet = new Set(products.map(p => p.attributes?.materiale || 'Varie'));
-    
-    // Sort logic
-    const catsArray = Array.from(catsSet).sort();
-    const capsArray = Array.from(capsSet).filter(c => c !== 'N/A').sort((a, b) => parseInt(a) - parseInt(b));
-    const matsArray = Array.from(matsSet).sort();
-    
-    const finalCaps = ['Tutti', ...capsArray];
-    if (capsSet.has('N/A')) finalCaps.push('N/A');
-    
-    return {
-      categories: ['Tutti', ...catsArray],
-      capacities: finalCaps,
-      materials: ['Tutti', ...matsArray]
-    };
-  }, [products]);
-
+  const { lang } = useLang();
+...
   const processedProducts = useMemo(() => {
     let list = products.filter(p => {
-      const catMatch = activeCategory === 'Tutti' || (p.attributes?.categoria || 'Varie') === activeCategory;
-      const capMatch = activeCapacity === 'Tutti' || (p.attributes?.ml ? `${p.attributes.ml}ml` : 'N/A') === activeCapacity;
-      const matMatch = activeMaterial === 'Tutti' || (p.attributes?.materiale || 'Varie') === activeMaterial;
-      const skuMatch = skuSearch === '' || p.sku.toLowerCase().includes(skuSearch.toLowerCase());
-      return catMatch && capMatch && matMatch && skuMatch;
-    });
-    return list.sort((a, b) => a.title_it.localeCompare(b.title_it));
-  }, [products, activeCategory, activeCapacity, activeMaterial, skuSearch]);
+      const catMatch = activeCategory === 'Tutti' || (p.attributes?.[`categoria_${lang}`] || p.attributes?.categoria || 'Varie') === activeCategory;
+...
+    return list.sort((a, b) => (p[`title_${lang}`] || p.title_it).localeCompare(b[`title_${lang}`] || b.title_it));
+  }, [products, activeCategory, activeCapacity, activeMaterial, skuSearch, lang]);
+
 
   const totalPages = Math.ceil(processedProducts.length / ITEMS_PER_PAGE);
   const paginatedProducts = useMemo(() => {

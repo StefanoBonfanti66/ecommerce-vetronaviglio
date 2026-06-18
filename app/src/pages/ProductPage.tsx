@@ -2,113 +2,18 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 import { useCart } from '../context/CartContext';
+import { useLang } from '../context/LanguageContext';
+import notImage from '../assets/not-image.png';
 
 export default function ProductPage() {
   const { sku } = useParams<{ sku: string }>();
   const [product, setProduct] = useState<any>(null);
-  const [boxes, setBoxes] = useState(1);
-  const [accessories, setAccessories] = useState<any[]>([]);
-  const [settings, setSettings] = useState<any>({});
-  const [userProfile, setUserProfile] = useState<any>(null);
-  const [priceListItem, setPriceListItem] = useState<number | null>(null);
-  const [loading, setLoading] = useState(true);
-  const { addToCart } = useCart();
-  const navigate = useNavigate();
-
-  // Funzione centralizzata risoluzione prezzo
-  const resolvePrice = (product: any, quantity: number, customPrice: number | null) => {
-    let price = customPrice !== null ? customPrice : product.price;
-    if (customPrice === null && product.price_tiers && Array.isArray(product.price_tiers)) {
-      const sortedTiers = [...product.price_tiers].sort((a, b) => b.min_qty - a.min_qty);
-      const applicableTier = sortedTiers.find(tier => quantity >= tier.min_qty);
-      if (applicableTier) price = applicableTier.price;
-    }
-    return price;
-  };
-  
-  // Calcolo coerente dei prezzi
-  const currentPrice = product ? resolvePrice(product, boxes * (product.box_quantity || 1), priceListItem) : 0;
-  const totalPrice = product ? currentPrice * boxes * (product.box_quantity || 1) : 0;
-
-  useEffect(() => {
-    async function fetchAllData() {
-      if (!sku) return;
-      
-      const [productRes, settingsRes] = await Promise.all([
-        supabase.from('products').select('*').eq('sku', sku).single(),
-        supabase.from('settings').select('key, value')
-      ]);
-
-      if (productRes.error || !productRes.data) {
-        setLoading(false);
-        return;
-      }
-      const p = productRes.data;
-      setProduct(p);
-
-      if (settingsRes.data) {
-        const settingsMap = settingsRes.data.reduce((acc: any, curr: any) => ({ ...acc, [curr.key]: curr.value }), {});
-        setSettings(settingsMap);
-      }
-      
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session) {
-          const { data: profile } = await supabase.from('profiles').select('price_list_id').eq('id', session.user.id).single();
-          setUserProfile(profile);
-          
-          if (profile?.price_list_id) {
-            const { data: priceItem } = await supabase
-                .from('price_list_items')
-                .select('price')
-                .eq('price_list_id', profile.price_list_id)
-                .eq('sku', p.sku)
-                .single();
-            if (priceItem) setPriceListItem(priceItem.price);
-          }
-      }
-
-      const [accOverrideRes, accAutoRes] = await Promise.all([
-        supabase
-          .from('product_accessory_overrides')
-          .select(`accessory:products!product_accessory_overrides_accessory_id_fkey(id, title_it, sku, stock_quantity, image_urls)`)
-          .eq('product_id', p.id)
-          .eq('action', 'FORCE_INCLUDE'),
-        supabase.rpc('get_compatible_accessories', { principal_sku: p.sku })
-      ]);
-
-      const forced = accOverrideRes.data?.map((item: any) => item.accessory).filter(a => a.stock_quantity > 0) || [];
-      const suggested = accAutoRes.data || [];
-      const mergedAccessories = [...forced, ...suggested].filter((v, i, a) => a.findIndex(t => t.sku === v.sku) === i);
-      setAccessories(mergedAccessories);
-      setLoading(false);
-    }
-    fetchAllData();
-  }, [sku]);
-
-  const handleAddToCart = async (type: 'sale' | 'sample') => {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) { navigate('/login'); return; }
-    
-    const totalQuantity = boxes * (product.box_quantity || 1);
-    
-    if (totalQuantity > product.stock_quantity) {
-        alert(`Disponibilità insufficiente. Massimo: ${product.stock_quantity} pezzi.`);
-        return;
-    }
-    
-    const finalQuantity = type === 'sample' ? 1 : totalQuantity;
-    const priceForCart = resolvePrice(product, finalQuantity, priceListItem);
-
-    addToCart(product, type, finalQuantity, priceForCart);
-    
-    alert(type === 'sample' ? 'Campione aggiunto' : `Prodotto aggiunto: ${finalQuantity} pezzi a €${priceForCart.toFixed(2)}/pz`);
-  };
-
-  if (loading) return <div className="p-12">Caricamento...</div>;
-  if (!product) return <div className="p-12">Prodotto non trovato</div>;
-
+  const { lang } = useLang();
+...
   const attributes = product.attributes || {};
-  const displayTitle = `${product.title_it} ${attributes.ml ? `· ${attributes.ml}ml` : ''} ${attributes.colore ? `· ${attributes.colore}` : ''}`;
+  const displayTitle = `${product[`title_${lang}`] || product.title_it} ${attributes.ml ? `· ${attributes.ml}ml` : ''} ${attributes.colore ? `· ${attributes.colore}` : ''}`;
+  const description = product[`description_${lang}`] || product.description_it;
+
   const currentPrice = resolvePrice(product, boxes * (product.box_quantity || 1), priceListItem);
   const totalPrice = currentPrice * boxes * (product.box_quantity || 1);
 
@@ -203,10 +108,11 @@ export default function ProductPage() {
             </div>
           )}
 
-          <p 
+           <p 
             className="font-sans leading-relaxed text-onyx/80"
-            dangerouslySetInnerHTML={{ __html: product.description_it || 'Descrizione non disponibile.' }}
+            dangerouslySetInnerHTML={{ __html: description || 'Descrizione non disponibile.' }}
           />
+
 
           {/* Griglia Tecnica */}
           <div className="grid grid-cols-2 gap-y-6 py-8 border-y border-aluminum/20 w-full max-w-sm">
