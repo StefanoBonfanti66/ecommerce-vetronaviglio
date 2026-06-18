@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
+import { useState, useEffect } from 'react';
+import { supabase } from '../supabaseClient';
 
 const PAYPAL_CLIENT_ID = import.meta.env.VITE_PAYPAL_CLIENT_ID || "test";
 
