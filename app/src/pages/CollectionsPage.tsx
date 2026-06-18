@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
+import { useLang } from '../context/LanguageContext';
 
 export default function CollectionsPage() {
   const [collections, setCollections] = useState<any[]>([]);
+  const { lang, t } = useLang();
 
   useEffect(() => {
     async function fetchCollections() {
@@ -18,7 +20,7 @@ export default function CollectionsPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-vs-16">
-      <h1 className="font-serif text-5xl uppercase tracking-[0.05em] mb-vs-16">Collezioni</h1>
+      <h1 className="font-serif text-5xl uppercase tracking-[0.05em] mb-vs-16">{t('collections_title')}</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {collections.map((col) => (
           <Link 
@@ -29,11 +31,13 @@ export default function CollectionsPage() {
             {col.image_url && (
               <img 
                 src={col.image_url} 
-                alt={col.name_it} 
+                alt={lang === 'it' ? col.name_it : col.name_en} 
                 className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity duration-300"
               />
             )}
-            <span className="font-serif text-3xl group-hover:pl-4 transition-all duration-300 absolute top-6 left-6 z-10">{col.name_it}</span>
+            <span className="font-serif text-3xl group-hover:pl-4 transition-all duration-300 absolute top-6 left-6 z-10">
+                {lang === 'it' ? col.name_it : col.name_en}
+            </span>
           </Link>
         ))}
       </div>
