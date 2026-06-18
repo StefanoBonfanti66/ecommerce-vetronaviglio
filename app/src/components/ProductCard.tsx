@@ -29,7 +29,9 @@ export default function ProductCard({ product }: { product: Product }) {
             onError={() => setHasError(true)}
           />
         ) : (
-          <img src={notImage} alt="No image available" className="w-full h-full object-contain p-2 opacity-50" />
+          <div className="w-full h-full flex items-center justify-center bg-aluminum/10 text-[8px] md:text-[9px] text-aluminum uppercase tracking-[0.2em] font-medium p-2 text-center">
+            IMAGE COMING SOON
+          </div>
         )}
       </div>
       <div className="px-2 md:px-5 pb-3 md:pb-5 flex-grow flex flex-col justify-end">
