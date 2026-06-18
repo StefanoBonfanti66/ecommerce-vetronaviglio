@@ -226,6 +226,9 @@ export default function ProductPage() {
                       {accessories.map(acc => (
                           <Link key={acc.sku} to={`/product/${encodeURIComponent(acc.sku)}`} className="border border-aluminum/20 p-3 hover:border-onyx transition-colors flex flex-col gap-2 min-w-[140px] snap-start">
                               <div className="relative w-16 h-16 flex items-center justify-center bg-aluminum/10">
+                                  <div className="absolute inset-0 flex items-center justify-center text-[8px] text-aluminum font-bold uppercase text-center">
+                                      IMAGE<br/>COMING SOON
+                                  </div>
                                   {acc.image_urls && acc.image_urls.length > 0 && (
                                       <img 
                                         src={acc.image_urls[0]} 
@@ -234,9 +237,6 @@ export default function ProductPage() {
                                         onError={(e) => (e.currentTarget.style.display = 'none')}
                                       />
                                   )}
-                                   <div className="text-[8px] text-aluminum uppercase text-center font-bold">
-                                       IMAGE<br/>COMING SOON
-                                   </div>
                               </div>
                               <div>
                                   <div className="text-xs font-medium truncate">{acc.title_it}</div>
