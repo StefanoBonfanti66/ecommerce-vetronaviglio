@@ -39,6 +39,19 @@ export default function ProductEditor() {
       price_tiers: product.price_tiers.filter((_: any, i: number) => i !== index)
     });
   };
+
+  const updatePriceTier = (index: number, field: string, value: number) => {
+    const tiers = [...(product.price_tiers || [])];
+    tiers[index][field] = value;
+    setProduct({ ...product, price_tiers: tiers });
+  };
+
+  const removePriceTier = (index: number) => {
+    setProduct({
+      ...product,
+      price_tiers: product.price_tiers.filter((_: any, i: number) => i !== index)
+    });
+  };
 ...
   const [product, setProduct] = useState<any>({ ...product, price_tiers: [] }); // Initialize in state
 
