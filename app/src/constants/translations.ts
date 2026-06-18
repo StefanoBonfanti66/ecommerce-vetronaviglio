@@ -37,6 +37,7 @@ export const translations = {
     material: 'Materiale',
     search_sku: 'Cerca SKU',
     reset_catalog: 'Ripristina catalogo',
+    reset_catalog: 'Ripristina catalogo',
     no_products: 'Nessun prodotto trovato per questi criteri.',
     checkout_title: 'Checkout',
     name_placeholder: 'Nome e Cognome',
@@ -50,7 +51,15 @@ export const translations = {
     password_placeholder: 'Password',
     login_button: 'Accedi',
     collections_title: 'Collezioni',
-    collection_title: 'Collezione {name}'
+    collection_title: 'Collezione {name}',
+    'Vasi vetro': 'Vasi vetro',
+    'Vasi colorati': 'Vasi colorati',
+    'Vasi': 'Vasi',
+    'Vetro': 'Vetro',
+    'Plastica': 'Plastica',
+    'PP': 'PP',
+    'PEHD': 'PEHD',
+    'PETG': 'PETG'
   },
   en: {
     collections: 'Collections',
@@ -103,7 +112,15 @@ export const translations = {
     password_placeholder: 'Password',
     login_button: 'Sign In',
     collections_title: 'Collections',
-    collection_title: 'Collection {name}'
+    collection_title: 'Collection {name}',
+    'Vasi vetro': 'Glass jars',
+    'Vasi colorati': 'Colored jars',
+    'Vasi': 'Jars',
+    'Vetro': 'Glass',
+    'Plastica': 'Plastic',
+    'PP': 'PP',
+    'PEHD': 'PEHD',
+    'PETG': 'PETG'
   }
 };
 
