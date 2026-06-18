@@ -20,12 +20,15 @@ export const translations = {
     cart_title: 'Il tuo Carrello',
     purchase_items: 'Articoli da acquistare',
     remove: 'Rimuovi',
-    sample_requests: 'Richieste di campionatura',
+    sample_requests: 'Richiesite di campionatura',
     total_products: 'Totale prodotti',
     total_merchandise: 'Totale merce',
     min_order_warning: 'Importo minimo fatturabile non raggiunto (Min. €{min})',
     proceed_to_checkout: 'Procedi al Checkout',
-    empty_cart: 'Il carrello è vuoto.'
+    empty_cart: 'Il carrello è vuoto.',
+    about_title: 'Chi siamo',
+    about_p1: 'Vetronaviglio è leader nel settore del packaging primario per il mondo del beauty, cosmetica e make-up.',
+    about_p2: 'Progettiamo e distribuiamo soluzioni innovative, puntando sull\'eccellenza del design italiano e sulla qualità industriale.'
   },
   en: {
     collections: 'Collections',
@@ -53,6 +56,9 @@ export const translations = {
     total_merchandise: 'Total merchandise',
     min_order_warning: 'Minimum order amount not reached (Min. €{min})',
     proceed_to_checkout: 'Proceed to Checkout',
-    empty_cart: 'Your cart is empty.'
+    empty_cart: 'Your cart is empty.',
+    about_title: 'About Us',
+    about_p1: 'Vetronaviglio is a leader in primary packaging for the beauty, cosmetics, and make-up industry.',
+    about_p2: 'We design and distribute innovative solutions, focusing on the excellence of Italian design and industrial quality.'
   }
 };
