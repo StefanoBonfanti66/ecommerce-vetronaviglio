@@ -44,6 +44,7 @@ export default function PriceListManager() {
         {priceLists.map(list => (
             <div key={list.id} className="p-4 border-b border-aluminum/10 flex justify-between items-center">
                 <span className="text-sm font-medium">{list.name}</span>
+                <Link to={`/admin/price-lists/${list.id}`} className="text-xs uppercase underline">Gestisci Prodotti</Link>
             </div>
         ))}
       </div>

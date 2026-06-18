@@ -1,0 +1,70 @@
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { supabase } from '../../supabaseClient';
+
+export default function PriceListEditor() {
+  const { id } = useParams<{ id: string }>();
+  const [list, setList] = useState<any>(null);
+  const [items, setItems] = useState<any[]>([]);
+  const [products, setProducts] = useState<any[]>([]);
+  const [newItem, setNewItem] = useState({ sku: '', price: 0 });
+
+  useEffect(() => {
+    fetchData();
+  }, [id]);
+
+  async function fetchData() {
+    const { data: listData } = await supabase.from('price_lists').select('*').eq('id', id).single();
+    setList(listData);
+    
+    const { data: itemsData } = await supabase.from('price_list_items').select('sku, price').eq('price_list_id', id);
+    setItems(itemsData || []);
+    
+    const { data: prodData } = await supabase.from('products').select('sku, title_it');
+    setProducts(prodData || []);
+  }
+
+  async function addItem() {
+    if (!newItem.sku || newItem.price <= 0) return;
+    await supabase.from('price_list_items').insert({ price_list_id: id, sku: newItem.sku, price: newItem.price });
+    setNewItem({ sku: '', price: 0 });
+    fetchData();
+  }
+
+  async function removeItem(sku: string) {
+    await supabase.from('price_list_items').delete().eq('price_list_id', id).eq('sku', sku);
+    fetchData();
+  }
+
+  if (!list) return <div className="p-12">Caricamento...</div>;
+
+  return (
+    <div className="max-w-4xl mx-auto px-6 py-vs-16">
+      <header className="mb-12 border-b border-aluminum/20 pb-8">
+        <h1 className="font-serif text-3xl uppercase tracking-[0.05em]">Listino: {list.name}</h1>
+      </header>
+
+      <div className="mb-8 p-6 border border-aluminum/20 bg-aluminum/5 space-y-4">
+        <h2 className="font-serif text-lg uppercase">Aggiungi prodotto al listino</h2>
+        <div className="flex gap-4">
+            <select className="flex-grow p-2 border border-aluminum/40 bg-transparent text-xs" value={newItem.sku} onChange={e => setNewItem({...newItem, sku: e.target.value})}>
+                <option value="">Seleziona SKU</option>
+                {products.map(p => <option key={p.sku} value={p.sku}>{p.sku} - {p.title_it}</option>)}
+            </select>
+            <input type="number" step="0.01" className="w-32 p-2 border border-aluminum/40 bg-transparent text-xs" placeholder="Prezzo" value={newItem.price} onChange={e => setNewItem({...newItem, price: parseFloat(e.target.value)})} />
+            <button onClick={addItem} className="bg-onyx text-bone px-6 py-2 uppercase text-[10px] tracking-[0.2em]">Aggiungi</button>
+        </div>
+      </div>
+
+      <div className="border border-aluminum/20">
+        {items.map(item => (
+            <div key={item.sku} className="grid grid-cols-3 gap-4 p-4 border-b border-aluminum/10 items-center text-xs">
+                <span>{item.sku}</span>
+                <span className="text-right">€ {item.price.toFixed(2)}</span>
+                <button onClick={() => removeItem(item.sku)} className="text-red-600 uppercase text-right">Rimuovi</button>
+            </div>
+        ))}
+      </div>
+    </div>
+  );
+}
