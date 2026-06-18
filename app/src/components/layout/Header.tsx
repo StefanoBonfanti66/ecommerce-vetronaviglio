@@ -8,7 +8,7 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [session, setSession] = useState<any>(null);
   const { cart } = useCart();
-  const { lang, setLang } = useLang();
+  const { lang, setLang, t } = useLang();
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => setSession(session));
@@ -26,11 +26,11 @@ export default function Header() {
   };
 
   const navLinks = [
-    { name: 'Collezioni', path: '/collections' },
-    { name: 'Catalogo', path: '/catalog' },
-    { name: 'Campionature', path: '/samples' },
-    { name: 'Azienda', path: '/about' },
-    { name: 'Contatti', path: '/contact' },
+    { name: t('collections'), path: '/collections' },
+    { name: t('catalog'), path: '/catalog' },
+    { name: t('samples'), path: '/samples' },
+    { name: t('about'), path: '/about' },
+    { name: t('contact'), path: '/contact' },
   ];
 
   return (
@@ -52,11 +52,11 @@ export default function Header() {
           </button>
           {session ? (
             <button onClick={handleLogout} className="text-xs uppercase tracking-[0.2em] text-aluminum hover:text-onyx transition-colors">
-              Logout
+              {t('logout')}
             </button>
           ) : (
             <Link to="/login" className="text-xs uppercase tracking-[0.2em] text-onyx hover:text-aluminum transition-colors">
-              Login
+              {t('login')}
             </Link>
           )}
         </div>
@@ -64,7 +64,7 @@ export default function Header() {
         {/* Cart Icon & Mobile Nav Actions */}
         <div className="flex items-center gap-6 ml-auto md:ml-0">
             <button className="md:hidden text-xs uppercase tracking-widest" onClick={() => setIsOpen(!isOpen)}>
-              {isOpen ? 'Chiudi' : 'Menu'}
+              {isOpen ? t('close') : t('menu')}
             </button>
             <Link to="/cart" className="relative text-onyx hover:text-aluminum transition-colors">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -84,9 +84,9 @@ export default function Header() {
             </Link>
           ))}
           {session ? (
-            <button onClick={handleLogout} className="text-sm uppercase tracking-widest">Logout</button>
+            <button onClick={handleLogout} className="text-sm uppercase tracking-widest">{t('logout')}</button>
           ) : (
-            <Link to="/login" className="text-sm uppercase tracking-widest" onClick={() => setIsOpen(false)}>Login</Link>
+            <Link to="/login" className="text-sm uppercase tracking-widest" onClick={() => setIsOpen(false)}>{t('login')}</Link>
           )}
         </div>
       )}

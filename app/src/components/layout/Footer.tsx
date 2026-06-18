@@ -1,4 +1,7 @@
+import { useLang } from '../../context/LanguageContext';
+
 export default function Footer() {
+  const { t } = useLang();
   return (
     <footer className="border-t border-aluminum/20 mt-vs-16 py-vs-8">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-vs-8 text-[11px] text-aluminum uppercase tracking-[0.1em]">
@@ -12,7 +15,7 @@ export default function Footer() {
 
         {/* Contatti */}
         <div className="space-y-2">
-          <h4 className="text-onyx font-sans font-bold">Contatti</h4>
+          <h4 className="text-onyx font-sans font-bold">{t('contact')}</h4>
           <p>T. +39 02 9036 4184</p>
           <p>infostore@vetronaviglio.eu</p>
         </div>
