@@ -8,19 +8,29 @@ export default function ProductPage() {
   const [product, setProduct] = useState<any>(null);
   const [boxes, setBoxes] = useState(1);
   const [accessories, setAccessories] = useState<any[]>([]);
+  const [settings, setSettings] = useState<any>({});
   const [loading, setLoading] = useState(true);
   const { addToCart } = useCart();
   const navigate = useNavigate();
 
   useEffect(() => {
-    async function fetchProductData() {
+    async function fetchAllData() {
       if (!sku) return;
       
+      // 1. Fetch prodotto
       const { data: p, error: pError } = await supabase
         .from('products')
         .select('*')
         .eq('sku', sku)
         .single();
+      
+      // 2. Fetch impostazioni
+      const { data: sData } = await supabase.from('settings').select('key, value');
+      
+      if (sData) {
+        const settingsMap = sData.reduce((acc: any, curr: any) => ({ ...acc, [curr.key]: curr.value }), {});
+        setSettings(settingsMap);
+      }
       
       if (pError || !p) {
         console.error('Error:', pError);
@@ -28,6 +38,7 @@ export default function ProductPage() {
         return;
       }
       setProduct(p);
+      // ... (existing accessory fetch)
 
       const { data: accData } = await supabase
         .from('product_accessory_overrides')
@@ -96,6 +107,16 @@ export default function ProductPage() {
           <div className="text-2xl font-light">€{product.price}</div>
           <div className="text-sm text-aluminum">Disponibilità: {product.stock_quantity} pezzi</div>
  
+          {/* Selettore Scatole */}
+          <div className="flex items-center gap-4 py-4">
+            <button onClick={() => setBoxes(b => Math.max(1, b - 1))} className="px-4 py-2 border border-aluminum/40 hover:bg-aluminum/10 transition-colors">-</button>
+            <div className="text-sm font-medium w-48 text-center border-b border-onyx">
+                {boxes} scatole ({boxes * (product.box_quantity || 1)} pezzi)
+            </div>
+            <button 
+                onClick={() => {
+                    const nextBoxes = boxes + 1;
+                    const nextQty = nextBoxes * (product.box_quantity || 1);
                     if (nextQty > product.stock_quantity) {
                         alert(`Massima disponibilità raggiunta: ${product.stock_quantity} pezzi.`);
                     } else {
@@ -111,9 +132,16 @@ export default function ProductPage() {
              <button 
                 onClick={() => {
                     const remainingBoxes = Math.floor(product.stock_quantity / (product.box_quantity || 1));
+                    const totalQty = remainingBoxes * (product.box_quantity || 1);
+                    
+                    // Aggiungiamo direttamente al carrello con la quantità calcolata
+                    addToCart(product, 'sale', totalQty);
+                    
+                    // Aggiorniamo la UI
                     setBoxes(remainingBoxes);
+                    alert(`Aggiunti ${totalQty} pezzi al carrello.`);
                 }}
-                className="text-[10px] underline text-aluminum hover:text-onyx"
+                className="w-full mt-2 py-2 text-[10px] uppercase tracking-[0.2em] border border-aluminum/40 hover:bg-aluminum/10 transition-colors"
              >
                 Aggiungi tutto lo stock disponibile ({product.stock_quantity} pz)
              </button>
@@ -182,10 +210,7 @@ export default function ProductPage() {
 
           <div className="mt-8 border border-aluminum/20 p-4 space-y-3">
             <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-onyx">Informazioni Ordine</div>
-            <p className="text-[10px] text-aluminum">
-                • Consegna in modalità ex-works.<br/>
-                • Importo minimo fatturabile: € 250 IVA esclusa.
-            </p>
+            <p className="text-[10px] text-aluminum" dangerouslySetInnerHTML={{ __html: settings.shipping_notes || '• Consegna in modalità ex-works.' }} />
           </div>
         </div>
       </div>
