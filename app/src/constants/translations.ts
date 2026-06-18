@@ -20,7 +20,7 @@ export const translations = {
     cart_title: 'Il tuo Carrello',
     purchase_items: 'Articoli da acquistare',
     remove: 'Rimuovi',
-    sample_requests: 'Richiesite di campionatura',
+    sample_requests: 'Richieste di campionatura',
     total_products: 'Totale prodotti',
     total_merchandise: 'Totale merce',
     min_order_warning: 'Importo minimo fatturabile non raggiunto (Min. €{min})',
@@ -28,7 +28,20 @@ export const translations = {
     empty_cart: 'Il carrello è vuoto.',
     about_title: 'Chi siamo',
     about_p1: 'Vetronaviglio è leader nel settore del packaging primario per il mondo del beauty, cosmetica e make-up.',
-    about_p2: 'Progettiamo e distribuiamo soluzioni innovative, puntando sull\'eccellenza del design italiano e sulla qualità industriale.'
+    about_p2: 'Progettiamo e distribuiamo soluzioni innovative, puntando sull\'eccellenza del design italiano e sulla qualità industriale.',
+    contact_title: 'Contatti',
+    contact_info_label: 'Per informazioni scrivere a',
+    checkout_title: 'Checkout',
+    name_placeholder: 'Nome e Cognome',
+    phone_placeholder: 'Telefono',
+    address_placeholder: 'Indirizzo',
+    city_placeholder: 'Città',
+    cap_placeholder: 'CAP',
+    proceed_payment: 'Conferma dati e procedi al pagamento',
+    login_title: 'Login',
+    email_placeholder: 'Email',
+    password_placeholder: 'Password',
+    login_button: 'Accedi'
   },
   en: {
     collections: 'Collections',
@@ -59,6 +72,19 @@ export const translations = {
     empty_cart: 'Your cart is empty.',
     about_title: 'About Us',
     about_p1: 'Vetronaviglio is a leader in primary packaging for the beauty, cosmetics, and make-up industry.',
-    about_p2: 'We design and distribute innovative solutions, focusing on the excellence of Italian design and industrial quality.'
+    about_p2: 'We design and distribute innovative solutions, focusing on the excellence of Italian design and industrial quality.',
+    contact_title: 'Contacts',
+    contact_info_label: 'For information, write to',
+    checkout_title: 'Checkout',
+    name_placeholder: 'Name and Surname',
+    phone_placeholder: 'Phone',
+    address_placeholder: 'Address',
+    city_placeholder: 'City',
+    cap_placeholder: 'Zip Code',
+    proceed_payment: 'Confirm data and proceed to payment',
+    login_title: 'Login',
+    email_placeholder: 'Email',
+    password_placeholder: 'Password',
+    login_button: 'Sign In'
   }
 };

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
+import { useLang } from '../context/LanguageContext';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -8,6 +9,7 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+  const { t } = useLang();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,10 +31,10 @@ export default function LoginPage() {
 
   return (
     <div className="max-w-md mx-auto px-6 py-vs-16">
-      <h1 className="font-serif text-3xl mb-vs-8 uppercase tracking-widest text-center">Login</h1>
+      <h1 className="font-serif text-3xl mb-vs-8 uppercase tracking-widest text-center">{t('login_title')}</h1>
       <form onSubmit={handleLogin} className="space-y-8">
         <div>
-          <label className="block text-[10px] uppercase tracking-[0.2em] text-aluminum mb-2">E-mail</label>
+          <label className="block text-[10px] uppercase tracking-[0.2em] text-aluminum mb-2">{t('email_placeholder')}</label>
           <input 
             type="email" 
             value={email}
@@ -42,7 +44,7 @@ export default function LoginPage() {
           />
         </div>
         <div>
-          <label className="block text-[10px] uppercase tracking-[0.2em] text-aluminum mb-2">Password</label>
+          <label className="block text-[10px] uppercase tracking-[0.2em] text-aluminum mb-2">{t('password_placeholder')}</label>
           <input 
             type="password" 
             value={password}
@@ -57,7 +59,7 @@ export default function LoginPage() {
           disabled={loading}
           className="w-full bg-onyx text-bone py-4 uppercase text-xs tracking-[0.2em] font-medium hover:bg-aluminum transition-all"
         >
-          {loading ? 'Accesso in corso...' : 'Accedi'}
+          {loading ? '...' : t('login_button')}
         </button>
       </form>
     </div>
