@@ -163,15 +163,17 @@ export default function Catalog() {
                 onClick={() => setCurrentPage(prev => prev - 1)}
                 className="text-xs uppercase tracking-[0.2em] py-2 px-4 border border-onyx disabled:opacity-30"
               >
-                Precedente
+                {t('previous')}
               </button>
-              <span className="text-xs py-2 px-4 text-aluminum">Pagina {currentPage} di {totalPages}</span>
+              <span className="text-xs py-2 px-4 text-aluminum">
+                  {t('page_of').replace('{current}', currentPage.toString()).replace('{total}', totalPages.toString())}
+              </span>
               <button 
                 disabled={currentPage === totalPages}
                 onClick={() => setCurrentPage(prev => prev + 1)}
                 className="text-xs uppercase tracking-[0.2em] py-2 px-4 border border-onyx disabled:opacity-30"
               >
-                Successiva
+                {t('next')}
               </button>
             </div>
           )}
