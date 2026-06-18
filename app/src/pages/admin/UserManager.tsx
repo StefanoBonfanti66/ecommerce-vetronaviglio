@@ -92,19 +92,18 @@ export default function UserManager() {
 
       <div className="border border-aluminum/20">
         {users.map(user => (
-            <div key={user.id} className="grid grid-cols-4 gap-4 items-center p-4 border-b border-aluminum/10">
+            <div key={user.id} className="grid grid-cols-3 gap-4 items-center p-4 border-b border-aluminum/10">
                 <span className="text-sm font-mono">{user.email}</span>
-                <span className="text-xs uppercase text-aluminum col-span-2">{user.role}</span>
                 <select 
                     value={user.role} 
                     onChange={(e) => updateRole(user.id, e.target.value)}
-                    className="border border-aluminum/20 p-2 text-xs"
+                    className="border border-aluminum/20 p-2 text-xs uppercase"
                 >
                     {roles.map(r => <option key={r} value={r}>{r}</option>)}
                 </select>
                 <button 
                     onClick={() => deleteUser(user.id)}
-                    className="text-xs text-red-600 hover:text-red-800 uppercase"
+                    className="text-xs text-red-600 hover:text-red-800 uppercase justify-self-end"
                 >
                     Elimina
                 </button>
