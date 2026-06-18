@@ -41,6 +41,11 @@ export default function AdminDashboard() {
             <p className="text-sm text-aluminum mb-6">Gestisci i ruoli e gli accessi del team.</p>
             <span className="text-[10px] uppercase tracking-[0.2em] border border-onyx py-2 px-4">Accedi</span>
         </Link>
+        <Link to="/admin/price-lists" className="border border-aluminum/20 p-8 hover:border-onyx transition-all">
+            <h3 className="font-serif text-xl mb-4">Gestione Listini</h3>
+            <p className="text-sm text-aluminum mb-6">Crea e gestisci i listini prezzi personalizzati.</p>
+            <span className="text-[10px] uppercase tracking-[0.2em] border border-onyx py-2 px-4">Accedi</span>
+        </Link>
         <Link to="/admin/settings" className="border border-aluminum/20 p-8 hover:border-onyx transition-all">
             <h3 className="font-serif text-xl mb-4">Impostazioni</h3>
             <p className="text-sm text-aluminum mb-6">Configura email notifiche e parametri generali.</p>
