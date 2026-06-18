@@ -114,12 +114,18 @@ export default function ProductPage() {
       <div className="grid grid-cols-1 md:grid-cols-12 gap-vs-8 md:gap-vs-16">
         {/* Sinistra: Galleria (Sticky solo su desktop) */}
         <div className="md:col-span-6 md:sticky top-24 self-start hidden md:block">
-          <div className="aspect-square bg-aluminum/5 border border-aluminum/20 flex items-center justify-center">
+          <div className="aspect-square bg-aluminum/5 border border-aluminum/20 flex items-center justify-center relative">
             {product.image_urls && product.image_urls.length > 0 ? (
-              <img src={product.image_urls[0]} alt={product.title_it} className="w-full h-full object-contain p-8" />
-            ) : (
-              <img src="/not-image.png" alt="No image available" className="w-full h-full object-contain p-8 opacity-50" />
-            )}
+              <img 
+                src={product.image_urls[0]} 
+                alt={product.title_it} 
+                className="w-full h-full object-contain absolute inset-0 z-10"
+                onError={(e) => (e.currentTarget.style.display = 'none')}
+              />
+            ) : null}
+            <div className="absolute inset-0 flex items-center justify-center text-[10px] uppercase tracking-[0.2em] text-aluminum font-bold text-center">
+                IMAGE<br/>COMING SOON
+            </div>
           </div>
         </div>
 
@@ -130,12 +136,18 @@ export default function ProductPage() {
           </div>
 
           {/* Immagine su Mobile (visibile solo su mobile) */}
-          <div className="md:hidden aspect-square bg-aluminum/5 border border-aluminum/20 flex items-center justify-center w-full max-w-sm">
+          <div className="md:hidden aspect-square bg-aluminum/5 border border-aluminum/20 flex items-center justify-center w-full max-w-sm relative">
             {product.image_urls && product.image_urls.length > 0 ? (
-              <img src={product.image_urls[0]} alt={product.title_it} className="w-full h-full object-contain p-8" />
-            ) : (
-              <img src="/not-image.png" alt="No image available" className="w-full h-full object-contain p-8 opacity-50" />
-            )}
+              <img 
+                src={product.image_urls[0]} 
+                alt={product.title_it} 
+                className="w-full h-full object-contain absolute inset-0 z-10"
+                onError={(e) => (e.currentTarget.style.display = 'none')}
+              />
+            ) : null}
+            <div className="absolute inset-0 flex items-center justify-center text-[10px] uppercase tracking-[0.2em] text-aluminum font-bold text-center">
+                IMAGE<br/>COMING SOON
+            </div>
           </div>
 
           <div className="text-2xl font-light">€{currentPrice.toFixed(2)} / pz</div>
