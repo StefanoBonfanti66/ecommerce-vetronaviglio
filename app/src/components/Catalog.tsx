@@ -25,12 +25,13 @@ export default function Catalog() {
           .eq('products.is_active', true);
         
         if (error) console.error('Error fetching relations:', error);
-        setProducts(data ? data.map(item => item.products) : []);
+        setProducts(data ? data.map(item => item.products).filter(p => p.stock_quantity > 0) : []);
       } else {
         const { data, error } = await supabase
             .from('products')
             .select('*')
-            .eq('is_active', true);
+            .eq('is_active', true)
+            .gt('stock_quantity', 0);
         if (error) console.error('Error fetching products:', error);
         setProducts(data || []);
       }

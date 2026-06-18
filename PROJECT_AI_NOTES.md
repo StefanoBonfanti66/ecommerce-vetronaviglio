@@ -74,7 +74,10 @@
 - [ ] **Admin Panel: Gestione logistica e pricing avanzato (Master Control Editor evoluzione):**
     - [ ] Aggiunta campi `box_quantity`, `stock_quantity`, `is_active` (prodotti) nel pannello Admin.
     - [ ] Aggiunta interfaccia configurazione "Sconti Quantità" (tier di prezzo) gestibile dall'Admin.
-- [ ] **Implementazione logica Frontend (basata su dati Admin):**
+- [x] **Implementazione logica Frontend (basata su dati Admin):**
+    - [x] Logica visibilità: `stock_quantity == 0` -> nascosto.
+    - [x] Visualizzazione `box_quantity` in scheda prodotto.
     - [ ] Visualizzazione prezzi dinamici e sconti nel carrello.
+    - [ ] Logica vendita parziale (anche se `stock < box`, se `stock > 0` si vende).
     - [ ] Validazione acquisto a multipli d'imballo.
     - [ ] Logica note logistica Ex-Works in Checkout.

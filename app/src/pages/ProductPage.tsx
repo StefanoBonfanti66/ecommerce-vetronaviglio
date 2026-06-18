@@ -105,6 +105,7 @@ export default function ProductPage() {
               { label: 'Materiale', value: attributes.materiale || 'N/A' },
               { label: 'Imboccatura', value: attributes.imboccatura || 'N/A' },
               { label: 'Finitura', value: attributes.finitura || 'N/A' },
+              { label: 'Pezzi per scatola', value: `${product.box_quantity || 0}` },
             ].map(attr => (
               <div key={attr.label}>
                 <div className="text-[9px] uppercase tracking-[0.2em] text-aluminum mb-1">{attr.label}</div>
