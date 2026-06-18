@@ -1,15 +1,9 @@
 import { useState } from 'react';
 import { useCart } from '../context/CartContext';
+import notImage from '../assets/not-image.png';
 
 interface Product {
-  id: string;
-  sku: string;
-  title_it: string;
-  price: number;
-  attributes: any;
-  image_urls: string[];
-}
-
+...
 export default function ProductCard({ product }: { product: Product }) {
   const [hasError, setHasError] = useState(false);
   const { addToCart } = useCart();
@@ -28,9 +22,9 @@ export default function ProductCard({ product }: { product: Product }) {
             onError={() => setHasError(true)}
           />
         ) : (
-          <div className="flex h-full items-center justify-center text-[8px] md:text-[9px] text-aluminum uppercase tracking-[0.2em] font-medium p-2 text-center">
-            IMAGE COMING SOON
-          </div>
+          <img src={notImage} alt="No image available" className="w-full h-full object-contain p-2 opacity-50" />
+        )}
+      </div>
         )}
       </div>
       <div className="px-2 md:px-5 pb-3 md:pb-5 flex-grow flex flex-col justify-end">
