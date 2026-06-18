@@ -10,6 +10,7 @@ export default function Catalog() {
   const [activeCategory, setActiveCategory] = useState<string>('Tutti');
   const [activeCapacity, setActiveCapacity] = useState<string>('Tutti');
   const [activeMaterial, setActiveMaterial] = useState<string>('Tutti');
+  const [skuSearch, setSkuSearch] = useState<string>('');
   
   const [currentPage, setCurrentPage] = useState(1);
   const [searchParams] = useSearchParams();
@@ -65,10 +66,11 @@ export default function Catalog() {
       const catMatch = activeCategory === 'Tutti' || (p.attributes?.categoria || 'Varie') === activeCategory;
       const capMatch = activeCapacity === 'Tutti' || (p.attributes?.ml ? `${p.attributes.ml}ml` : 'N/A') === activeCapacity;
       const matMatch = activeMaterial === 'Tutti' || (p.attributes?.materiale || 'Varie') === activeMaterial;
-      return catMatch && capMatch && matMatch;
+      const skuMatch = skuSearch === '' || p.sku.toLowerCase().includes(skuSearch.toLowerCase());
+      return catMatch && capMatch && matMatch && skuMatch;
     });
     return list.sort((a, b) => a.title_it.localeCompare(b.title_it));
-  }, [products, activeCategory, activeCapacity, activeMaterial]);
+  }, [products, activeCategory, activeCapacity, activeMaterial, skuSearch]);
 
   const totalPages = Math.ceil(processedProducts.length / ITEMS_PER_PAGE);
   const paginatedProducts = useMemo(() => {
@@ -116,14 +118,25 @@ export default function Catalog() {
               <FilterButton key={cap} label={cap} active={activeCapacity === cap} onClick={() => { setActiveCapacity(cap); setCurrentPage(1); }} />
             ))}
           </div>
-          <div className="flex flex-wrap gap-3 items-center">
-            <span className="text-[9px] uppercase tracking-[0.2em] text-aluminum mr-2">Materiale:</span>
-            {filters.materials.map(mat => (
-              <FilterButton key={mat} label={mat} active={activeMaterial === mat} onClick={() => { setActiveMaterial(mat); setCurrentPage(1); }} />
-            ))}
-          </div>
-        </div>
-      </header>
+           <div className="flex flex-wrap gap-3 items-center">
+             <span className="text-[9px] uppercase tracking-[0.2em] text-aluminum mr-2">Materiale:</span>
+             {filters.materials.map(mat => (
+               <FilterButton key={mat} label={mat} active={activeMaterial === mat} onClick={() => { setActiveMaterial(mat); setCurrentPage(1); }} />
+             ))}
+           </div>
+           <div className="flex flex-wrap gap-3 items-center pt-4">
+             <span className="text-[9px] uppercase tracking-[0.2em] text-aluminum mr-2">Cerca SKU:</span>
+             <input 
+                type="text" 
+                className="border border-aluminum/30 p-2 text-xs w-48"
+                placeholder="Inserisci SKU..."
+                value={skuSearch}
+                onChange={e => { setSkuSearch(e.target.value); setCurrentPage(1); }}
+             />
+           </div>
+         </div>
+       </header>
+
 
       {processedProducts.length > 0 ? (
         <>
