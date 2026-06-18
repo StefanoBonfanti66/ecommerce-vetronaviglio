@@ -226,19 +226,22 @@ export default function ProductPage() {
                       {accessories.map(acc => (
                           <Link key={acc.sku} to={`/product/${encodeURIComponent(acc.sku)}`} className="border border-aluminum/20 p-3 hover:border-onyx transition-colors flex flex-col gap-2 min-w-[140px] snap-start">
                               {acc.image_urls && acc.image_urls.length > 0 ? (
-                                  <img 
-                                    src={acc.image_urls[0]} 
-                                    alt={acc.title_it} 
-                                    className="w-16 h-16 object-contain" 
-                                    onError={(e) => {
-                                        e.currentTarget.style.display = 'none';
-                                        e.currentTarget.nextElementSibling?.classList.remove('hidden');
-                                    }}
-                                  />
-                              ) : null}
-                              <div className={`w-16 h-16 flex items-center justify-center bg-aluminum/10 text-[6px] text-aluminum uppercase text-center ${acc.image_urls && acc.image_urls.length > 0 ? 'hidden' : ''}`}>
-                                  IMAGE<br/>COMING SOON
-                              </div>
+                                  <div className="relative w-16 h-16">
+                                      <img 
+                                        src={acc.image_urls[0]} 
+                                        alt={acc.title_it} 
+                                        className="w-full h-full object-contain absolute inset-0 z-10" 
+                                        onError={(e) => (e.currentTarget.style.display = 'none')}
+                                      />
+                                      <div className="w-full h-full flex items-center justify-center bg-aluminum/10 text-[6px] text-aluminum uppercase text-center absolute inset-0">
+                                          IMAGE<br/>COMING SOON
+                                      </div>
+                                  </div>
+                              ) : (
+                                  <div className="w-16 h-16 flex items-center justify-center bg-aluminum/10 text-[6px] text-aluminum uppercase text-center">
+                                      IMAGE<br/>COMING SOON
+                                  </div>
+                              )}
                               <div>
                                   <div className="text-xs font-medium truncate">{acc.title_it}</div>
                                   <div className="text-[9px] text-aluminum font-mono">{acc.sku}</div>
