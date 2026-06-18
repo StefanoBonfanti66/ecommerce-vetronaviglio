@@ -17,7 +17,12 @@ export default function Home() {
             {t('home_hero_cta')}
           </Link>
         </div>
-...
+        <div className="md:col-span-8 h-[600px] bg-aluminum/10 border border-aluminum/20 relative flex items-end p-8 bg-[url('https://www.vetronaviglio.eu/upload/file/lowmoqproducts/cat/files/Flaconi%20vetro%20cosmetica%20VETRONAVIGLIO.jpg')] bg-cover bg-center">
+          <div className="absolute inset-0 bg-onyx/10" />
+          <span className="text-[9px] uppercase tracking-widest text-bone relative z-10">Vetro Ambra - Dettaglio Collo GCMI</span>
+        </div>
+      </section>
+
       {/* Collections Section */}
       <section className="max-w-7xl mx-auto px-6">
         <h2 className="text-sub-heading mb-vs-8">{t('home_collections_title')}</h2>
@@ -43,4 +48,3 @@ export default function Home() {
     </div>
   );
 }
-
