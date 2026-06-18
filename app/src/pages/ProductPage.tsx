@@ -6,7 +6,7 @@ import { useCart } from '../context/CartContext';
 export default function ProductPage() {
   const { sku } = useParams<{ sku: string }>();
   const [product, setProduct] = useState<any>(null);
-  const [quantity, setQuantity] = useState(1);
+  const [boxes, setBoxes] = useState(1);
   const [accessories, setAccessories] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const { addToCart } = useCart();
@@ -20,10 +20,10 @@ export default function ProductPage() {
       return;
     }
     
-    addToCart(product, type, quantity);
-    alert(type === 'sample' ? 'Campione aggiunto alla richiesta' : 'Prodotto aggiunto al carrello');
+    const finalQuantity = type === 'sample' ? 1 : boxes * (product.box_quantity || 1);
+    addToCart(product, type, finalQuantity);
+    alert(type === 'sample' ? 'Campione aggiunto alla richiesta' : `Prodotto aggiunto al carrello: ${finalQuantity} pezzi`);
   };
-
 
   if (loading) return <div className="p-12">Caricamento...</div>;
   if (!product) return <div className="p-12">Prodotto non trovato</div>;
@@ -34,7 +34,6 @@ export default function ProductPage() {
   return (
     <div className="max-w-7xl mx-auto px-6 py-vs-16">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-vs-16">
-        {/* Sinistra: Galleria (Sticky) */}
         <div className="md:col-span-6 sticky top-24 self-start">
           <div className="aspect-square bg-aluminum/5 border border-aluminum/20 flex items-center justify-center">
             {product.image_urls && product.image_urls.length > 0 ? (
@@ -45,31 +44,33 @@ export default function ProductPage() {
           </div>
         </div>
 
-        {/* Destra: Dettagli */}
         <div className="md:col-span-6 space-y-vs-8">
           <div>
             <h1 className="font-serif text-5xl mb-2">{displayTitle}</h1>
             <p className="font-sans text-sm uppercase tracking-[0.2em] text-aluminum">{product.sku}</p>
           </div>
 
-           <div className="text-2xl font-light">€{product.price}</div>
-           <div className="text-sm text-aluminum">Disponibilità: {product.stock_quantity} pezzi</div>
+          <div className="text-2xl font-light">€{product.price}</div>
+          <div className="text-sm text-aluminum">Disponibilità: {product.stock_quantity} pezzi</div>
  
-+          {/* Selettore Quantità */}
-+          <div className="flex items-center gap-4 py-4">
-+            <button onClick={() => setQuantity(q => Math.max(1, q - 1))} className="p-2 border border-aluminum/40">-</button>
-+            <span className="text-sm font-medium w-8 text-center">{quantity}</span>
-+            <button onClick={() => setQuantity(q => q + 1)} className="p-2 border border-aluminum/40">+</button>
-+          </div>
-+          {product.box_quantity > 0 && quantity % product.box_quantity !== 0 && (
-+              <p className="text-[10px] text-amber-600">
-+                  Attenzione: l'ultima scatola conterrà {quantity % product.box_quantity} pezzi (rimanenza).
-+              </p>
-+          )}
-+
-           <p 
-             className="font-sans leading-relaxed text-onyx/80"
-             dangerouslySetInnerHTML={{ __html: product.description_it || 'Descrizione non disponibile.' }}
+          {/* Selettore Scatole */}
+          <div className="flex items-center gap-4 py-4">
+            <button onClick={() => setBoxes(b => Math.max(1, b - 1))} className="px-4 py-2 border border-aluminum/40 hover:bg-aluminum/10 transition-colors">-</button>
+            <div className="text-sm font-medium w-48 text-center border-b border-onyx">
+                {boxes} scatole ({boxes * (product.box_quantity || 1)} pezzi)
+            </div>
+            <button onClick={() => setBoxes(b => b + 1)} className="px-4 py-2 border border-aluminum/40 hover:bg-aluminum/10 transition-colors">+</button>
+          </div>
+          {product.box_quantity > 0 && (
+            <p className="text-[10px] text-aluminum">
+                Multipli d'imballo: <b>{product.box_quantity} pezzi per scatola</b>
+            </p>
+          )}
+
+          <p 
+            className="font-sans leading-relaxed text-onyx/80"
+            dangerouslySetInnerHTML={{ __html: product.description_it || 'Descrizione non disponibile.' }}
+          />
 
           {/* Griglia Tecnica */}
           <div className="grid grid-cols-2 gap-y-6 py-8 border-y border-aluminum/20">

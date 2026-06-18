@@ -79,8 +79,7 @@
     - [x] Visualizzazione `box_quantity` in scheda prodotto.
     - [x] Visualizzazione `stock_quantity` in scheda prodotto.
     - [x] Visualizzazione note logistiche in scheda prodotto (Ex-Works, Min. fatturabile).
-    - [x] Implementazione selettore quantità +/- con avviso rimanenza scatola.
-    - [ ] Logica vendita parziale (anche se `stock < box`, se `stock > 0` si vende).
+    - [x] Implementazione selettore scatole (+/- moltiplicatore `box_quantity`).
     - [ ] Visualizzazione prezzi dinamici e sconti nel carrello.
-    - [ ] Validazione acquisto a multipli d'imballo.
+    - [ ] Validazione acquisto a multipli d'imballo (ora forzato via UI).
     - [ ] Logica note logistica Ex-Works in Checkout.
