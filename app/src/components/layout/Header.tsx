@@ -65,7 +65,7 @@ export default function Header() {
                 {cart.length > 0 && <span className="absolute -top-2 -right-3 bg-onyx text-bone text-[9px] w-4 h-4 rounded-full flex items-center justify-center">{cart.length}</span>}
             </Link>
             
-            <button className="md:hidden text-xs uppercase tracking-widest" onClick={() => setIsOpen(!isOpen)}>
+            <button className="md:hidden text-xs uppercase tracking-widest pl-4" onClick={() => setIsOpen(!isOpen)}>
               {isOpen ? 'Chiudi' : 'Menu'}
             </button>
         </div>
