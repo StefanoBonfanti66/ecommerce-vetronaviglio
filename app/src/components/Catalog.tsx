@@ -127,7 +127,7 @@ export default function Catalog() {
 
       {processedProducts.length > 0 ? (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
             {paginatedProducts.map((product) => (
               <Link key={product.id} to={`/product/${product.sku}`}>
                 <ProductCard product={product} />
