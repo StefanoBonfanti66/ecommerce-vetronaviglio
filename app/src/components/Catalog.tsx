@@ -108,22 +108,22 @@ export default function Catalog() {
         </h1>
         
         <div className="space-y-6">
-          <div className="flex flex-wrap gap-3 items-center">
+           <div className="flex flex-wrap gap-3 items-center">
              <span className="text-[9px] uppercase tracking-[0.2em] text-aluminum mr-2">{t('category')}:</span>
              {filters.categories.map(cat => (
-               <FilterButton key={cat} label={t(cat) || cat} active={activeCategory === cat} onClick={() => { setActiveCategory(cat); setCurrentPage(1); }} />
+               <FilterButton key={cat} label={cat === 'Tutti' ? t('all') : (t(cat) || cat)} active={activeCategory === cat} onClick={() => { setActiveCategory(cat); setCurrentPage(1); }} />
              ))}
            </div>
            <div className="flex flex-wrap gap-3 items-center">
              <span className="text-[9px] uppercase tracking-[0.2em] text-aluminum mr-2">{t('capacity')}:</span>
              {filters.capacities.map(cap => (
-               <FilterButton key={cap} label={cap} active={activeCapacity === cap} onClick={() => { setActiveCapacity(cap); setCurrentPage(1); }} />
+               <FilterButton key={cap} label={cap === 'Tutti' ? t('all') : (t(cap) || cap)} active={activeCapacity === cap} onClick={() => { setActiveCapacity(cap); setCurrentPage(1); }} />
              ))}
            </div>
             <div className="flex flex-wrap gap-3 items-center">
               <span className="text-[9px] uppercase tracking-[0.2em] text-aluminum mr-2">{t('material')}:</span>
               {filters.materials.map(mat => (
-                <FilterButton key={mat} label={t(mat) || mat} active={activeMaterial === mat} onClick={() => { setActiveMaterial(mat); setCurrentPage(1); }} />
+                <FilterButton key={mat} label={mat === 'Tutti' ? t('all') : (t(mat) || mat)} active={activeMaterial === mat} onClick={() => { setActiveMaterial(mat); setCurrentPage(1); }} />
               ))}
             </div>
             <div className="flex flex-wrap gap-3 items-center pt-4">
