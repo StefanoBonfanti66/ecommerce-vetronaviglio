@@ -20,6 +20,48 @@ export default function ProductEditor() {
     pricing: false
   });
 
+  const toggleSection = (section: keyof typeof openSections) => {
+    setOpenSections(prev => ({ ...prev, [section]: !prev[section] }));
+  };
+
+  useEffect(() => {
+    async function fetchOptions() {
+        const { data } = await supabase.from('attribute_options').select('attribute_key, value');
+        if (data) {
+            const options: Record<string, string[]> = {};
+            data.forEach(item => {
+                if (!options[item.attribute_key]) options[item.attribute_key] = [];
+                options[item.attribute_key].push(item.value);
+            });
+            
+            Object.keys(options).forEach(key => {
+                if (key === 'ml') {
+                    options[key].sort((a, b) => parseInt(a) - parseInt(b));
+                } else {
+                    options[key].sort((a, b) => a.localeCompare(b));
+                }
+            });
+            
+            setAttributeOptions(options);
+        }
+    }
+    fetchOptions();
+
+    async function fetchProduct() {
+      if (!sku) return;
+      const { data, error } = await supabase
+        .from('products')
+        .select('*')
+        .eq('sku', sku)
+        .single();
+      
+      if (error) console.error('Error:', error);
+      else setProduct(data);
+      setLoading(false);
+    }
+    fetchProduct();
+  }, [sku]);
+
   const addPriceTier = () => {
     setProduct({
       ...product,
@@ -40,38 +82,41 @@ export default function ProductEditor() {
     });
   };
 
-  const updatePriceTier = (index: number, field: string, value: number) => {
-    const tiers = [...(product.price_tiers || [])];
-    tiers[index][field] = value;
-    setProduct({ ...product, price_tiers: tiers });
-  };
-
-  const removePriceTier = (index: number) => {
+  const updateAttributeKey = (oldKey: string, newKey: string) => {
+    if (oldKey === newKey) return;
+    const { [oldKey]: value, ...rest } = product.attributes;
     setProduct({
       ...product,
-      price_tiers: product.price_tiers.filter((_: any, i: number) => i !== index)
-    });
-  };
-...
-  const [product, setProduct] = useState<any>({ ...product, price_tiers: [] }); // Initialize in state
-
-  const addPriceTier = () => {
-    setProduct({
-      ...product,
-      price_tiers: [...(product.price_tiers || []), { min_qty: 0, price: 0 }]
+      attributes: { ...rest, [newKey]: value }
     });
   };
 
-  const updatePriceTier = (index: number, field: string, value: number) => {
-    const tiers = [...(product.price_tiers || [])];
-    tiers[index][field] = value;
-    setProduct({ ...product, price_tiers: tiers });
-  };
-
-  const removePriceTier = (index: number) => {
+  const removeAttribute = (key: string) => {
+    const { [key]: _, ...rest } = product.attributes;
     setProduct({
       ...product,
-      price_tiers: product.price_tiers.filter((_: any, i: number) => i !== index)
+      attributes: rest
+    });
+  };
+
+  const addAttribute = () => {
+    setProduct({
+      ...product,
+      attributes: { ...product.attributes, 'nuovo_attributo': '' }
+    });
+  };
+
+  const updateAttributeValue = (key: string, value: string) => {
+    setProduct({
+      ...product,
+      attributes: { ...product.attributes, [key]: value }
+    });
+  };
+
+  const handleImageUpload = (url: string) => {
+    setProduct({
+      ...product,
+      image_urls: [...(product.image_urls || []), url]
     });
   };
 
@@ -88,30 +133,13 @@ export default function ProductEditor() {
       .update({
         title_it: product.title_it,
         price: product.price,
-        price_tiers: product.price_tiers, // ADDED
+        price_tiers: product.price_tiers,
         description_it: product.description_it,
         attributes: product.attributes,
         image_urls: product.image_urls,
         is_active: product.is_active
       })
       .eq('sku', sku);
-...
-        <CollapsibleSection title="Prezzi e Sconti" isOpen={openSections.pricing} onToggle={() => toggleSection('pricing')}>
-            <div className="space-y-4">
-                <div className="flex justify-between items-center">
-                    <label className="block text-[9px] uppercase tracking-[0.2em] text-aluminum">Sconti Quantità</label>
-                    <button type="button" onClick={addPriceTier} className="text-[9px] uppercase tracking-[0.2em] text-aluminum hover:text-onyx transition-colors">+ Aggiungi Tier</button>
-                </div>
-                {(product.price_tiers || []).map((tier: any, index: number) => (
-                    <div key={index} className="flex gap-4 items-center">
-                        <input type="number" placeholder="Min Qty" value={tier.min_qty} onChange={e => updatePriceTier(index, 'min_qty', parseInt(e.target.value))} className="w-1/3 p-2 border border-aluminum/40 bg-transparent text-xs" />
-                        <input type="number" step="0.01" placeholder="Price" value={tier.price} onChange={e => updatePriceTier(index, 'price', parseFloat(e.target.value))} className="w-1/3 p-2 border border-aluminum/40 bg-transparent text-xs" />
-                        <button type="button" onClick={() => removePriceTier(index)} className="text-red-500 hover:text-red-700">×</button>
-                    </div>
-                ))}
-            </div>
-        </CollapsibleSection>
-
     
     if (!error && user) {
         await supabase.from('audit_logs').insert({
@@ -176,6 +204,22 @@ export default function ProductEditor() {
               <label className="text-[9px] uppercase tracking-[0.2em] text-aluminum">Prodotto Attivo</label>
             </div>
           </div>
+        </CollapsibleSection>
+
+        <CollapsibleSection title="Prezzi e Sconti" isOpen={openSections.pricing} onToggle={() => toggleSection('pricing')}>
+            <div className="space-y-4">
+                <div className="flex justify-between items-center">
+                    <label className="block text-[9px] uppercase tracking-[0.2em] text-aluminum">Sconti Quantità</label>
+                    <button type="button" onClick={addPriceTier} className="text-[9px] uppercase tracking-[0.2em] text-aluminum hover:text-onyx transition-colors">+ Aggiungi Tier</button>
+                </div>
+                {(product.price_tiers || []).map((tier: any, index: number) => (
+                    <div key={index} className="flex gap-4 items-center">
+                        <input type="number" placeholder="Min Qty" value={tier.min_qty} onChange={e => updatePriceTier(index, 'min_qty', parseInt(e.target.value))} className="w-1/3 p-2 border border-aluminum/40 bg-transparent text-xs" />
+                        <input type="number" step="0.01" placeholder="Price" value={tier.price} onChange={e => updatePriceTier(index, 'price', parseFloat(e.target.value))} className="w-1/3 p-2 border border-aluminum/40 bg-transparent text-xs" />
+                        <button type="button" onClick={() => removePriceTier(index)} className="text-red-500 hover:text-red-700">×</button>
+                    </div>
+                ))}
+            </div>
         </CollapsibleSection>
 
         <CollapsibleSection title="Descrizione (IT)" isOpen={openSections.description} onToggle={() => toggleSection('description')}>
