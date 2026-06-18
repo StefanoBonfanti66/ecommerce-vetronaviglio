@@ -29,7 +29,6 @@ export default function Header() {
     { name: 'Campionature', path: '/samples' },
     { name: 'Azienda', path: '/about' },
     { name: 'Contatti', path: '/contact' },
-    { name: `Carrello (${cart.length})`, path: '/cart' },
   ];
 
   return (
@@ -46,6 +45,9 @@ export default function Header() {
               {link.name}
             </Link>
           ))}
+          <Link to="/cart" className="relative text-xs uppercase tracking-[0.2em] text-onyx hover:text-aluminum transition-colors">
+            Cart {cart.length > 0 && <span className="absolute -top-2 -right-4 bg-onyx text-bone text-[9px] w-4 h-4 rounded-full flex items-center justify-center">{cart.length}</span>}
+          </Link>
           {session ? (
             <button onClick={handleLogout} className="text-xs uppercase tracking-[0.2em] text-aluminum hover:text-onyx transition-colors">
               Logout
@@ -57,10 +59,15 @@ export default function Header() {
           )}
         </div>
 
-        {/* Mobile Toggle */}
-        <button className="md:hidden text-xs uppercase tracking-widest" onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? 'Chiudi' : 'Menu'}
-        </button>
+        {/* Mobile Nav Actions */}
+        <div className="md:hidden flex items-center gap-6">
+            <Link to="/cart" className="relative text-xs uppercase tracking-widest">
+                Cart {cart.length > 0 && <span className="absolute -top-2 -right-4 bg-onyx text-bone text-[9px] w-4 h-4 rounded-full flex items-center justify-center">{cart.length}</span>}
+            </Link>
+            <button className="text-xs uppercase tracking-widest" onClick={() => setIsOpen(!isOpen)}>
+              {isOpen ? 'Chiudi' : 'Menu'}
+            </button>
+        </div>
       </nav>
 
       {/* Mobile Menu */}
