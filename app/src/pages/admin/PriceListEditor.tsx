@@ -8,6 +8,7 @@ export default function PriceListEditor() {
   const [items, setItems] = useState<any[]>([]);
   const [products, setProducts] = useState<any[]>([]);
   const [newItem, setNewItem] = useState({ sku: '', price: 0 });
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     fetchData();
@@ -20,9 +21,14 @@ export default function PriceListEditor() {
     const { data: itemsData } = await supabase.from('price_list_items').select('sku, price').eq('price_list_id', id);
     setItems(itemsData || []);
     
-    const { data: prodData } = await supabase.from('products').select('sku, title_it');
+    const { data: prodData } = await supabase.from('products').select('sku, title_it, price');
     setProducts(prodData || []);
   }
+
+  const filteredProducts = products.filter(p => 
+      p.sku.toLowerCase().includes(searchTerm.toLowerCase()) || 
+      p.title_it.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   async function addItem() {
     if (!newItem.sku || newItem.price <= 0) return;
@@ -46,12 +52,21 @@ export default function PriceListEditor() {
 
       <div className="mb-8 p-6 border border-aluminum/20 bg-aluminum/5 space-y-4">
         <h2 className="font-serif text-lg uppercase">Aggiungi prodotto al listino</h2>
+        <input 
+            className="w-full p-2 border border-aluminum/40 bg-transparent text-xs mb-2"
+            placeholder="Cerca prodotto (SKU o Titolo)..."
+            value={searchTerm}
+            onChange={e => setSearchTerm(e.target.value)}
+        />
         <div className="flex gap-4">
-            <select className="flex-grow p-2 border border-aluminum/40 bg-transparent text-xs" value={newItem.sku} onChange={e => setNewItem({...newItem, sku: e.target.value})}>
+            <select className="flex-grow p-2 border border-aluminum/40 bg-transparent text-xs" value={newItem.sku} onChange={e => {
+                const selectedProd = products.find(p => p.sku === e.target.value);
+                setNewItem({...newItem, sku: e.target.value, price: selectedProd?.price || 0});
+            }}>
                 <option value="">Seleziona SKU</option>
-                {products.map(p => <option key={p.sku} value={p.sku}>{p.sku} - {p.title_it}</option>)}
+                {filteredProducts.map(p => <option key={p.sku} value={p.sku}>{p.sku} - {p.title_it} (Base: €{p.price})</option>)}
             </select>
-            <input type="number" step="0.01" className="w-32 p-2 border border-aluminum/40 bg-transparent text-xs" placeholder="Prezzo" value={newItem.price} onChange={e => setNewItem({...newItem, price: parseFloat(e.target.value)})} />
+            <input type="number" step="0.01" className="w-32 p-2 border border-aluminum/40 bg-transparent text-xs" placeholder="Prezzo Custom" value={newItem.price} onChange={e => setNewItem({...newItem, price: parseFloat(e.target.value)})} />
             <button onClick={addItem} className="bg-onyx text-bone px-6 py-2 uppercase text-[10px] tracking-[0.2em]">Aggiungi</button>
         </div>
       </div>

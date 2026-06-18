@@ -3,18 +3,31 @@ import { supabase } from '../../supabaseClient';
 
 export default function UserManager() {
   const [users, setUsers] = useState<any[]>([]);
+  const [priceLists, setPriceLists] = useState<any[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newUser, setNewUser] = useState({ email: '', password: '', role: 'customer' });
+  const [newUser, setNewUser] = useState({ email: '', password: '', role: 'customer', price_list_id: null });
   const roles = ['admin', 'ceo', 'magazzino', 'acquisti', 'customer'];
 
   useEffect(() => {
     fetchUsers();
+    fetchPriceLists();
   }, []);
 
   async function fetchUsers() {
-    const { data } = await supabase.from('profiles').select('id, email, role');
+    const { data } = await supabase.from('profiles').select('id, email, role, price_list_id');
     setUsers(data || []);
   }
+
+  async function fetchPriceLists() {
+    const { data } = await supabase.from('price_lists').select('id, name');
+    setPriceLists(data || []);
+  }
+
+  async function updateProfile(id: string, field: string, value: any) {
+    await supabase.from('profiles').update({ [field]: value }).eq('id', id);
+    fetchUsers();
+  }
+
 
   async function createUser() {
       const { data, error } = await supabase.auth.signUp({
@@ -97,18 +110,26 @@ export default function UserManager() {
 
       <div className="border border-aluminum/20">
         {users.map(user => (
-            <div key={user.id} className="grid grid-cols-3 gap-4 items-center p-4 border-b border-aluminum/10">
-                <span className="text-sm font-mono">{user.email}</span>
+            <div key={user.id} className="grid grid-cols-4 gap-4 items-center p-4 border-b border-aluminum/10 text-xs">
+                <span className="font-mono">{user.email}</span>
                 <select 
                     value={user.role} 
-                    onChange={(e) => updateRole(user.id, e.target.value)}
-                    className="border border-aluminum/20 p-2 text-xs uppercase"
+                    onChange={(e) => updateProfile(user.id, 'role', e.target.value)}
+                    className="border border-aluminum/20 p-1 uppercase"
                 >
                     {roles.map(r => <option key={r} value={r}>{r}</option>)}
                 </select>
+                <select 
+                    value={user.price_list_id || ''} 
+                    onChange={(e) => updateProfile(user.id, 'price_list_id', e.target.value || null)}
+                    className="border border-aluminum/20 p-1"
+                >
+                    <option value="">Listino Base</option>
+                    {priceLists.map(pl => <option key={pl.id} value={pl.id}>{pl.name}</option>)}
+                </select>
                 <button 
                     onClick={() => deleteUser(user.id)}
-                    className="text-xs text-red-600 hover:text-red-800 uppercase justify-self-end"
+                    className="text-red-600 hover:text-red-800 uppercase justify-self-end"
                 >
                     Elimina
                 </button>

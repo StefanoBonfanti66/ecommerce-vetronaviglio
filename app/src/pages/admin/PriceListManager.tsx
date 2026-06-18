@@ -22,6 +22,18 @@ export default function PriceListManager() {
     fetchPriceLists();
   }
 
+  async function duplicatePriceList(list: any) {
+    const { data: newList } = await supabase.from('price_lists').insert({ name: `${list.name} (Copia)` }).select().single();
+    if (!newList) return;
+
+    const { data: items } = await supabase.from('price_list_items').select('*').eq('price_list_id', list.id);
+    if (items) {
+        const newItems = items.map(i => ({ price_list_id: newList.id, sku: i.sku, price: i.price }));
+        await supabase.from('price_list_items').insert(newItems);
+    }
+    fetchPriceLists();
+  }
+
   return (
     <div className="max-w-4xl mx-auto px-6 py-vs-16">
       <header className="mb-12 border-b border-aluminum/20 pb-8">
@@ -43,9 +55,12 @@ export default function PriceListManager() {
 
       <div className="border border-aluminum/20">
         {priceLists.map(list => (
-            <div key={list.id} className="p-4 border-b border-aluminum/10 flex justify-between items-center">
-                <span className="text-sm font-medium">{list.name}</span>
-                <Link to={`/admin/price-lists/${list.id}`} className="text-xs uppercase underline">Gestisci Prodotti</Link>
+            <div key={list.id} className="p-4 border-b border-aluminum/10 flex justify-between items-center text-sm">
+                <span className="font-medium">{list.name}</span>
+                <div className="flex gap-4">
+                    <button onClick={() => duplicatePriceList(list)} className="text-xs uppercase underline text-aluminum hover:text-onyx">Duplica</button>
+                    <Link to={`/admin/price-lists/${list.id}`} className="text-xs uppercase underline">Gestisci Prodotti</Link>
+                </div>
             </div>
         ))}
       </div>
