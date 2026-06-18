@@ -2,14 +2,6 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../../supabaseClient';
 import { useCart } from '../../context/CartContext';
-
-export default function Header() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [session, setSession] = useState<any>(null);
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { supabase } from '../../supabaseClient';
-import { useCart } from '../../context/CartContext';
 import { useLang } from '../../context/LanguageContext';
 
 export default function Header() {
@@ -17,7 +9,38 @@ export default function Header() {
   const [session, setSession] = useState<any>(null);
   const { cart } = useCart();
   const { lang, setLang } = useLang();
-...
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => setSession(session));
+    
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    window.location.reload();
+  };
+
+  const navLinks = [
+    { name: 'Collezioni', path: '/collections' },
+    { name: 'Catalogo', path: '/catalog' },
+    { name: 'Campionature', path: '/samples' },
+    { name: 'Azienda', path: '/about' },
+    { name: 'Contatti', path: '/contact' },
+  ];
+
+  return (
+    <header className="fixed top-0 w-full bg-bone/90 backdrop-blur-sm z-50 border-b border-aluminum/20">
+      <nav className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+        <Link to="/" className="flex items-center mr-8">
+          <img src="/logo-full.svg" alt="Vetronaviglio" className="h-16 w-auto" />
+        </Link>
+
+        {/* Desktop Nav */}
         <div className="hidden md:flex gap-8 items-center flex-grow justify-end mr-12">
           {navLinks.map(link => (
             <Link key={link.name} to={link.path} className="text-xs uppercase tracking-[0.2em] text-onyx hover:text-aluminum transition-colors">
@@ -28,7 +51,6 @@ export default function Header() {
             {lang.toUpperCase()}
           </button>
           {session ? (
-
             <button onClick={handleLogout} className="text-xs uppercase tracking-[0.2em] text-aluminum hover:text-onyx transition-colors">
               Logout
             </button>
