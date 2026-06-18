@@ -80,6 +80,7 @@
     - [x] Visualizzazione `stock_quantity` in scheda prodotto.
     - [x] Visualizzazione note logistiche in scheda prodotto (Ex-Works, Min. fatturabile).
     - [x] Implementazione selettore scatole (+/- moltiplicatore `box_quantity`).
+    - [x] Gating logico: blocco acquisto se `totale > stock` con avviso.
     - [ ] Visualizzazione prezzi dinamici e sconti nel carrello.
-    - [ ] Validazione acquisto a multipli d'imballo (ora forzato via UI).
+    - [ ] Validazione acquisto a multipli d'imballo.
     - [ ] Logica note logistica Ex-Works in Checkout.

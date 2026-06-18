@@ -12,6 +12,41 @@ export default function ProductPage() {
   const { addToCart } = useCart();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    async function fetchProductData() {
+      if (!sku) return;
+      
+      const { data: p, error: pError } = await supabase
+        .from('products')
+        .select('*')
+        .eq('sku', sku)
+        .single();
+      
+      if (pError || !p) {
+        console.error('Error:', pError);
+        setLoading(false);
+        return;
+      }
+      setProduct(p);
+
+      const { data: accData } = await supabase
+        .from('product_accessory_overrides')
+        .select(`
+          accessory:products!product_accessory_overrides_accessory_id_fkey(
+            id, title_it, sku
+          )
+        `)
+        .eq('product_id', p.id)
+        .eq('action', 'FORCE_INCLUDE');
+      
+      if (accData) {
+          setAccessories(accData.map((item: any) => item.accessory));
+      }
+      setLoading(false);
+    }
+    fetchProductData();
+  }, [sku]);
+
   const handleAddToCart = async (type: 'sale' | 'sample') => {
     const { data: { session } } = await supabase.auth.getSession();
     
@@ -20,7 +55,15 @@ export default function ProductPage() {
       return;
     }
     
-    const finalQuantity = type === 'sample' ? 1 : boxes * (product.box_quantity || 1);
+    const totalQuantity = boxes * (product.box_quantity || 1);
+    
+    // Gating logico
+    if (totalQuantity > product.stock_quantity) {
+        alert(`Disponibilità insufficiente. Massimo acquistabile: ${product.stock_quantity} pezzi.`);
+        return;
+    }
+    
+    const finalQuantity = type === 'sample' ? 1 : totalQuantity;
     addToCart(product, type, finalQuantity);
     alert(type === 'sample' ? 'Campione aggiunto alla richiesta' : `Prodotto aggiunto al carrello: ${finalQuantity} pezzi`);
   };
@@ -59,12 +102,29 @@ export default function ProductPage() {
             <div className="text-sm font-medium w-48 text-center border-b border-onyx">
                 {boxes} scatole ({boxes * (product.box_quantity || 1)} pezzi)
             </div>
-            <button onClick={() => setBoxes(b => b + 1)} className="px-4 py-2 border border-aluminum/40 hover:bg-aluminum/10 transition-colors">+</button>
+            <button 
+                onClick={() => {
+                    const nextBoxes = boxes + 1;
+                    const nextQty = nextBoxes * (product.box_quantity || 1);
+                    if (nextQty > product.stock_quantity) {
+                        alert(`Massima disponibilità raggiunta: ${product.stock_quantity} pezzi.`);
+                    } else {
+                        setBoxes(nextBoxes);
+                    }
+                }}
+                className="px-4 py-2 border border-aluminum/40 hover:bg-aluminum/10 transition-colors"
+            >+</button>
           </div>
           {product.box_quantity > 0 && (
-            <p className="text-[10px] text-aluminum">
-                Multipli d'imballo: <b>{product.box_quantity} pezzi per scatola</b>
-            </p>
+            <div className="space-y-1">
+                <p className="text-[10px] text-aluminum">
+                    Multipli d'imballo: <b>{product.box_quantity} pezzi per scatola</b>
+                </p>
+                {/* Avviso rimanenza */}
+                {/* Nota: con la logica delle scatole, non avremo più rimanenza sfusa nella selezione delle scatole, 
+                    a meno che non aggiungiamo un selettore specifico per pezzi sfusi.
+                    Per ora garantiamo il multiplo d'imballo come da richiesta. */}
+            </div>
           )}
 
           <p 
