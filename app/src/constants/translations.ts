@@ -31,6 +31,13 @@ export const translations = {
     about_p2: 'Progettiamo e distribuiamo soluzioni innovative, puntando sull\'eccellenza del design italiano e sulla qualità industriale.',
     contact_title: 'Contatti',
     contact_info_label: 'Per informazioni scrivere a',
+    catalog_title: 'Catalogo Prodotti',
+    category: 'Categoria',
+    capacity: 'Capacità',
+    material: 'Materiale',
+    search_sku: 'Cerca SKU',
+    reset_catalog: 'Ripristina catalogo',
+    no_products: 'Nessun prodotto trovato per questi criteri.',
     checkout_title: 'Checkout',
     name_placeholder: 'Nome e Cognome',
     phone_placeholder: 'Telefono',
@@ -75,6 +82,13 @@ export const translations = {
     about_p2: 'We design and distribute innovative solutions, focusing on the excellence of Italian design and industrial quality.',
     contact_title: 'Contacts',
     contact_info_label: 'For information, write to',
+    catalog_title: 'Product Catalog',
+    category: 'Category',
+    capacity: 'Capacity',
+    material: 'Material',
+    search_sku: 'Search SKU',
+    reset_catalog: 'Reset catalog',
+    no_products: 'No products found matching these criteria.',
     checkout_title: 'Checkout',
     name_placeholder: 'Name and Surname',
     phone_placeholder: 'Phone',
@@ -88,3 +102,4 @@ export const translations = {
     login_button: 'Sign In'
   }
 };
+

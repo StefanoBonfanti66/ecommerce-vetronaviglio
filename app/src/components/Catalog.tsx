@@ -14,7 +14,7 @@ export default function Catalog() {
   const [skuSearch, setSkuSearch] = useState<string>('');
   
   const [currentPage, setCurrentPage] = useState(1);
-  const { lang } = useLang();
+  const { lang, t } = useLang();
   
   const [searchParams] = useSearchParams();
   const collectionSlug = searchParams.get('collection');
@@ -104,34 +104,34 @@ export default function Catalog() {
     <div className="max-w-7xl mx-auto px-6 pt-24 pb-vs-8 md:py-vs-16">
       <header className="mb-vs-8 md:mb-vs-16 border-b border-aluminum/20 pb-vs-4 md:pb-vs-8">
         <h1 className="font-serif text-3xl md:text-5xl uppercase tracking-[0.05em] mb-4 md:mb-8">
-          {collectionSlug ? `Collezione ${collectionSlug.toUpperCase()}` : 'Catalogo Prodotti'}
+          {collectionSlug ? `Collezione ${collectionSlug.toUpperCase()}` : t('catalog_title')}
         </h1>
         
         <div className="space-y-6">
           <div className="flex flex-wrap gap-3 items-center">
-            <span className="text-[9px] uppercase tracking-[0.2em] text-aluminum mr-2">Categoria:</span>
+            <span className="text-[9px] uppercase tracking-[0.2em] text-aluminum mr-2">{t('category')}:</span>
             {filters.categories.map(cat => (
-              <FilterButton key={cat} label={cat} active={activeCategory === cat} onClick={() => { setActiveCategory(cat); setCurrentPage(1); }} />
+              <FilterButton key={cat} label={cat === 'Tutti' ? 'Tutti' : cat} active={activeCategory === cat} onClick={() => { setActiveCategory(cat); setCurrentPage(1); }} />
             ))}
           </div>
           <div className="flex flex-wrap gap-3 items-center">
-            <span className="text-[9px] uppercase tracking-[0.2em] text-aluminum mr-2">Capacità:</span>
+            <span className="text-[9px] uppercase tracking-[0.2em] text-aluminum mr-2">{t('capacity')}:</span>
             {filters.capacities.map(cap => (
               <FilterButton key={cap} label={cap} active={activeCapacity === cap} onClick={() => { setActiveCapacity(cap); setCurrentPage(1); }} />
             ))}
           </div>
            <div className="flex flex-wrap gap-3 items-center">
-             <span className="text-[9px] uppercase tracking-[0.2em] text-aluminum mr-2">Materiale:</span>
+             <span className="text-[9px] uppercase tracking-[0.2em] text-aluminum mr-2">{t('material')}:</span>
              {filters.materials.map(mat => (
                <FilterButton key={mat} label={mat} active={activeMaterial === mat} onClick={() => { setActiveMaterial(mat); setCurrentPage(1); }} />
              ))}
            </div>
            <div className="flex flex-wrap gap-3 items-center pt-4">
-             <span className="text-[9px] uppercase tracking-[0.2em] text-aluminum mr-2">Cerca SKU:</span>
+             <span className="text-[9px] uppercase tracking-[0.2em] text-aluminum mr-2">{t('search_sku')}:</span>
              <input 
                 type="text" 
                 className="border border-aluminum/30 p-2 text-xs w-48"
-                placeholder="Inserisci SKU..."
+                placeholder="SKU..."
                 value={skuSearch}
                 onChange={e => { setSkuSearch(e.target.value); setCurrentPage(1); }}
              />
@@ -178,7 +178,7 @@ export default function Catalog() {
       ) : (
         <div className="py-20 text-center flex flex-col items-center">
           <p className="font-serif text-lg italic text-aluminum">
-            Nessun prodotto trovato per questi criteri.
+            {t('no_products')}
           </p>
           <button 
             onClick={() => {
@@ -190,10 +190,11 @@ export default function Catalog() {
             }} 
             className="mt-6 text-xs uppercase tracking-[0.2em] py-3 px-6 border border-onyx hover:bg-onyx hover:text-bone transition-all"
           >
-            Ripristina catalogo
+            {t('reset_catalog')}
           </button>
         </div>
       )}
+
     </div>
   );
 }
