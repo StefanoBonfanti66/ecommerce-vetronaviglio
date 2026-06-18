@@ -24,8 +24,8 @@ export default function Header() {
   };
 
   const navLinks = [
-    { name: 'Catalogo', path: '/catalog' },
     { name: 'Collezioni', path: '/collections' },
+    { name: 'Catalogo', path: '/catalog' },
     { name: 'Campionature', path: '/samples' },
     { name: 'Azienda', path: '/about' },
     { name: 'Contatti', path: '/contact' },
