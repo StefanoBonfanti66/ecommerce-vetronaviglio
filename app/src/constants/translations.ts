@@ -92,7 +92,7 @@ export const translations = {
     'PET': 'PET',
     'PP + SAN (LENS)': 'PP + SAN (LENS)',
     'PE': 'PE',
-    add: 'Aggiungi'
+    add: 'Aggiungi al carrello'
   },
   en: {
     collections: 'Collections',
@@ -187,6 +187,6 @@ export const translations = {
     'PET': 'PET',
     'PP + SAN (LENS)': 'PP + SAN (LENS)',
     'PE': 'PE',
-    add: 'Add'
+    add: 'Add to cart'
   }
 };
