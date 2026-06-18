@@ -6,9 +6,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [cart, setCart] = useState<any[]>([]);
   const [notification, setNotification] = useState<string | null>(null);
 
-  const addToCart = (product: any, type: 'sale' | 'sample' = 'sale') => {
-    setCart([...cart, { ...product, cartType: type }]);
-    setNotification(`${product.title_it} aggiunto ${type === 'sample' ? 'alla richiesta campioni' : 'al carrello'}`);
+  const addToCart = (product: any, type: 'sale' | 'sample' = 'sale', quantity: number = 1) => {
+    setCart([...cart, { ...product, cartType: type, quantity }]);
+    setNotification(`${product.title_it} (x${quantity}) aggiunto ${type === 'sample' ? 'alla richiesta campioni' : 'al carrello'}`);
     setTimeout(() => setNotification(null), 3000);
   };
 

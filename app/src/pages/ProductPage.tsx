@@ -6,51 +6,11 @@ import { useCart } from '../context/CartContext';
 export default function ProductPage() {
   const { sku } = useParams<{ sku: string }>();
   const [product, setProduct] = useState<any>(null);
+  const [quantity, setQuantity] = useState(1);
   const [accessories, setAccessories] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const { addToCart } = useCart();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    async function fetchProductData() {
-      if (!sku) return;
-      
-      // 1. Fetch prodotto
-      const { data: p, error: pError } = await supabase
-        .from('products')
-        .select('*')
-        .eq('sku', sku)
-        .single();
-      
-      if (pError || !p) {
-        console.error('Error:', pError);
-        setLoading(false);
-        return;
-      }
-      setProduct(p);
-
-      // 2. Fetch accessori (FORCE_INCLUDE)
-      const { data: accData, error: accError } = await supabase
-        .from('product_accessory_overrides')
-        .select(`
-          accessory:products!product_accessory_overrides_accessory_id_fkey(
-            id, title_it, sku
-          )
-        `)
-        .eq('product_id', p.id)
-        .eq('action', 'FORCE_INCLUDE');
-      
-      console.log('Accessory fetch result:', accData, accError);
-      
-      if (accData) {
-          setAccessories(accData.map((item: any) => item.accessory));
-      }
-
-      
-      setLoading(false);
-    }
-    fetchProductData();
-  }, [sku]);
 
   const handleAddToCart = async (type: 'sale' | 'sample') => {
     const { data: { session } } = await supabase.auth.getSession();
@@ -60,9 +20,10 @@ export default function ProductPage() {
       return;
     }
     
-    addToCart(product, type);
+    addToCart(product, type, quantity);
     alert(type === 'sample' ? 'Campione aggiunto alla richiesta' : 'Prodotto aggiunto al carrello');
   };
+
 
   if (loading) return <div className="p-12">Caricamento...</div>;
   if (!product) return <div className="p-12">Prodotto non trovato</div>;
@@ -91,13 +52,24 @@ export default function ProductPage() {
             <p className="font-sans text-sm uppercase tracking-[0.2em] text-aluminum">{product.sku}</p>
           </div>
 
-          <div className="text-2xl font-light">€{product.price}</div>
-          <div className="text-sm text-aluminum">Disponibilità: {product.stock_quantity} pezzi</div>
-
-          <p 
-            className="font-sans leading-relaxed text-onyx/80"
-            dangerouslySetInnerHTML={{ __html: product.description_it || 'Descrizione non disponibile.' }}
-          />
+           <div className="text-2xl font-light">€{product.price}</div>
+           <div className="text-sm text-aluminum">Disponibilità: {product.stock_quantity} pezzi</div>
+ 
++          {/* Selettore Quantità */}
++          <div className="flex items-center gap-4 py-4">
++            <button onClick={() => setQuantity(q => Math.max(1, q - 1))} className="p-2 border border-aluminum/40">-</button>
++            <span className="text-sm font-medium w-8 text-center">{quantity}</span>
++            <button onClick={() => setQuantity(q => q + 1)} className="p-2 border border-aluminum/40">+</button>
++          </div>
++          {product.box_quantity > 0 && quantity % product.box_quantity !== 0 && (
++              <p className="text-[10px] text-amber-600">
++                  Attenzione: l'ultima scatola conterrà {quantity % product.box_quantity} pezzi (rimanenza).
++              </p>
++          )}
++
+           <p 
+             className="font-sans leading-relaxed text-onyx/80"
+             dangerouslySetInnerHTML={{ __html: product.description_it || 'Descrizione non disponibile.' }}
 
           {/* Griglia Tecnica */}
           <div className="grid grid-cols-2 gap-y-6 py-8 border-y border-aluminum/20">
