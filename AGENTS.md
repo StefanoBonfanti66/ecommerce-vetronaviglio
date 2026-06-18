@@ -12,23 +12,18 @@
 - Use `PROJECT_AI_NOTES.md` to track decisions, checkpoints, and pending items across sessions.
 - If you use custom commands in your OpenCode setup, document project-specific ones here or in the repository docs.
 
-## Current Focus — 2026-06-17 (Sessione 4 - Aggiornamento)
+## Current Focus — 2026-06-18 (Sessione 6 - Ottimizzazione UX & Fixes)
 
 ### Completato
-- Riequilibrio sito "Commerce-First" (ProductPage, Catalogo, Carrello).
-- Implementazione Master Control Editor (Admin panel per prodotti, attributi, collezioni, utenti, impostazioni).
-- Logica campionature (flusso separato, gestione 0€, disclaimer logistico).
-- Gestione dinamica ruoli e attributi via database.
-- Importazione immagini collezioni.
-- Implementazione Role-based Routing (admin, ceo, magazzino, acquisti).
-- Sistema invio notifiche email ordini via Edge Function + Webhook.
-- Logica disattivazione prodotti/collezioni (soft-delete).
-- Sistema accessori correlati (FORCE_INCLUDE) con pannello di gestione.
+- Ottimizzazione Mobile-first estesa (Header, Griglia accessori, Layout ProductPage).
+- Gestione listini personalizzati e prezzi dinamici (Fallback: Listino -> Tier -> Base).
+- Setup automatico accessori tramite tag Categoria.
+- Fix critici (ScrollToTop, RLS admin, parsing JS, stabilità carrello).
 
 ### In corso
-- Validazione del Piano di Delivery MVP e dei costi infrastrutturali con il CEO.
+- M3 completata.
 
 ### Prossimo step concreto
-- Attesa validazione CEO per avvio M2.
+- Deploy in ambiente di test per validazione finale con il cliente.
 
-### Data Ultimo Aggiornamento: 2026-06-17
+### Data Ultimo Aggiornamento: 2026-06-18
