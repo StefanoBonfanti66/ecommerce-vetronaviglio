@@ -6,13 +6,21 @@ const PAYPAL_CLIENT_ID = import.meta.env.VITE_PAYPAL_CLIENT_ID || "test";
 
 export default function Cart() {
   const { cart, removeFromCart } = useCart();
+  const [minOrder, setMinOrder] = useState(250);
+
+  useEffect(() => {
+    async function fetchMinOrder() {
+        const { data } = await supabase.from('settings').select('value').eq('key', 'min_order_amount').single();
+        if (data) setMinOrder(parseFloat(data.value));
+    }
+    fetchMinOrder();
+  }, []);
 
   const saleItems = cart.filter((item: any) => item.cartType === 'sale');
   const sampleItems = cart.filter((item: any) => item.cartType === 'sample');
 
   const totalProducts = saleItems.reduce((sum: number, item: any) => sum + (item.price || 0) * (item.quantity || 1), 0);
-  const minOrderAmount = 250;
-  const isBelowMin = saleItems.length > 0 && totalProducts < minOrderAmount;
+  const isBelowMin = saleItems.length > 0 && totalProducts < minOrder;
 
   if (cart.length === 0) {
     return <div className="p-12 text-center text-aluminum">Il carrello è vuoto.</div>;
@@ -102,7 +110,7 @@ export default function Cart() {
 
           {isBelowMin && (
             <div className="p-4 bg-amber-50 text-amber-800 text-[10px] uppercase tracking-[0.1em] border border-amber-200">
-                ⚠️ Importo minimo fatturabile non raggiunto (Min. €{minOrderAmount}). Aggiungi altri articoli al carrello.
+                ⚠️ Importo minimo fatturabile non raggiunto (Min. €{minOrder}). Aggiungi altri articoli al carrello.
             </div>
           )}
 
