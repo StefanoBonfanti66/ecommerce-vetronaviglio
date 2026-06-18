@@ -10,7 +10,7 @@ export default function Cart() {
   const saleItems = cart.filter((item: any) => item.cartType === 'sale');
   const sampleItems = cart.filter((item: any) => item.cartType === 'sample');
 
-  const totalProducts = saleItems.reduce((sum: number, item: any) => sum + (item.price || 0), 0);
+  const totalProducts = saleItems.reduce((sum: number, item: any) => sum + (item.price || 0) * (item.quantity || 1), 0);
 
   if (cart.length === 0) {
     return <div className="p-12 text-center text-aluminum">Il carrello è vuoto.</div>;
@@ -46,7 +46,9 @@ export default function Cart() {
                   <Link to={`/product/${item.sku}`} className="font-serif text-lg hover:underline">{item.title_it}</Link>
                   <p className="text-[10px] font-mono text-aluminum tracking-[0.1em]">{item.sku}</p>
                 </div>
-                <div className="text-sm">€{item.price?.toFixed(2)}</div>
+                <div className="text-sm">
+                    {item.quantity} x €{item.price?.toFixed(2)} = €{(item.price * item.quantity).toFixed(2)}
+                </div>
                 <button onClick={() => removeFromCart(index)} className="text-[10px] text-red-500 hover:text-red-700 uppercase">Rimuovi</button>
               </div>
             ))}
