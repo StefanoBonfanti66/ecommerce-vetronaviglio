@@ -130,16 +130,17 @@ export default function ProductEditor() {
 
     const { error } = await supabase
       .from('products')
-      .update({
-        title_it: product.title_it,
-        price: product.price,
-        price_tiers: product.price_tiers,
-        description_it: product.description_it,
-        attributes: product.attributes,
-        image_urls: product.image_urls,
-        is_active: product.is_active
-      })
-      .eq('sku', sku);
+        .update({
+          title_it: product.title_it,
+          price: product.price,
+          price_tiers: product.price_tiers,
+          description_it: product.description_it,
+          attributes: product.attributes,
+          image_urls: product.image_urls,
+          is_active: product.is_active,
+          is_accessory: product.is_accessory
+        })
+        .eq('sku', sku);
     
     if (!error && user) {
         await supabase.from('audit_logs').insert({
@@ -195,31 +196,25 @@ export default function ProductEditor() {
                 className="w-full border-b border-aluminum/40 bg-transparent py-2 focus:border-onyx outline-none text-lg font-sans"
               />
             </div>
-            <div className="flex items-center gap-2">
-              <input 
-                type="checkbox"
-                checked={product.is_active}
-                onChange={e => setProduct({...product, is_active: e.target.checked})}
-              />
-              <label className="text-[9px] uppercase tracking-[0.2em] text-aluminum">Prodotto Attivo</label>
+            <div className="flex items-center gap-6">
+              <div className="flex items-center gap-2">
+                <input 
+                  type="checkbox"
+                  checked={product.is_active}
+                  onChange={e => setProduct({...product, is_active: e.target.checked})}
+                />
+                <label className="text-[9px] uppercase tracking-[0.2em] text-aluminum">Prodotto Attivo</label>
+              </div>
+              <div className="flex items-center gap-2">
+                <input 
+                  type="checkbox"
+                  checked={product.is_accessory}
+                  onChange={e => setProduct({...product, is_accessory: e.target.checked})}
+                />
+                <label className="text-[9px] uppercase tracking-[0.2em] text-aluminum">È un Accessorio</label>
+              </div>
             </div>
           </div>
-        </CollapsibleSection>
-
-        <CollapsibleSection title="Prezzi e Sconti" isOpen={openSections.pricing} onToggle={() => toggleSection('pricing')}>
-            <div className="space-y-4">
-                <div className="flex justify-between items-center">
-                    <label className="block text-[9px] uppercase tracking-[0.2em] text-aluminum">Sconti Quantità</label>
-                    <button type="button" onClick={addPriceTier} className="text-[9px] uppercase tracking-[0.2em] text-aluminum hover:text-onyx transition-colors">+ Aggiungi Tier</button>
-                </div>
-                {(product.price_tiers || []).map((tier: any, index: number) => (
-                    <div key={index} className="flex gap-4 items-center">
-                        <input type="number" placeholder="Min Qty" value={tier.min_qty} onChange={e => updatePriceTier(index, 'min_qty', parseInt(e.target.value))} className="w-1/3 p-2 border border-aluminum/40 bg-transparent text-xs" />
-                        <input type="number" step="0.01" placeholder="Price" value={tier.price} onChange={e => updatePriceTier(index, 'price', parseFloat(e.target.value))} className="w-1/3 p-2 border border-aluminum/40 bg-transparent text-xs" />
-                        <button type="button" onClick={() => removePriceTier(index)} className="text-red-500 hover:text-red-700">×</button>
-                    </div>
-                ))}
-            </div>
         </CollapsibleSection>
 
         <CollapsibleSection title="Descrizione (IT)" isOpen={openSections.description} onToggle={() => toggleSection('description')}>
