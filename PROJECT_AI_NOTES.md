@@ -77,6 +77,8 @@
 - [x] **Implementazione logica Frontend (basata su dati Admin):**
     - [x] Logica visibilità: `stock_quantity == 0` -> nascosto.
     - [x] Visualizzazione `box_quantity` in scheda prodotto.
+    - [x] Visualizzazione `stock_quantity` in scheda prodotto.
+    - [x] Visualizzazione note logistiche in scheda prodotto (Ex-Works, Min. fatturabile).
     - [ ] Visualizzazione prezzi dinamici e sconti nel carrello.
     - [ ] Logica vendita parziale (anche se `stock < box`, se `stock > 0` si vende).
     - [ ] Validazione acquisto a multipli d'imballo.

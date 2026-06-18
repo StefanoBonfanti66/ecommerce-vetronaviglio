@@ -92,6 +92,7 @@ export default function ProductPage() {
           </div>
 
           <div className="text-2xl font-light">€{product.price}</div>
+          <div className="text-sm text-aluminum">Disponibilità: {product.stock_quantity} pezzi</div>
 
           <p 
             className="font-sans leading-relaxed text-onyx/80"
@@ -143,6 +144,14 @@ export default function ProductPage() {
             </button>
             <p className="text-[10px] text-aluminum text-center pt-2">
                 * La merce è gratuita. Spedizione a carico del cliente.
+            </p>
+          </div>
+
+          <div className="mt-8 border border-aluminum/20 p-4 space-y-3">
+            <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-onyx">Informazioni Ordine</div>
+            <p className="text-[10px] text-aluminum">
+                • Consegna in modalità ex-works.<br/>
+                • Importo minimo fatturabile: € 250 IVA esclusa.
             </p>
           </div>
         </div>
