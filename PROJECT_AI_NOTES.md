@@ -66,8 +66,11 @@
 - [x] Admin Interface: Sviluppo pannello base.
 - [x] Admin Interface: Master Control Editor (attributi, collezioni, audit).
 - [x] Implementazione ruoli Magazzino/Acquisti nell'interfaccia.
-- [ ] Validazione piano MVP con il CEO.
-- [ ] Configurazione DNS e validazione dominio `vetronaviglio.it` su Resend (Pending: in attesa di accesso al pannello DNS).
+- [x] Validazione piano MVP con il CEO.
+- [ ] Configurazione DNS e validazione dominio `vetronaviglio.it` su Resend (Punto sospeso: da eseguire in fase di messa in produzione).
+- [x] Implementazione M2 Governance & Architettura (Audit Logs e Triggers attivi).
+- [ ] @amministrazione: Inserimento Resend nel ledger.md come costo pass-through (attualmente €0).
+- [ ] @pricing: Revisione stima costi infrastrutturali includendo Resend per scaling.
 - [ ] **Admin Panel: Gestione logistica e pricing avanzato (Master Control Editor evoluzione):**
     - [ ] Aggiunta campi `box_quantity`, `stock_quantity`, `is_active` (prodotti) nel pannello Admin.
     - [ ] Aggiunta interfaccia configurazione "Sconti Quantità" (tier di prezzo) gestibile dall'Admin.
