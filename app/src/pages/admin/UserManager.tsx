@@ -94,7 +94,7 @@ export default function UserManager() {
         {users.map(user => (
             <div key={user.id} className="grid grid-cols-4 gap-4 items-center p-4 border-b border-aluminum/10">
                 <span className="text-sm font-mono">{user.email}</span>
-                <span className="text-xs uppercase text-aluminum">{user.role}</span>
+                <span className="text-xs uppercase text-aluminum col-span-2">{user.role}</span>
                 <select 
                     value={user.role} 
                     onChange={(e) => updateRole(user.id, e.target.value)}
