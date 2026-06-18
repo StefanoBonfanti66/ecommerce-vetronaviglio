@@ -201,4 +201,3 @@ export const translations = {
     compatible_accessories: 'Compatible accessories'
   }
 };
-',filePath: '/home/sbonfanti/Scrivania/Progetti/ecommerce-vetronaviglio/app/src/constants/translations.ts')
