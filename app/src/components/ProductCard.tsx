@@ -3,7 +3,14 @@ import { useCart } from '../context/CartContext';
 import notImage from '../assets/not-image.png';
 
 interface Product {
-...
+  id: string;
+  sku: string;
+  title_it: string;
+  price: number;
+  attributes: any;
+  image_urls: string[];
+}
+
 export default function ProductCard({ product }: { product: Product }) {
   const [hasError, setHasError] = useState(false);
   const { addToCart } = useCart();
@@ -23,8 +30,6 @@ export default function ProductCard({ product }: { product: Product }) {
           />
         ) : (
           <img src={notImage} alt="No image available" className="w-full h-full object-contain p-2 opacity-50" />
-        )}
-      </div>
         )}
       </div>
       <div className="px-2 md:px-5 pb-3 md:pb-5 flex-grow flex flex-col justify-end">
