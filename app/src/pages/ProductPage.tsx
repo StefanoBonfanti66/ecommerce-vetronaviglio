@@ -15,6 +15,7 @@ export default function ProductPage() {
   const { addToCart } = useCart();
   const navigate = useNavigate();
 
+  // Funzione centralizzata risoluzione prezzo
   const resolvePrice = (product: any, quantity: number, customPrice: number | null) => {
     let price = customPrice !== null ? customPrice : product.price;
     if (customPrice === null && product.price_tiers && Array.isArray(product.price_tiers)) {
@@ -24,6 +25,10 @@ export default function ProductPage() {
     }
     return price;
   };
+  
+  // Calcolo coerente dei prezzi
+  const currentPrice = product ? resolvePrice(product, boxes * (product.box_quantity || 1), priceListItem) : 0;
+  const totalPrice = product ? currentPrice * boxes * (product.box_quantity || 1) : 0;
 
   useEffect(() => {
     async function fetchAllData() {
