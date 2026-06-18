@@ -30,7 +30,6 @@ export default function ProductPage() {
     async function fetchAllData() {
       if (!sku) return;
       
-      // 1. Fetch prodotto e impostazioni in parallelo
       const [productRes, settingsRes] = await Promise.all([
         supabase.from('products').select('*').eq('sku', sku).single(),
         supabase.from('settings').select('key, value')
@@ -48,7 +47,6 @@ export default function ProductPage() {
         setSettings(settingsMap);
       }
       
-      // 2. Fetch profilo e prezzo listino
       const { data: { session } } = await supabase.auth.getSession();
       if (session) {
           const { data: profile } = await supabase.from('profiles').select('price_list_id').eq('id', session.user.id).single();
@@ -65,7 +63,6 @@ export default function ProductPage() {
           }
       }
 
-      // 3. Fetch accessori e accessori automatici
       const [accOverrideRes, accAutoRes] = await Promise.all([
         supabase
           .from('product_accessory_overrides')
@@ -77,8 +74,6 @@ export default function ProductPage() {
 
       const forced = accOverrideRes.data?.map((item: any) => item.accessory) || [];
       const suggested = accAutoRes.data || [];
-      
-      // Merge e deduplicazione per SKU
       const mergedAccessories = [...forced, ...suggested].filter((v, i, a) => a.findIndex(t => t.sku === v.sku) === i);
       setAccessories(mergedAccessories);
       setLoading(false);
@@ -107,13 +102,14 @@ export default function ProductPage() {
   if (loading) return <div className="p-12">Caricamento...</div>;
   if (!product) return <div className="p-12">Prodotto non trovato</div>;
 
+  const attributes = product.attributes || {};
+  const displayTitle = `${product.title_it} ${attributes.ml ? `· ${attributes.ml}ml` : ''} ${attributes.colore ? `· ${attributes.colore}` : ''}`;
   const currentPrice = resolvePrice(product, boxes * (product.box_quantity || 1), priceListItem);
   const totalPrice = currentPrice * boxes * (product.box_quantity || 1);
 
   return (
     <div className="max-w-7xl mx-auto px-6 pt-24 pb-vs-8 md:py-vs-16">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-vs-8 md:gap-vs-16">
-        {/* Sinistra: Galleria (Sticky solo su desktop) */}
         <div className="md:col-span-6 md:sticky top-24 self-start">
           <div className="aspect-square bg-aluminum/5 border border-aluminum/20 flex items-center justify-center">
             {product.image_urls && product.image_urls.length > 0 ? (
@@ -133,9 +129,7 @@ export default function ProductPage() {
           <div className="text-2xl font-light">€{currentPrice.toFixed(2)} / pz</div>
           <div className="text-lg font-medium text-aluminum">Totale: €{totalPrice.toFixed(2)}</div>
           <div className="text-sm text-aluminum">Disponibilità: {product.stock_quantity} pezzi</div>
-
  
-          {/* Selettore Scatole */}
           <div className="flex items-center gap-4 py-4">
             <button onClick={() => setBoxes(b => Math.max(1, b - 1))} className="px-4 py-2 border border-aluminum/40 hover:bg-aluminum/10 transition-colors">-</button>
             <div className="text-sm font-medium w-48 text-center border-b border-onyx">
@@ -155,17 +149,12 @@ export default function ProductPage() {
             >+</button>
           </div>
 
-          {/* Pulsante aggiungi resto stock */}
           {product.stock_quantity > 0 && boxes * (product.box_quantity || 1) < product.stock_quantity && (
              <button 
                 onClick={() => {
                     const remainingBoxes = Math.floor(product.stock_quantity / (product.box_quantity || 1));
                     const totalQty = remainingBoxes * (product.box_quantity || 1);
-                    
-                    // Aggiungiamo direttamente al carrello con la quantità calcolata
                     addToCart(product, 'sale', totalQty, currentPrice);
-                    
-                    // Aggiorniamo la UI
                     setBoxes(remainingBoxes);
                     alert(`Aggiunti ${totalQty} pezzi al carrello.`);
                 }}
@@ -188,7 +177,6 @@ export default function ProductPage() {
             dangerouslySetInnerHTML={{ __html: product.description_it || 'Descrizione non disponibile.' }}
           />
 
-          {/* Griglia Tecnica */}
           <div className="grid grid-cols-2 gap-y-6 py-8 border-y border-aluminum/20">
             {[
               { label: 'Capacità', value: attributes.ml ? `${attributes.ml} ml` : 'N/A' },
@@ -207,11 +195,17 @@ export default function ProductPage() {
           {/* Accessori */}
           {accessories.length > 0 && (
               <div className="py-4">
-                  <div className="text-[9px] uppercase tracking-[0.2em] text-aluminum mb-3">Accessori compatibili</div>
-                  <div className="flex gap-4">
+                  <div className="text-[9px] uppercase tracking-[0.2em] text-aluminum mb-4">Accessori compatibili</div>
+                  <div className="grid grid-cols-2 gap-4">
                       {accessories.map(acc => (
-                          <Link key={acc.sku} to={`/product/${acc.sku}`} className="text-xs border border-aluminum/20 p-2 hover:border-onyx transition-colors">
-                              {acc.title_it}
+                          <Link key={acc.sku} to={`/product/${acc.sku}`} className="border border-aluminum/20 p-3 hover:border-onyx transition-colors flex flex-col gap-2">
+                              {acc.image_urls && acc.image_urls.length > 0 && (
+                                  <img src={acc.image_urls[0]} alt={acc.title_it} className="w-16 h-16 object-contain" />
+                              )}
+                              <div>
+                                  <div className="text-xs font-medium">{acc.title_it}</div>
+                                  <div className="text-[9px] text-aluminum font-mono">{acc.sku}</div>
+                              </div>
                           </Link>
                       ))}
                   </div>
