@@ -15,7 +15,7 @@ export default function ProductPage() {
   const [priceListItem, setPriceListItem] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const { addToCart } = useCart();
-  const { lang } = useLang();
+  const { lang, t } = useLang();
   const navigate = useNavigate();
 
   const resolvePrice = (product: any, quantity: number, customPrice: number | null) => {
@@ -116,7 +116,6 @@ export default function ProductPage() {
   return (
     <div className="max-w-7xl mx-auto px-6 pt-24 pb-vs-8 md:py-vs-16">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-vs-8 md:gap-vs-16">
-        
         {/* Sinistra: Galleria (Sticky solo su desktop) */}
         <div className="md:col-span-6 md:sticky top-24 self-start hidden md:block">
           <div className="aspect-square bg-aluminum/5 border border-aluminum/20 flex items-center justify-center relative">
@@ -134,7 +133,6 @@ export default function ProductPage() {
           </div>
         </div>
 
-        {/* Destra: Dettagli */}
         <div className="md:col-span-6 space-y-vs-8 flex flex-col items-center md:items-start text-center md:text-left">
           <div>
             <h1 className="font-serif text-5xl mb-2">{displayTitle}</h1>
@@ -226,7 +224,7 @@ export default function ProductPage() {
               </div>
             ))}
           </div>
-
+          
           {/* Sezione Accessori e Bottoni */}
           <div className="w-full max-w-sm flex flex-col items-center">
               {accessories.length > 0 && (
@@ -263,13 +261,13 @@ export default function ProductPage() {
                     onClick={() => handleAddToCart('sale')}
                     className="w-full bg-onyx text-bone py-4 uppercase text-xs tracking-[0.2em] hover:bg-aluminum transition-colors font-medium cursor-pointer"
                 >
-                    Aggiungi al carrello
+                    {t('add_to_cart')}
                 </button>
                 <button 
                     onClick={() => handleAddToCart('sample')}
                     className="w-full border border-onyx text-onyx py-4 uppercase text-xs tracking-[0.2em] hover:bg-aluminum/10 transition-colors cursor-pointer"
                 >
-                    Richiedi Campione
+                    {t('request_sample')}
                 </button>
                 <p className="text-[10px] text-aluminum text-center pt-2">
                     * La merce è gratuita. Spedizione a carico del cliente.
@@ -277,7 +275,7 @@ export default function ProductPage() {
               </div>
 
               <div className="mt-8 border border-aluminum/20 p-4 space-y-3 w-full">
-                <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-onyx">Informazioni Ordine</div>
+                <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-onyx">{t('order_info')}</div>
                 <p className="text-[10px] text-aluminum" dangerouslySetInnerHTML={{ __html: settings.shipping_notes || '• Consegna in modalità ex-works.' }} />
               </div>
           </div>
