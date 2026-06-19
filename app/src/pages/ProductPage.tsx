@@ -179,7 +179,7 @@ export default function ProductPage() {
           <div className="mb-4">
             <span className="font-sans text-2xl md:text-3xl font-semibold">€{currentPrice.toFixed(2)}</span>
             <span className="font-sans text-xs md:text-sm text-aluminum ml-2">/ {t('pieces')}</span>
-            {boxes * (product.box_quantity || 1) > 1 && (
+            {boxes > 1 && (
               <span className="font-sans text-xs md:text-sm text-aluminum ml-4">
                 {t('total')}: €{totalPrice.toFixed(2)}
               </span>
