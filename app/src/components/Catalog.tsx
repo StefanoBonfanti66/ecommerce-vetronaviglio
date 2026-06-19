@@ -80,9 +80,7 @@ export default function Catalog() {
   }, [processedProducts, currentPage]);
 
   const promoContents = [
-    { title: "Qualità Industriale", text: "Standard di eccellenza nel packaging primario." },
-    { title: "Design Italiano", text: "Estetica e funzionalità al servizio del beauty." },
-    { title: "Customizzazione", text: "Serigrafia e laccatura su misura per il tuo brand." }
+    { title: t('customization'), text: t('customization_text') }
   ];
 
   const getPromo = (index: number) => promoContents[index % promoContents.length];

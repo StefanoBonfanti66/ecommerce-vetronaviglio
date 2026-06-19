@@ -15,9 +15,10 @@
 | **Margine lordo progetto** | **0.00** |
 
 ## Infrastruttura (Costi esercizio stima mensile)
-- Vercel Pro: €20
-- Supabase Pro: €25+
-- Totale: €45 - €100 (dipendente da traffico)
+- Vercel Pro: €20.00
+- Supabase Pro: €25.00+
+- Resend: €0.00 - €20.00
+- **Totale stimato: €45.00 - €65.00** (dipendente da traffico/invii)
 
 ## Note
 - Fonte primaria: preventivo approvato, ledger progetto, fatture, costi diretti.

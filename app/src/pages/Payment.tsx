@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
+import { useCart } from '../context/CartContext';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 
 const PAYPAL_CLIENT_ID = import.meta.env.VITE_PAYPAL_CLIENT_ID || "test";
@@ -8,6 +9,7 @@ const PAYPAL_CLIENT_ID = import.meta.env.VITE_PAYPAL_CLIENT_ID || "test";
 export default function Payment() {
   const { orderId } = useParams<{ orderId: string }>();
   const navigate = useNavigate();
+  const { clearCart } = useCart();
   const [order, setOrder] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
@@ -59,6 +61,7 @@ export default function Payment() {
               alert("Pagamento riuscito ma errore aggiornamento ordine: " + error.message);
             } else {
               console.log("DB: Stato ordine aggiornato a paid.");
+              clearCart(); // <-- Clear cart here
               alert(`Pagamento completato da ${details.payer.name.given_name}`);
               navigate('/catalog');
             }

@@ -3,22 +3,54 @@ import { Link } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 import { useCart } from '../context/CartContext';
 import { useLang } from '../context/LanguageContext';
-import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
+import { resolvePrice } from '../utils/pricing';
 
 const PAYPAL_CLIENT_ID = import.meta.env.VITE_PAYPAL_CLIENT_ID || "test";
 
 export default function Cart() {
-  const { cart, removeFromCart } = useCart();
-  const { t } = useLang();
+  const { cart, removeFromCart, updateQuantity } = useCart();
+  const { lang, t } = useLang();
   const [minOrder, setMinOrder] = useState(250);
+  const [userProfile, setUserProfile] = useState<any>(null);
 
   useEffect(() => {
-    async function fetchMinOrder() {
-        const { data } = await supabase.from('settings').select('value').eq('key', 'min_order_amount').single();
-        if (data) setMinOrder(parseFloat(data.value));
+    async function fetchData() {
+        const { data: settings } = await supabase.from('settings').select('value').eq('key', 'min_order_amount').single();
+        if (settings) setMinOrder(parseFloat(settings.value));
+
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session) {
+            const { data: profile } = await supabase.from('profiles').select('price_list_id').eq('id', session.user.id).single();
+            setUserProfile(profile);
+        }
     }
-    fetchMinOrder();
+    fetchData();
   }, []);
+
+  const handleQuantityChange = async (index: number, newQuantity: number) => {
+    const item = cart[index];
+    
+    // Controllo disponibilità
+    if (newQuantity > item.stock_quantity) {
+        alert(`Disponibilità insufficiente. Massimo: ${item.stock_quantity} pezzi.`);
+        newQuantity = item.stock_quantity;
+    }
+
+    let customPrice = null;
+
+    if (userProfile?.price_list_id) {
+        const { data: priceItem } = await supabase
+            .from('price_list_items')
+            .select('price')
+            .eq('price_list_id', userProfile.price_list_id)
+            .eq('sku', item.sku)
+            .single();
+        if (priceItem) customPrice = priceItem.price;
+    }
+
+    const newPrice = resolvePrice(item, newQuantity, customPrice);
+    updateQuantity(index, newQuantity, newPrice);
+  };
 
   const saleItems = cart.filter((item: any) => item.cartType === 'sale');
   const sampleItems = cart.filter((item: any) => item.cartType === 'sample');
@@ -41,14 +73,24 @@ export default function Cart() {
             {saleItems.map((item: any, index: number) => (
               <div key={index} className="flex items-center gap-6 py-6">
                 <Link to={`/product/${encodeURIComponent(item.sku)}`} className="w-20 h-20 bg-aluminum/5 border border-aluminum/10 flex-shrink-0">
-                  {item.image_urls?.[0] && <img src={item.image_urls[0]} alt={item.title_it} className="w-full h-full object-contain p-2" />}
+                  {item.image_urls?.[0] && <img src={item.image_urls[0]} alt={lang === 'en' ? item.title_en : item.title_it} className="w-full h-full object-contain p-2" />}
                 </Link>
                 <div className="flex-grow">
-                  <Link to={`/product/${encodeURIComponent(item.sku)}`} className="font-serif text-lg hover:underline">{item.title_it}</Link>
+                  <Link to={`/product/${encodeURIComponent(item.sku)}`} className="font-serif text-lg hover:underline">{lang === 'en' ? item.title_en : item.title_it}</Link>
                   <p className="text-[10px] font-mono text-aluminum tracking-[0.1em]">{item.sku}</p>
                 </div>
-                <div className="text-sm">
-                    {item.quantity} x €{item.price?.toFixed(2)} = €{(item.price * item.quantity).toFixed(2)}
+                <div className="flex items-center gap-2">
+                    <input 
+                        type="number" 
+                        min="1" 
+                        value={item.quantity} 
+                        onChange={(e) => handleQuantityChange(index, parseInt(e.target.value) || 1)}
+                        className="w-16 p-1 border border-aluminum/20 text-center"
+                    />
+                </div>
+                <div className="text-sm text-right">
+                    <p>€{item.price?.toFixed(2)} / {t('pieces')}</p>
+                    <p className="font-bold">€{(item.price * item.quantity).toFixed(2)}</p>
                 </div>
                 <button onClick={() => removeFromCart(index)} className="text-[10px] text-red-500 hover:text-red-700 uppercase">{t('remove')}</button>
               </div>
@@ -57,6 +99,7 @@ export default function Cart() {
         </section>
       )}
 
+
       {sampleItems.length > 0 && (
         <section className="mb-16">
           <h2 className="font-serif text-lg mb-6 uppercase tracking-[0.05em]">{t('sample_requests')}</h2>
@@ -64,10 +107,10 @@ export default function Cart() {
             {sampleItems.map((item: any, index: number) => (
               <div key={index} className="flex items-center gap-6 py-6">
                 <Link to={`/product/${encodeURIComponent(item.sku)}`} className="w-20 h-20 bg-aluminum/5 border border-aluminum/10 flex-shrink-0">
-                  {item.image_urls?.[0] && <img src={item.image_urls[0]} alt={item.title_it} className="w-full h-full object-contain p-2" />}
+                  {item.image_urls?.[0] && <img src={item.image_urls[0]} alt={lang === 'en' ? item.title_en : item.title_it} className="w-full h-full object-contain p-2" />}
                 </Link>
                 <div className="flex-grow">
-                  <Link to={`/product/${encodeURIComponent(item.sku)}`} className="font-serif text-lg hover:underline">{item.title_it}</Link>
+                  <Link to={`/product/${encodeURIComponent(item.sku)}`} className="font-serif text-lg hover:underline">{lang === 'en' ? item.title_en : item.title_it}</Link>
                   <p className="text-[10px] font-mono text-aluminum tracking-[0.1em]">{item.sku}</p>
                 </div>
                 <div className="text-sm">0,00 €</div>
@@ -75,8 +118,7 @@ export default function Cart() {
               </div>
             ))}
           </div>
-          <p className="text-xs text-aluminum pt-4 italic">
-            * La merce dei campioni è gratuita. <strong>Le spese di spedizione saranno calcolate e comunicate separatamente</strong>.
+          <p className="text-xs text-aluminum pt-4 italic" dangerouslySetInnerHTML={{ __html: t('samples_shipping_separate') }}>
           </p>
         </section>
       )}
@@ -89,13 +131,12 @@ export default function Cart() {
           </div>
           
           {sampleItems.length > 0 && (
-              <div className="text-[10px] text-aluminum italic text-right">
-                  * Totale merce escluso spese di spedizione (a carico del cliente).
+              <div className="text-[10px] text-aluminum italic text-right" dangerouslySetInnerHTML={{ __html: t('total_merchandise_excl_shipping') }}>
               </div>
           )}
 
           <div className="flex justify-between font-serif text-xl border-t border-aluminum/20 pt-4">
-            <span>{t('total_merchandise')}:</span>
+            <span>{t('total')}:</span>
             <span>€{totalProducts.toFixed(2)}</span>
           </div>
 
@@ -115,3 +156,4 @@ export default function Cart() {
     </div>
   );
 }
+

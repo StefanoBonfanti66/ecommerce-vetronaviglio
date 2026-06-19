@@ -1,4 +1,5 @@
 import { useLang } from '../../context/LanguageContext';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
   const { t } = useLang();
@@ -22,10 +23,10 @@ export default function Footer() {
 
         {/* Link Legali */}
         <div className="space-y-2 flex flex-col">
-          <h4 className="text-onyx font-sans font-bold">Informazioni</h4>
-          <a href="#" className="hover:text-onyx">Condizioni di vendita</a>
-          <a href="#" className="hover:text-onyx">Privacy Policy</a>
-          <a href="#" className="hover:text-onyx">Cookie Policy</a>
+          <h4 className="text-onyx font-sans font-bold">{t('info')}</h4>
+          <Link to="/legal/terms" className="hover:text-onyx">{t('terms_of_sale')}</Link>
+          <Link to="/legal/privacy" className="hover:text-onyx">{t('privacy_policy')}</Link>
+          <Link to="/legal/cookies" className="hover:text-onyx">{t('cookie_policy')}</Link>
         </div>
       </div>
     </footer>

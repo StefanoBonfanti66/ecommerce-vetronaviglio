@@ -2,6 +2,7 @@
 
 ## Obiettivi e Posizionamento
 - **Obiettivo:** Sostituzione e miglioramento dell’attuale e-commerce Vetronaviglio (non progetto greenfield).
+- **Dominio:** Il nuovo sito utilizzerà `vetronaviglio.eu`. Sarà implementato un redirect dal vecchio sito a questo nuovo dominio.
 - **Autonomia:** Assenza di supporto tecnico interno → piattaforma “zero-manual” gestibile da CEO/Marketing.
 - **Punti di forza interni:** Forte competenza SEO/Digital Marketing lato cliente.
 - **Requisiti chiave confermati:**
@@ -67,7 +68,11 @@
 - [x] Admin Interface: Master Control Editor (attributi, collezioni, audit).
 - [x] Implementazione ruoli Magazzino/Acquisti nell'interfaccia.
 - [x] Validazione piano MVP con il CEO.
-- [ ] Configurazione DNS e validazione dominio `vetronaviglio.it` su Resend (Punto sospeso: da eseguire in fase di messa in produzione).
+- [x] Configurazione DNS e validazione dominio `vetronaviglio.eu` su Resend (Punto sospeso: da eseguire in fase di messa in produzione).
+- [x] Traduzione dati dinamici nel DB: Implementato supporto multilingua nella tabella `settings` per `shipping_notes` aggiungendo la chiave `shipping_notes_en`.
+- [x] Inseriti testi di cortesia per pagine legali (terms, privacy, cookies) nel DB.
+- [ ] **IMPORTANTE (Legal):** Sottoporre i testi inseriti nelle pagine legali al CEO/Legale per validazione formale prima del go-live.
+- [ ] Restanti campi nel DB (attributi prodotti, descrizioni) necessitano di migrazione simile per supporto EN completo.
 - [x] Implementazione M2 Governance & Architettura (Audit Logs e Triggers attivi).
 - [ ] @amministrazione: Inserimento Resend nel ledger.md come costo pass-through (attualmente €0).
 - [ ] @pricing: Revisione stima costi infrastrutturali includendo Resend per scaling.

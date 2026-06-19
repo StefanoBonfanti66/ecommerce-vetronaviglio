@@ -100,7 +100,11 @@ export default function ProductPage() {
     addToCart(product, type, finalQuantity, priceForCart);
     setProduct((prev: any) => ({ ...prev, stock_quantity: prev.stock_quantity - finalQuantity }));
     
-    alert(type === 'sample' ? 'Campione aggiunto' : `Prodotto aggiunto: ${finalQuantity} pezzi a €${priceForCart.toFixed(2)}/pz`);
+    if (type === 'sample') {
+        alert(t('sample_added'));
+    } else {
+        alert(t('product_added').replace('{quantity}', finalQuantity.toString()).replace('{price}', priceForCart.toFixed(2)));
+    }
   };
 
   if (loading) return <div className="p-12">Caricamento...</div>;
@@ -156,15 +160,15 @@ export default function ProductPage() {
             </div>
           </div>
 
-          <div className="text-2xl font-light">€{currentPrice.toFixed(2)} / pz</div>
-          <div className="text-lg font-medium text-aluminum">Totale: €{totalPrice.toFixed(2)}</div>
-          <div className="text-sm text-aluminum">Disponibilità: {product.stock_quantity} pezzi</div>
+          <div className="text-2xl font-light">€{currentPrice.toFixed(2)} / {t('pieces')}</div>
+          <div className="text-lg font-medium text-aluminum">{t('total')}: €{totalPrice.toFixed(2)}</div>
+          <div className="text-sm text-aluminum">{t('availability')}: {product.stock_quantity} {t('pieces')}</div>
  
           {/* Selettore Scatole */}
           <div className="flex items-center gap-4 py-4">
             <button onClick={() => setBoxes(b => Math.max(1, b - 1))} className="px-4 py-2 border border-aluminum/40 hover:bg-aluminum/10 transition-colors">-</button>
             <div className="text-sm font-medium w-48 text-center border-b border-onyx">
-                {boxes} scatole ({boxes * (product.box_quantity || 1)} pezzi)
+                {boxes} {t('box_label')} ({boxes * (product.box_quantity || 1)} {t('pieces')})
             </div>
             <button 
                 onClick={() => {
@@ -194,21 +198,20 @@ export default function ProductPage() {
                 }}
                 className="w-full mt-2 py-2 text-[10px] uppercase tracking-[0.2em] border border-aluminum/40 hover:bg-aluminum/10 transition-colors"
              >
-                Aggiungi tutto lo stock disponibile ({product.stock_quantity} pz)
+                {t('add_all_stock_available').replace('{count}', product.stock_quantity.toString())}
              </button>
           )}
           
           {product.box_quantity > 0 && (
             <div className="space-y-1 mt-4">
-                <p className="text-[10px] text-aluminum">
-                    Multipli d'imballo: <b>{product.box_quantity} pezzi per scatola</b>
+                <p className="text-[10px] text-aluminum" dangerouslySetInnerHTML={{ __html: t('box_multiples').replace('{count}', product.box_quantity.toString()) }}>
                 </p>
             </div>
           )}
 
           <p 
-            className="font-sans leading-relaxed text-onyx/80"
-            dangerouslySetInnerHTML={{ __html: description || 'Descrizione non disponibile.' }}
+            className="font-sans leading-relaxed text-onyx/80 break-words"
+            dangerouslySetInnerHTML={{ __html: description || t('description_not_available') }}
           />
 
           {/* Griglia Tecnica */}
@@ -220,6 +223,7 @@ export default function ProductPage() {
               { label: t('finish'), value: t(attributes.finitura) || attributes.finitura || 'N/A' },
               { label: t('pieces_per_box'), value: `${product.box_quantity || 0}` },
             ].map(attr => (
+
               <div key={attr.label}>
                 <div className="text-[9px] uppercase tracking-[0.2em] text-aluminum mb-1">{attr.label}</div>
                 <div className="text-sm font-medium">{attr.value}</div>
@@ -272,13 +276,13 @@ export default function ProductPage() {
                     {t('request_sample')}
                 </button>
                 <p className="text-[10px] text-aluminum text-center pt-2">
-                    * La merce è gratuita. Spedizione a carico del cliente.
+                    {t('free_goods_shipping_customer')}
                 </p>
               </div>
 
               <div className="mt-8 border border-aluminum/20 p-4 space-y-3 w-full">
                 <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-onyx">{t('order_info')}</div>
-                <p className="text-[10px] text-aluminum" dangerouslySetInnerHTML={{ __html: settings.shipping_notes || '• Consegna in modalità ex-works.' }} />
+                <p className="text-[10px] text-aluminum" dangerouslySetInnerHTML={{ __html: (lang === 'en' ? settings.shipping_notes_en : settings.shipping_notes) || t('shipping_notes_default') }} />
               </div>
           </div>
         </div>

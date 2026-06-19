@@ -25,6 +25,7 @@ import Checkout from './pages/Checkout'
 import Payment from './pages/Payment'
 import About from './pages/About'
 import Contact from './pages/Contact'
+import LegalPage from './pages/LegalPage'
 
 
 function App() {
@@ -118,10 +119,12 @@ function App() {
         } />
         <Route path="about" element={<About />} />
         <Route path="contact" element={<Contact />} />
+        <Route path="legal/:slug" element={<LegalPage />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )
 }
+
 
 export default App

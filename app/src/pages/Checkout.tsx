@@ -68,6 +68,9 @@ export default function Checkout() {
             <input placeholder={t('city_placeholder')} required value={shipping.city} onChange={e => setShipping({...shipping, city: e.target.value})} className="p-2 border border-aluminum/20" />
             <input placeholder={t('cap_placeholder')} required value={shipping.cap} onChange={e => setShipping({...shipping, cap: e.target.value})} className="p-2 border border-aluminum/20" />
         </div>
+        <div className="bg-bone border border-aluminum p-4 text-[10px] uppercase text-aluminum tracking-[0.1em]">
+            {t('shipping_info_exworks')}
+        </div>
         <button disabled={loading} className="bg-onyx text-bone px-8 py-4 uppercase text-[10px] tracking-[0.2em] w-full">
             {loading ? '...' : t('proceed_payment')}
         </button>
