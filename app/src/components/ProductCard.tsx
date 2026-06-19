@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useCart } from '../context/CartContext';
+import { Link } from 'react-router-dom';
 import { useLang } from '../context/LanguageContext';
 
 interface Product {
@@ -15,7 +15,6 @@ interface Product {
 
 export default function ProductCard({ product }: { product: Product }) {
   const [hasError, setHasError] = useState(false);
-  const { addToCart } = useCart();
   const { lang, t } = useLang();
 
   const imageUrl = product.image_urls && product.image_urls.length > 0
@@ -23,7 +22,7 @@ export default function ProductCard({ product }: { product: Product }) {
     : '';
 
   return (
-    <div className="bg-white group cursor-pointer transition-all duration-300">
+    <Link to={`/product/${encodeURIComponent(product.sku)}`} className="bg-white group cursor-pointer transition-all duration-300 block">
       <div className="aspect-square bg-surface relative overflow-hidden flex items-center justify-center">
         {imageUrl && !hasError ? (
           <img
@@ -54,16 +53,10 @@ export default function ProductCard({ product }: { product: Product }) {
         <p className="font-sans text-sm font-medium text-amber-accent">
           €{Number(product.price).toFixed(2)} / {t('pieces')}
         </p>
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            addToCart(product, 'sale');
-          }}
-          className="w-full border border-onyx py-3 text-[10px] uppercase tracking-[0.2em] font-medium hover:bg-onyx hover:text-bone transition-all duration-300"
-        >
-          {t('add_to_cart')}
-        </button>
+        <span className="w-full border border-onyx py-3 text-[10px] uppercase tracking-[0.2em] font-medium group-hover:bg-onyx group-hover:text-bone transition-all duration-300 text-center block">
+          {t('view_details')}
+        </span>
       </div>
-    </div>
+    </Link>
   );
 }
