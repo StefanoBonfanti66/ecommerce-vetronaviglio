@@ -34,63 +34,66 @@ export default function Header() {
   ];
 
   return (
-    <header className="fixed top-0 w-full bg-bone/90 backdrop-blur-sm z-50 border-b border-aluminum/20">
-      <nav className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-        <Link to="/" className="flex items-center mr-8">
-          <img src="/logo-full.svg" alt="Vetronaviglio" className="h-16 w-auto" />
+    <header className="fixed top-0 w-full bg-bone/90 backdrop-blur-sm z-50 border-b border-aluminum/10">
+      <nav className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <Link to="/" className="flex items-center gap-3 mr-8">
+          <img src="/logo-full.svg" alt="Vetronaviglio" className="h-14 w-auto" />
+          <span className="font-sans text-[8px] uppercase tracking-[0.25em] text-aluminum hidden lg:block pt-1">Since 1966</span>
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex gap-8 items-center flex-grow justify-end mr-12">
+        <div className="hidden md:flex gap-8 items-center flex-grow justify-end mr-8">
           {navLinks.map(link => (
-            <Link key={link.name} to={link.path} className="text-xs uppercase tracking-[0.2em] text-onyx hover:text-aluminum transition-colors">
+            <Link key={link.name} to={link.path} className="font-sans text-[11px] uppercase tracking-[0.2em] text-onyx/70 hover:text-onyx transition-colors">
               {link.name}
             </Link>
           ))}
-          <button onClick={() => setLang(lang === 'it' ? 'en' : 'it')} className="text-xs uppercase tracking-[0.2em] text-onyx font-bold hover:text-aluminum transition-colors">
+        </div>
+
+        {/* Actions */}
+        <div className="flex items-center gap-5">
+          <button onClick={() => setLang(lang === 'it' ? 'en' : 'it')} className="font-sans text-[11px] uppercase tracking-widest font-medium text-onyx/60 hover:text-onyx transition-colors hidden md:block">
             {lang.toUpperCase()}
           </button>
           {session ? (
-            <button onClick={handleLogout} className="text-xs uppercase tracking-[0.2em] text-aluminum hover:text-onyx transition-colors">
+            <button onClick={handleLogout} className="font-sans text-[10px] uppercase tracking-[0.2em] text-aluminum hover:text-onyx transition-colors hidden md:block">
               {t('logout')}
             </button>
           ) : (
-            <Link to="/login" className="text-xs uppercase tracking-[0.2em] text-onyx hover:text-aluminum transition-colors">
+            <Link to="/login" className="font-sans text-[10px] uppercase tracking-[0.2em] text-onyx/60 hover:text-onyx transition-colors hidden md:block">
               {t('login')}
             </Link>
           )}
-        </div>
-
-        {/* Cart Icon & Mobile Nav Actions */}
-        <div className="flex items-center gap-6 ml-auto md:ml-0">
-            <button className="md:hidden text-xs uppercase tracking-widest" onClick={() => setIsOpen(!isOpen)}>
-              {isOpen ? t('close') : t('menu')}
-            </button>
-            <Link to="/cart" className="relative text-onyx hover:text-aluminum transition-colors">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-                </svg>
-                {cart.length > 0 && <span className="absolute -top-2 -right-3 bg-onyx text-bone text-[9px] w-4 h-4 rounded-full flex items-center justify-center">{cart.length}</span>}
-            </Link>
+          <Link to="/cart" className="relative p-3 text-onyx/70 hover:text-onyx transition-colors">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+            </svg>
+            {cart.length > 0 && <span className="absolute top-0.5 -right-0.5 bg-amber-accent text-bone text-[8px] w-4 h-4 rounded-full flex items-center justify-center font-sans font-medium">{cart.length}</span>}
+          </Link>
+          <button className="md:hidden font-sans text-[10px] uppercase tracking-widest text-onyx/70 hover:text-onyx py-3 px-2 min-w-[44px] min-h-[44px]" onClick={() => setIsOpen(!isOpen)}>
+            {isOpen ? t('close') : t('menu')}
+          </button>
         </div>
       </nav>
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-bone border-b border-aluminum/20 p-6 flex flex-col gap-4">
+        <div className="md:hidden bg-bone border-t border-aluminum/10 px-6 py-6 flex flex-col gap-5">
           {navLinks.map(link => (
-            <Link key={link.name} to={link.path} className="text-sm uppercase tracking-widest" onClick={() => setIsOpen(false)}>
+            <Link key={link.name} to={link.path} className="font-sans text-sm uppercase tracking-widest text-onyx/80 py-3 min-h-[44px] flex items-center" onClick={() => setIsOpen(false)}>
               {link.name}
             </Link>
           ))}
-          <button onClick={() => setLang(lang === 'it' ? 'en' : 'it')} className="text-sm uppercase tracking-widest font-bold">
-            {lang.toUpperCase()}
-          </button>
-          {session ? (
-            <button onClick={handleLogout} className="text-sm uppercase tracking-widest">{t('logout')}</button>
-          ) : (
-            <Link to="/login" className="text-sm uppercase tracking-widest" onClick={() => setIsOpen(false)}>{t('login')}</Link>
-          )}
+          <div className="border-t border-aluminum/10 pt-5 flex items-center gap-4">
+            <button onClick={() => setLang(lang === 'it' ? 'en' : 'it')} className="font-sans text-xs uppercase tracking-widest font-medium text-onyx/60 py-3 min-h-[44px]">
+              {lang.toUpperCase()}
+            </button>
+            {session ? (
+              <button onClick={handleLogout} className="font-sans text-xs uppercase tracking-widest text-aluminum py-3 min-h-[44px]">{t('logout')}</button>
+            ) : (
+              <Link to="/login" className="font-sans text-xs uppercase tracking-widest text-onyx/60 py-3 min-h-[44px] flex items-center" onClick={() => setIsOpen(false)}>{t('login')}</Link>
+            )}
+          </div>
         </div>
       )}
     </header>
