@@ -305,7 +305,7 @@ export default function ProductPage() {
           {accessories.length > 0 && (
             <div className="mb-10">
               <h2 className="font-display text-2xl font-semibold mb-5">{t('compatible_accessories')}</h2>
-              <div className="flex gap-4 overflow-x-auto pb-4 snap-x scrollbar-hide">
+              <div className="flex gap-4 overflow-x-auto pb-2 snap-x">
                 {accessories.map(acc => (
                   <Link 
                     key={acc.sku} 

@@ -15,8 +15,9 @@ Questa guida descrive come gestire il catalogo prodotti tramite la dashboard amm
 
 ## 4. Gestione Utenti
 - Accedi alla sezione **Gestione Utenti** per visualizzare, modificare i ruoli o eliminare account.
-- **Creazione Utente:** Clicca "Aggiungi Utente" per creare un nuovo profilo.
-- **Ruoli:** Assegna un ruolo (admin, ceo, magazzino, acquisti, customer) per controllare i permessi.
+- **Creazione Utente:** Clicca "Aggiungi Utente" per creare un nuovo profilo. Usa l'Edge Function `admin-create-user` (v2 con CORS).
+- **Ruoli:** Assegna un ruolo (admin, ceo, magazzino, acquisti, customer) per controllare i permessi. Il ruolo `ceo` ha accesso completo all'admin panel come `admin`.
+- **Eliminazione Utente:** Clicca "Elimina" per rimuovere un account. L'operazione usa l'Edge Function `admin-delete-user` che cancella sia il record in `profiles` che l'utente in `auth.users`. **Prerequisito:** l'utente non deve avere ordini attivi.
 
 ## 5. Gestione Listini
 - Accedi alla sezione **Gestione Listini** per creare listini prezzi personalizzati (es. "Listino VIP").
@@ -29,3 +30,9 @@ Questa guida descrive come gestire il catalogo prodotti tramite la dashboard amm
   - Importo minimo fatturabile (l'importo sotto il quale il checkout è bloccato).
   - Massimo pezzi per ordine.
   - Note spedizione (visualizzate nella scheda prodotto).
+
+## 7. Import Catalogo (Script)
+- Lo script `scripts/import_catalog.py` importa il catalogo da file Excel.
+- **Modalità:** Single-pass upsert con `Prefer: resolution=merge-duplicates`.
+- **Campi importati:** SKU, titolo IT/EN, descrizione IT/EN, prezzo, stock_quantity, box_quantity, categoria, immagini, materiale, finitura, capacità, collo, collezione.
+- **Esecuzione:** `python scripts/import_catalog.py <file.xlsx>`

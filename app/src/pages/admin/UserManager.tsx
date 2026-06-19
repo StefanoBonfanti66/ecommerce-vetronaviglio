@@ -33,24 +33,29 @@ export default function UserManager() {
 
   async function createUser() {
       setLoading(true);
-      const { data: { session } } = await supabase.auth.getSession();
-      
-      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/admin-create-user`, {
-          method: 'POST',
-          headers: { 
-              'Authorization': `Bearer ${session?.access_token}`,
-              'Content-Type': 'application/json' 
-          },
-          body: JSON.stringify(newUser)
-      });
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) { alert('Sessione scaduta. Esegui di nuovo il login.'); setLoading(false); return; }
+        
+        const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/admin-create-user`, {
+            method: 'POST',
+            headers: { 
+                'Authorization': `Bearer ${session?.access_token}`,
+                'Content-Type': 'application/json' 
+            },
+            body: JSON.stringify(newUser)
+        });
 
-      if (!response.ok) {
-          const error = await response.json();
-          alert(error.message || 'Errore nella creazione utente');
-      } else {
-          setIsModalOpen(false);
-          setNewUser({ email: '', password: '', role: 'customer', price_list_id: null });
-          fetchUsers();
+        if (!response.ok) {
+            const error = await response.json();
+            alert(error.message || 'Errore nella creazione utente');
+        } else {
+            setIsModalOpen(false);
+            setNewUser({ email: '', password: '', role: 'customer', price_list_id: null });
+            fetchUsers();
+        }
+      } catch (e) {
+        alert('Errore di rete: ' + (e instanceof Error ? e.message : 'richiesta fallita'));
       }
       setLoading(false);
   }
@@ -63,27 +68,30 @@ export default function UserManager() {
   async function deleteUser(id: string) {
     if (!confirm('Sei sicuro di voler eliminare questo utente?')) return;
     
-    // Check per ordini esistenti
-    const { count } = await supabase
-        .from('orders')
-        .select('*', { count: 'exact', head: true })
-        .eq('user_id', id);
+    setLoading(true);
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) { alert('Sessione scaduta.'); setLoading(false); return; }
 
-    if (count && count > 0) {
-        alert('Impossibile eliminare l\'utente: ha ordini associati.');
-        return;
-    }
+      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/admin-delete-user`, {
+          method: 'POST',
+          headers: {
+              'Authorization': `Bearer ${session.access_token}`,
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ user_id: id })
+      });
 
-    // Eliminazione profile e auth user
-    const { error } = await supabase.from('profiles').delete().eq('id', id);
-    if (error) {
-        console.error('Errore durante l\'eliminazione:', error);
-        alert('Errore durante l\'eliminazione dell\'utente: ' + error.message);
-        return;
+      if (!response.ok) {
+          const error = await response.json();
+          alert(error.message || 'Errore nell\'eliminazione');
+      } else {
+          fetchUsers();
+      }
+    } catch (e) {
+      alert('Errore di rete: ' + (e instanceof Error ? e.message : 'richiesta fallita'));
     }
-    // Nota: l'eliminazione da auth.users potrebbe richiedere privilegi admin (Edge Function)
-    // Se non funziona direttamente, gestiremo tramite una RPC o Edge Function
-    fetchUsers();
+    setLoading(false);
   }
 
   return (
@@ -108,7 +116,7 @@ export default function UserManager() {
                     {roles.map(r => <option key={r} value={r}>{r}</option>)}
                 </select>
                 <div className="flex gap-4 pt-4">
-                    <button onClick={createUser} className="flex-1 bg-onyx text-bone py-2 uppercase text-[10px]">Crea</button>
+                    <button onClick={createUser} disabled={loading} className="flex-1 bg-onyx text-bone py-2 uppercase text-[10px] disabled:opacity-50">{loading ? 'Creazione...' : 'Crea'}</button>
                     <button onClick={() => setIsModalOpen(false)} className="flex-1 border border-onyx py-2 uppercase text-[10px]">Annulla</button>
                 </div>
             </div>

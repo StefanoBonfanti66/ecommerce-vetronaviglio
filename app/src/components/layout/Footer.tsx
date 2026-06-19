@@ -10,11 +10,9 @@ export default function Footer() {
 
           {/* Brand */}
           <div className="space-y-4">
-            <div className="w-10 h-10 bg-bone/10 rounded flex items-center justify-center">
-              <span className="font-display text-bone text-xs">VN</span>
-            </div>
+            <img src="/logo-full.svg" alt="Vetronaviglio" className="h-10 w-auto" />
             <p className="font-sans text-[10px] leading-relaxed text-bone/50 max-w-xs">
-              Packaging primario in vetro e plastica per il settore Beauty. Design italiano dal 1966.
+              {t('footer_tagline')}
             </p>
           </div>
 
@@ -44,7 +42,7 @@ export default function Footer() {
           <div className="hidden md:block space-y-3">
             <h4 className="font-sans text-[9px] uppercase tracking-[0.2em] text-bone/40 font-medium">Catalogo</h4>
             <p className="font-sans text-[10px] text-bone/50 leading-relaxed">
-              Beyond beauty packaging. Esplora la nostra selezione di flaconi, vasetti e accessori per cosmetica e make-up.
+              {t('footer_catalog_desc')}
             </p>
           </div>
 

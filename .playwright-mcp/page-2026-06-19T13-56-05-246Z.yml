@@ -1,0 +1,39 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - navigation [ref=e5]:
+      - link "Vetronaviglio" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - img "Vetronaviglio" [ref=e7]
+      - generic [ref=e8]:
+        - link [ref=e9] [cursor=pointer]:
+          - /url: /cart
+          - img [ref=e10]
+        - button "Menu" [ref=e12]
+  - main [ref=e13]:
+    - generic [ref=e14]: Caricamento...
+  - contentinfo [ref=e15]:
+    - generic [ref=e16]:
+      - generic [ref=e17]:
+        - generic [ref=e18]:
+          - img "Vetronaviglio" [ref=e19]
+          - paragraph [ref=e20]: Packaging primario in vetro e plastica per il settore Beauty. Design italiano dal 1966.
+        - generic [ref=e21]:
+          - heading "Contatti" [level=4] [ref=e22]
+          - generic [ref=e23]:
+            - paragraph [ref=e24]: Vetronaviglio S.r.l.
+            - paragraph [ref=e25]: Via Don Severino Fracassi, 31/39
+            - paragraph [ref=e26]: 20008 Bareggio (MI), Italy
+            - paragraph [ref=e27]: T. +39 02 9036 4184
+            - paragraph [ref=e28]: infostore@vetronaviglio.eu
+        - generic [ref=e29]:
+          - heading "Informazioni" [level=4] [ref=e30]
+          - generic [ref=e31]:
+            - link "Condizioni di vendita" [ref=e32] [cursor=pointer]:
+              - /url: /legal/terms
+            - link "Privacy Policy" [ref=e33] [cursor=pointer]:
+              - /url: /legal/privacy
+            - link "Cookie Policy" [ref=e34] [cursor=pointer]:
+              - /url: /legal/cookies
+      - generic [ref=e35]:
+        - paragraph [ref=e36]: © 2026 Vetronaviglio S.r.l. · P.IVA 03366120271
+        - paragraph [ref=e37]: The beauty of being different.

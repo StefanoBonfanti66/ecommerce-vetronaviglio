@@ -70,28 +70,30 @@ export default function Cart() {
           <h2 className="font-serif text-lg mb-6 uppercase tracking-[0.05em]">{t('purchase_items')}</h2>
           <div className="divide-y divide-aluminum/20 border-t border-aluminum/20">
             {saleItems.map((item: any, index: number) => (
-              <div key={index} className="flex items-center gap-6 py-6">
-                <Link to={`/product/${encodeURIComponent(item.sku)}`} className="w-20 h-20 bg-aluminum/5 border border-aluminum/10 flex-shrink-0">
-                  {item.image_urls?.[0] && <img src={item.image_urls[0]} alt={lang === 'en' ? item.title_en : item.title_it} className="w-full h-full object-contain p-2" />}
-                </Link>
-                <div className="flex-grow">
-                  <Link to={`/product/${encodeURIComponent(item.sku)}`} className="font-serif text-lg hover:underline">{lang === 'en' ? item.title_en : item.title_it}</Link>
-                  <p className="text-[10px] font-mono text-aluminum tracking-[0.1em]">{item.sku}</p>
+              <div key={index} className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 py-6">
+                <div className="flex items-center gap-4 sm:gap-6 w-full sm:w-auto">
+                  <Link to={`/product/${encodeURIComponent(item.sku)}`} className="w-16 h-16 sm:w-20 sm:h-20 bg-aluminum/5 border border-aluminum/10 flex-shrink-0">
+                    {item.image_urls?.[0] && <img src={item.image_urls[0]} alt={lang === 'en' ? item.title_en : item.title_it} className="w-full h-full object-contain p-2" />}
+                  </Link>
+                  <div className="flex-grow min-w-0">
+                    <Link to={`/product/${encodeURIComponent(item.sku)}`} className="font-serif text-sm sm:text-lg hover:underline block truncate">{lang === 'en' ? item.title_en : item.title_it}</Link>
+                    <p className="text-[10px] font-mono text-aluminum tracking-[0.1em]">{item.sku}</p>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                    <input 
-                        type="number" 
-                        min="1" 
-                        value={item.quantity} 
-                        onChange={(e) => handleQuantityChange(index, parseInt(e.target.value) || 1)}
-                        className="w-16 p-1 border border-aluminum/20 text-center"
-                    />
+                <div className="flex items-center justify-between sm:justify-end gap-3 sm:gap-4 w-full sm:w-auto">
+                  <input 
+                      type="number" 
+                      min="1" 
+                      value={item.quantity} 
+                      onChange={(e) => handleQuantityChange(index, parseInt(e.target.value) || 1)}
+                      className="w-16 p-1 border border-aluminum/20 text-center"
+                  />
+                  <div className="text-xs sm:text-sm text-right whitespace-nowrap">
+                      <p>€{item.price?.toFixed(2)} / {t('pieces')}</p>
+                      <p className="font-bold">€{(item.price * item.quantity).toFixed(2)}</p>
+                  </div>
+                  <button onClick={() => removeFromCart(index)} className="text-[10px] text-red-500 hover:text-red-700 uppercase whitespace-nowrap">{t('remove')}</button>
                 </div>
-                <div className="text-sm text-right">
-                    <p>€{item.price?.toFixed(2)} / {t('pieces')}</p>
-                    <p className="font-bold">€{(item.price * item.quantity).toFixed(2)}</p>
-                </div>
-                <button onClick={() => removeFromCart(index)} className="text-[10px] text-red-500 hover:text-red-700 uppercase">{t('remove')}</button>
               </div>
             ))}
           </div>
@@ -104,16 +106,20 @@ export default function Cart() {
           <h2 className="font-serif text-lg mb-6 uppercase tracking-[0.05em]">{t('sample_requests')}</h2>
           <div className="divide-y divide-aluminum/20 border-t border-aluminum/20">
             {sampleItems.map((item: any, index: number) => (
-              <div key={index} className="flex items-center gap-6 py-6">
-                <Link to={`/product/${encodeURIComponent(item.sku)}`} className="w-20 h-20 bg-aluminum/5 border border-aluminum/10 flex-shrink-0">
-                  {item.image_urls?.[0] && <img src={item.image_urls[0]} alt={lang === 'en' ? item.title_en : item.title_it} className="w-full h-full object-contain p-2" />}
-                </Link>
-                <div className="flex-grow">
-                  <Link to={`/product/${encodeURIComponent(item.sku)}`} className="font-serif text-lg hover:underline">{lang === 'en' ? item.title_en : item.title_it}</Link>
-                  <p className="text-[10px] font-mono text-aluminum tracking-[0.1em]">{item.sku}</p>
+              <div key={index} className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 py-6">
+                <div className="flex items-center gap-4 sm:gap-6 w-full sm:w-auto">
+                  <Link to={`/product/${encodeURIComponent(item.sku)}`} className="w-16 h-16 sm:w-20 sm:h-20 bg-aluminum/5 border border-aluminum/10 flex-shrink-0">
+                    {item.image_urls?.[0] && <img src={item.image_urls[0]} alt={lang === 'en' ? item.title_en : item.title_it} className="w-full h-full object-contain p-2" />}
+                  </Link>
+                  <div className="flex-grow min-w-0">
+                    <Link to={`/product/${encodeURIComponent(item.sku)}`} className="font-serif text-sm sm:text-lg hover:underline block truncate">{lang === 'en' ? item.title_en : item.title_it}</Link>
+                    <p className="text-[10px] font-mono text-aluminum tracking-[0.1em]">{item.sku}</p>
+                  </div>
                 </div>
-                <div className="text-sm">0,00 €</div>
-                <button onClick={() => removeFromCart(index)} className="text-[10px] text-red-500 hover:text-red-700 uppercase">{t('remove')}</button>
+                <div className="flex items-center justify-between sm:justify-end gap-4 w-full sm:w-auto">
+                  <div className="text-xs sm:text-sm whitespace-nowrap">0,00 €</div>
+                  <button onClick={() => removeFromCart(index)} className="text-[10px] text-red-500 hover:text-red-700 uppercase whitespace-nowrap">{t('remove')}</button>
+                </div>
               </div>
             ))}
           </div>

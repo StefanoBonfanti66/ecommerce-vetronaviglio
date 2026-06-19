@@ -16,7 +16,7 @@ def import_data(file_path):
         "apikey": SUPABASE_KEY,
         "Authorization": f"Bearer {SUPABASE_KEY}",
         "Content-Type": "application/json",
-        "Prefer": "return=minimal"
+        "Prefer": "resolution=merge-duplicates, return=minimal"
     }
     
     count = 0
@@ -34,6 +34,8 @@ def import_data(file_path):
             "sku": str(row['Codice']),
             "title_it": str(row['Titolo']),
             "price": float(row['Prezzo']) if row['Prezzo'] is not None else 0.0,
+            "stock_quantity": int(row['Qtà disponibile']) if row['Qtà disponibile'] is not None else 0,
+            "box_quantity": int(row['Qtà scatola']) if row['Qtà scatola'] is not None else 0,
             "attributes": attrs,
             "image_urls": json.dumps([row['Immagine']]) if row['Immagine'] is not None else "[]"
         }

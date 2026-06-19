@@ -69,6 +69,31 @@
 - **Scoperta:** 65 prodotti orfani hanno `category_id = NULL` — non compaiono nel catalogo.
 - **Prossimo:** Assegnare categorie ai 65 prodotti orfani, poi scrivere descrizioni IT+EN.
 
+## Deferred: Custom SMTP & Email Templates (2026-06-19)
+- **Bloccante:** Supabase tier gratuito non permette personalizzazione template email (reset password, conferma, invito).
+- **Soluzione rinvio:** Configurare Resend come SMTP custom per Supabase Auth durante la migrazione a Vercel.
+- **Dominio:** Usare `info@vetronaviglio.eu` (o analogo) come sender.
+- **Priorità:** Medio-alta (necessario per onboarding utenti amministrati e reset password funzionante).
+- Segnato come reminder per la fase di produzione.
+
+## Checkpoint Sessione 9 — Admin UX, Auth, Content & Mobile Fixes (2026-06-19)
+- **Audit bilingue completato:** 551/616 prodotti (89.4%) con IT+EN; 65 orfani (`category_id = NULL`) senza descrizione né categoria — non compaiono nel catalogo.
+- **Fix AC050.0845:** Aggiunti `title_en` e `description_en` mancanti.
+- **Admin User Management:** Migrato a Edge Functions v2
+  - `admin-create-user`: Fix CORS (handler OPTIONS + headers)
+  - `admin-delete-user`: Nuovo — cancella sia `profiles` che `auth.users` (prerequisito: no ordini attivi)
+  - Ruolo `ceo` abilitato in `AdminRoute.tsx` (accesso pari ad `admin`)
+- **Auth:** Flusso reset password implementato (`ResetPasswordPage.tsx`, `UpdatePasswordPage.tsx`, link in `LoginPage.tsx`)
+- **Mobile UX:** Cart & Checkout responsive — righe impilate su mobile, target tattili ingranditi, testi leggibili
+- **Content sync da vetronaviglio.it:**
+  - About page: riscritta completa (intro, blockquote, certificazioni, timeline 1991→2022, customizzazione)
+  - Contact page: foto sede (`/img/dove-siamo-sede.jpg`) + Google Maps embed
+  - Footer: anno fondazione corretto 1966 → 1991
+- **Product page:** Accessori compatibili — rimosso `scrollbar-hide`, scrollbar nativa visibile
+- **Import catalogo:** `scripts/import_catalog.py` — upsert single-pass con `stock_quantity` e `box_quantity` da Excel
+- **Documentazione aggiornata:** `docs/changelog.md` + `docs/admin-guide.md` (utenti, import, ruoli)
+- **Deferred SMTP** confermato per produzione (Resend su `vetronaviglio.eu`)
+
 ## Decision Log
 - 2026-06-16: Creato il file `PROJECT_AI_NOTES.md` (unificato).
 - 2026-06-16: Implementazione architettura DB flessibile (JSONB) e migrazione immagini.

@@ -5,6 +5,8 @@ import Catalog from './components/Catalog'
 import CollectionsPage from './pages/CollectionsPage'
 import ProductPage from './pages/ProductPage'
 import LoginPage from './pages/LoginPage'
+import ResetPasswordPage from './pages/ResetPasswordPage'
+import UpdatePasswordPage from './pages/UpdatePasswordPage'
 import ProtectedRoute from './components/ProtectedRoute'
 import RoleRoute from './components/RoleRoute'
 import AdminDashboard from './pages/AdminDashboard'
@@ -37,6 +39,8 @@ function App() {
         <Route path="collections" element={<CollectionsPage />} />
         <Route path="product/:sku" element={<ProductPage />} />
         <Route path="login" element={<LoginPage />} />
+        <Route path="reset-password" element={<ResetPasswordPage />} />
+        <Route path="update-password" element={<UpdatePasswordPage />} />
         <Route path="admin" element={
           <RoleRoute allowedRoles={['admin', 'ceo']}>
             <AdminDashboard />

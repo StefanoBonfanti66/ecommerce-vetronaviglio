@@ -23,7 +23,7 @@ export default function AdminRoute({ children }: { children: React.ReactNode }) 
         .eq('id', session.user.id)
         .single();
 
-      setIsAdmin(profile?.role === 'admin');
+      setIsAdmin(profile?.role === 'admin' || profile?.role === 'ceo');
       setLoading(false);
     }
     checkAdmin();

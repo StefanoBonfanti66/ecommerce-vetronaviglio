@@ -1,0 +1,73 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - navigation [ref=e5]:
+      - link "Vetronaviglio" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - img "Vetronaviglio" [ref=e7]
+      - generic [ref=e8]:
+        - link [ref=e9] [cursor=pointer]:
+          - /url: /cart
+          - img [ref=e10]
+        - button "Menu" [ref=e12]
+  - main [ref=e13]:
+    - generic [ref=e14]:
+      - heading "Chi siamo" [level=1] [ref=e16]
+      - generic [ref=e17]:
+        - paragraph [ref=e18]: Vetronaviglio è una consolidata e riconosciuta azienda italiana operante nel settore dei contenitori per cosmetica che da oltre 30 anni si occupa di progettazione e produzione industriale di packaging primario in plastica, vetro, legno e materiali ecosostenibili per applicazioni cosmetiche, fragranze e Pharma. Crediamo che il concetto di partnership sia la chiave della nostra evoluzione aziendale. Siamo cresciuti insieme ai nostri clienti.
+        - paragraph [ref=e19]: La costante e stabile crescita che ha contraddistinto Vetronaviglio fin dall'inizio è infatti il frutto di una precisa strategia imprenditoriale che ha posto al centro del suo fare il rapporto coi clienti/partner.
+      - blockquote [ref=e20]: “Solo chi presidia l'intero processo dalle fasi di R&D delle materie prime alla lavorazione del packaging può avere la certezza del pieno soddisfacimento delle richieste del cliente e della perfetta rispondenza fra quanto definito in fase di progettazione e quanto realizzato.”
+      - paragraph [ref=e21]: La certificazione UNI EN ISO 9001 ottenuta nel 2015 testimonia la continua attenzione tesa a sviluppare il massimo impegno per la soddisfazione del cliente. Vetronaviglio offre un supporto ideativo e progettuale affiancando il cliente partner lungo tutta la fase del processo, creativo e produttivo, con lo scopo di differenziare ogni singolo prodotto, esaltando le caratteristiche del brand e rendendolo iconicamente unico agli occhi del consumatore finale.
+      - heading "Velocità, personalizzazione, comprensione delle esigenze della parte committente" [level=2] [ref=e22]
+      - generic [ref=e23]:
+        - heading "Dal 1991 Italian packaging for beauty" [level=3] [ref=e24]
+        - generic [ref=e25]:
+          - generic [ref=e26]:
+            - generic [ref=e27]: "1991"
+            - paragraph [ref=e28]: Cristina Solito de Solis fonda Vetronaviglio s.r.l. Il core business dell'azienda è il packaging in vetro.
+          - generic [ref=e29]:
+            - generic [ref=e30]: "2002"
+            - paragraph [ref=e31]: Costruzione del primo impianto di soffiaggio e iniezione presso la sede veneta.
+          - generic [ref=e32]:
+            - generic [ref=e33]: "2003"
+            - paragraph [ref=e34]: Creazione del reparto di decorazione per la realizzazione di serigrafie, tampografie e stampe a caldo.
+          - generic [ref=e35]:
+            - generic [ref=e36]: "2012"
+            - paragraph [ref=e37]: Vetronaviglio riceve la certificazione UNI EN ISO 9001:2008.
+          - generic [ref=e38]:
+            - generic [ref=e39]: "2016"
+            - paragraph [ref=e40]: Il sito produttivo Vetronaviglio viene trasferito a Bareggio (vicino Milano), per concentrare in un unico stabilimento uffici e produzione.
+          - generic [ref=e41]:
+            - generic [ref=e42]: "2018"
+            - paragraph [ref=e43]: Vetronaviglio riceve la certificazione di Qualità UNI EN ISO 9001:2015.
+          - generic [ref=e44]:
+            - generic [ref=e45]: "2022"
+            - paragraph [ref=e46]: Vetronaviglio ottiene la Certificazione GMP UNI EN ISO 22716:2008.
+      - generic [ref=e47]:
+        - heading "Customizzazione o semicustomizzazione a costi accessibili per permettere a chiunque di brandizzare il proprio prodotto" [level=2] [ref=e48]
+        - paragraph [ref=e49]: "Lo stabilimento alle porte di Milano è l'hub creativo dell'azienda, un polo progettuale e produttivo unico che consente il controllo del ciclo completo della catena produttiva. Dalle prime fasi del progetto di design fino al prodotto finito: tutto è monitorato in vista di un costante controllo della qualità in ogni fase di produzione."
+  - contentinfo [ref=e50]:
+    - generic [ref=e51]:
+      - generic [ref=e52]:
+        - generic [ref=e53]:
+          - img "Vetronaviglio" [ref=e54]
+          - paragraph [ref=e55]: Packaging primario in vetro e plastica per il settore Beauty. Dal 1991.
+        - generic [ref=e56]:
+          - heading "Contatti" [level=4] [ref=e57]
+          - generic [ref=e58]:
+            - paragraph [ref=e59]: Vetronaviglio S.r.l.
+            - paragraph [ref=e60]: Via Don Severino Fracassi, 31/39
+            - paragraph [ref=e61]: 20008 Bareggio (MI), Italy
+            - paragraph [ref=e62]: T. +39 02 9036 4184
+            - paragraph [ref=e63]: infostore@vetronaviglio.eu
+        - generic [ref=e64]:
+          - heading "Informazioni" [level=4] [ref=e65]
+          - generic [ref=e66]:
+            - link "Condizioni di vendita" [ref=e67] [cursor=pointer]:
+              - /url: /legal/terms
+            - link "Privacy Policy" [ref=e68] [cursor=pointer]:
+              - /url: /legal/privacy
+            - link "Cookie Policy" [ref=e69] [cursor=pointer]:
+              - /url: /legal/cookies
+      - generic [ref=e70]:
+        - paragraph [ref=e71]: © 2026 Vetronaviglio S.r.l. · P.IVA 03366120271
+        - paragraph [ref=e72]: The beauty of being different.

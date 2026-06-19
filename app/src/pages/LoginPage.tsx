@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 import { useLang } from '../context/LanguageContext';
 
@@ -53,7 +53,12 @@ export default function LoginPage() {
             required
           />
         </div>
-        {error && <p className="text-[10px] text-red-600 uppercase tracking-widest">{error}</p>}
+        <div className="flex items-center justify-between">
+          {error && <p className="text-[10px] text-red-600 uppercase tracking-widest">{error}</p>}
+          <Link to="/reset-password" className="text-[10px] text-aluminum hover:text-onyx transition-colors ml-auto">
+            {t('forgot_password')}
+          </Link>
+        </div>
         <button 
           type="submit" 
           disabled={loading}
