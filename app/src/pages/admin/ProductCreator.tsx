@@ -1,3 +1,4 @@
+import AdminWrapper from "../../components/admin/AdminWrapper";
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../../supabaseClient';
@@ -135,122 +136,124 @@ export default function ProductCreator() {
   );
 
   return (
-    <div className="max-w-3xl mx-auto px-6 py-vs-16">
-      <header className="mb-12 border-b border-aluminum/20 pb-8">
-        <h1 className="font-serif text-3xl uppercase tracking-[0.05em]">Nuovo Prodotto</h1>
-      </header>
+    <AdminWrapper>
+      <div className="max-w-3xl mx-auto px-6 py-vs-16">
+        <header className="mb-12 border-b border-aluminum/20 pb-8">
+          <h1 className="font-serif text-3xl uppercase tracking-[0.05em]">Nuovo Prodotto</h1>
+        </header>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <CollapsibleSection title="Informazioni Generali" isOpen={openSections.general} onToggle={() => toggleSection('general')}>
-          <div className="space-y-6">
-            <div>
-              <label className="block text-[9px] uppercase tracking-[0.2em] text-aluminum mb-3">SKU</label>
-              <input 
-                required
-                value={product.sku} 
-                onChange={e => setProduct({...product, sku: e.target.value})}
-                className="w-full border-b border-aluminum/40 bg-transparent py-2 focus:border-onyx outline-none text-lg font-mono"
-              />
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <CollapsibleSection title="Informazioni Generali" isOpen={openSections.general} onToggle={() => toggleSection('general')}>
+            <div className="space-y-6">
+              <div>
+                <label className="block text-[9px] uppercase tracking-[0.2em] text-aluminum mb-3">SKU</label>
+                <input 
+                  required
+                  value={product.sku} 
+                  onChange={e => setProduct({...product, sku: e.target.value})}
+                  className="w-full border-b border-aluminum/40 bg-transparent py-2 focus:border-onyx outline-none text-lg font-mono"
+                />
+              </div>
+              <div>
+                <label className="block text-[9px] uppercase tracking-[0.2em] text-aluminum mb-3">Titolo</label>
+                <input 
+                  required
+                  value={product.title_it} 
+                  onChange={e => setProduct({...product, title_it: e.target.value})}
+                  className="w-full border-b border-aluminum/40 bg-transparent py-2 focus:border-onyx outline-none text-lg font-serif"
+                />
+              </div>
+              <div>
+                <label className="block text-[9px] uppercase tracking-[0.2em] text-aluminum mb-3">Prezzo</label>
+                <input 
+                  type="number" 
+                  step="0.01"
+                  required
+                  value={product.price} 
+                  onChange={e => setProduct({...product, price: parseFloat(e.target.value)})}
+                  className="w-full border-b border-aluminum/40 bg-transparent py-2 focus:border-onyx outline-none text-lg font-sans"
+                />
+              </div>
+              <div className="flex items-center gap-2">
+                <input 
+                  type="checkbox"
+                  checked={product.is_active}
+                  onChange={e => setProduct({...product, is_active: e.target.checked})}
+                />
+                <label className="text-[9px] uppercase tracking-[0.2em] text-aluminum">Prodotto Attivo</label>
+              </div>
             </div>
-            <div>
-              <label className="block text-[9px] uppercase tracking-[0.2em] text-aluminum mb-3">Titolo</label>
-              <input 
-                required
-                value={product.title_it} 
-                onChange={e => setProduct({...product, title_it: e.target.value})}
-                className="w-full border-b border-aluminum/40 bg-transparent py-2 focus:border-onyx outline-none text-lg font-serif"
-              />
-            </div>
-            <div>
-              <label className="block text-[9px] uppercase tracking-[0.2em] text-aluminum mb-3">Prezzo</label>
-              <input 
-                type="number" 
-                step="0.01"
-                required
-                value={product.price} 
-                onChange={e => setProduct({...product, price: parseFloat(e.target.value)})}
-                className="w-full border-b border-aluminum/40 bg-transparent py-2 focus:border-onyx outline-none text-lg font-sans"
-              />
-            </div>
-            <div className="flex items-center gap-2">
-              <input 
-                type="checkbox"
-                checked={product.is_active}
-                onChange={e => setProduct({...product, is_active: e.target.checked})}
-              />
-              <label className="text-[9px] uppercase tracking-[0.2em] text-aluminum">Prodotto Attivo</label>
-            </div>
-          </div>
-        </CollapsibleSection>
+          </CollapsibleSection>
 
-        <CollapsibleSection title="Descrizione (IT)" isOpen={openSections.description} onToggle={() => toggleSection('description')}>
-          <Tiptap 
-            content={product.description_it} 
-            onChange={(html) => setProduct({...product, description_it: html})} 
-          />
-        </CollapsibleSection>
+          <CollapsibleSection title="Descrizione (IT)" isOpen={openSections.description} onToggle={() => toggleSection('description')}>
+            <Tiptap 
+              content={product.description_it} 
+              onChange={(html) => setProduct({...product, description_it: html})} 
+            />
+          </CollapsibleSection>
 
-        <CollapsibleSection title="Attributi" isOpen={openSections.attributes} onToggle={() => toggleSection('attributes')}>
-          <div className="space-y-6">
-            <div>
-                <label className="block text-[9px] uppercase tracking-[0.2em] text-aluminum mb-3">Attributi Fissi</label>
-                <div className="grid grid-cols-2 gap-4">
-                    {PREDEFINED_ATTRIBUTES.map(attr => (
-                        <div key={attr}>
-                            <label className="block text-[8px] uppercase text-aluminum">{attr}</label>
-                            {attributeOptions[attr] && attributeOptions[attr].length > 0 ? (
-                                <select 
-                                    value={product.attributes?.[attr] || ''} 
-                                    onChange={e => updateAttributeValue(attr, e.target.value)}
-                                    className="w-full border-b border-aluminum/40 bg-transparent py-2 focus:border-onyx outline-none text-xs"
-                                >
-                                    <option value="">Seleziona...</option>
-                                    {attributeOptions[attr].map(opt => <option key={opt} value={opt}>{opt}</option>)}
-                                </select>
-                            ) : (
-                                <input 
-                                    value={product.attributes?.[attr] || ''} 
-                                    onChange={e => updateAttributeValue(attr, e.target.value)}
-                                    className="w-full border-b border-aluminum/40 bg-transparent py-2 focus:border-onyx outline-none text-xs"
-                                />
-                            )}
-                        </div>
-                    ))}
-                </div>
+          <CollapsibleSection title="Attributi" isOpen={openSections.attributes} onToggle={() => toggleSection('attributes')}>
+            <div className="space-y-6">
+              <div>
+                  <label className="block text-[9px] uppercase tracking-[0.2em] text-aluminum mb-3">Attributi Fissi</label>
+                  <div className="grid grid-cols-2 gap-4">
+                      {PREDEFINED_ATTRIBUTES.map(attr => (
+                          <div key={attr}>
+                              <label className="block text-[8px] uppercase text-aluminum">{attr}</label>
+                              {attributeOptions[attr] && attributeOptions[attr].length > 0 ? (
+                                  <select 
+                                      value={product.attributes?.[attr] || ''} 
+                                      onChange={e => updateAttributeValue(attr, e.target.value)}
+                                      className="w-full border-b border-aluminum/40 bg-transparent py-2 focus:border-onyx outline-none text-xs"
+                                  >
+                                      <option value="">Seleziona...</option>
+                                      {attributeOptions[attr].map(opt => <option key={opt} value={opt}>{opt}</option>)}
+                                  </select>
+                              ) : (
+                                  <input 
+                                      value={product.attributes?.[attr] || ''} 
+                                      onChange={e => updateAttributeValue(attr, e.target.value)}
+                                      className="w-full border-b border-aluminum/40 bg-transparent py-2 focus:border-onyx outline-none text-xs"
+                                  />
+                              )}
+                          </div>
+                      ))}
+                  </div>
+              </div>
+              
+              <div>
+                  <div className="flex justify-between items-center mb-3">
+                      <label className="block text-[9px] uppercase tracking-[0.2em] text-aluminum">Attributi Extra</label>
+                      <button type="button" onClick={addAttribute} className="text-[9px] uppercase tracking-[0.2em] text-aluminum hover:text-onyx transition-colors">+ Aggiungi</button>
+                  </div>
+                  <div className="space-y-3">
+                      {Object.entries(product.attributes || {}).filter(([key]) => !PREDEFINED_ATTRIBUTES.includes(key)).map(([key, value]) => (
+                          <div key={key} className="flex gap-4">
+                              <input value={key} onChange={(e) => updateAttributeKey(key, e.target.value)} className="w-1/3 bg-aluminum/5 p-2 text-xs font-mono border border-aluminum/20" />
+                              <input value={value as string} onChange={e => updateAttributeValue(key, e.target.value)} className="w-2/3 border-b border-aluminum/40 bg-transparent p-2 focus:border-onyx outline-none text-xs" />
+                              <button type="button" onClick={() => removeAttribute(key)} className="text-red-500 hover:text-red-700">×</button>
+                          </div>
+                      ))}
+                  </div>
+              </div>
             </div>
-            
-            <div>
-                <div className="flex justify-between items-center mb-3">
-                    <label className="block text-[9px] uppercase tracking-[0.2em] text-aluminum">Attributi Extra</label>
-                    <button type="button" onClick={addAttribute} className="text-[9px] uppercase tracking-[0.2em] text-aluminum hover:text-onyx transition-colors">+ Aggiungi</button>
-                </div>
-                <div className="space-y-3">
-                    {Object.entries(product.attributes || {}).filter(([key]) => !PREDEFINED_ATTRIBUTES.includes(key)).map(([key, value]) => (
-                        <div key={key} className="flex gap-4">
-                            <input value={key} onChange={(e) => updateAttributeKey(key, e.target.value)} className="w-1/3 bg-aluminum/5 p-2 text-xs font-mono border border-aluminum/20" />
-                            <input value={value as string} onChange={e => updateAttributeValue(key, e.target.value)} className="w-2/3 border-b border-aluminum/40 bg-transparent p-2 focus:border-onyx outline-none text-xs" />
-                            <button type="button" onClick={() => removeAttribute(key)} className="text-red-500 hover:text-red-700">×</button>
-                        </div>
-                    ))}
-                </div>
-            </div>
-          </div>
-        </CollapsibleSection>
+          </CollapsibleSection>
 
-        <CollapsibleSection title="Immagini" isOpen={openSections.images} onToggle={() => toggleSection('images')}>
-          <ImageUploader 
-            currentImages={product.image_urls} 
-            onUpload={handleImageUpload} 
-          />
-        </CollapsibleSection>
+          <CollapsibleSection title="Immagini" isOpen={openSections.images} onToggle={() => toggleSection('images')}>
+            <ImageUploader 
+              currentImages={product.image_urls} 
+              onUpload={handleImageUpload} 
+            />
+          </CollapsibleSection>
 
-        <button 
-          disabled={saving}
-          className="bg-onyx text-bone px-10 py-4 uppercase text-[10px] tracking-[0.2em] hover:bg-aluminum transition-all"
-        >
-          {saving ? 'Creazione...' : 'Crea Prodotto'}
-        </button>
-      </form>
-    </div>
+          <button 
+            disabled={saving}
+            className="bg-onyx text-bone px-10 py-4 uppercase text-[10px] tracking-[0.2em] hover:bg-aluminum transition-all"
+          >
+            {saving ? 'Creazione...' : 'Crea Prodotto'}
+          </button>
+        </form>
+      </div>
+    </AdminWrapper>
   );
 }

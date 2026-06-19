@@ -1,3 +1,4 @@
+import AdminWrapper from "../../components/admin/AdminWrapper";
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { supabase } from '../../supabaseClient';
@@ -170,7 +171,7 @@ export default function ProductEditor() {
   if (!product) return <div className="p-12">Prodotto non trovato</div>;
 
   return (
-    <div className="max-w-3xl mx-auto px-6 py-vs-16">
+    <AdminWrapper><div className="max-w-3xl mx-auto px-6 py-vs-16">
       <header className="mb-12 border-b border-aluminum/20 pb-8">
         <h1 className="font-serif text-3xl uppercase tracking-[0.05em]">Modifica: {sku}</h1>
       </header>
@@ -285,6 +286,6 @@ export default function ProductEditor() {
           {saving ? 'Salvataggio...' : 'Salva Modifiche'}
         </button>
       </form>
-    </div>
+    </div></AdminWrapper>
   );
 }

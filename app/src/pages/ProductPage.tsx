@@ -90,7 +90,7 @@ export default function ProductPage() {
     const totalQuantity = boxes * (product.box_quantity || 1);
     
     if (totalQuantity > product.stock_quantity) {
-        alert(`Disponibilità insufficiente. Massimo: ${product.stock_quantity} pezzi.`);
+        alert(`${t('availability')}: ${product.stock_quantity} ${t('pieces')}.`);
         return;
     }
     
@@ -107,8 +107,8 @@ export default function ProductPage() {
     }
   };
 
-  if (loading) return <div className="p-12">Caricamento...</div>;
-  if (!product) return <div className="p-12">Prodotto non trovato</div>;
+  if (loading) return <div className="p-12">{t('loading_product')}</div>;
+  if (!product) return <div className="p-12">{t('product_not_found')}</div>;
 
   const attributes = product.attributes || {};
   const displayTitle = `${product[`title_${lang}`] || product.title_it} ${attributes.ml ? `· ${attributes.ml}ml` : ''} ${attributes.colore ? `· ${attributes.colore}` : ''}`;
@@ -175,7 +175,7 @@ export default function ProductPage() {
                     const nextBoxes = boxes + 1;
                     const nextQty = nextBoxes * (product.box_quantity || 1);
                     if (nextQty > product.stock_quantity) {
-                        alert(`Massima disponibilità raggiunta: ${product.stock_quantity} pezzi.`);
+                        alert(`${t('availability')}: ${product.stock_quantity} ${t('pieces')}.`);
                     } else {
                         setBoxes(nextBoxes);
                     }
@@ -194,7 +194,7 @@ export default function ProductPage() {
                     addToCart(product, 'sale', totalQty, currentPrice);
                     setBoxes(remainingBoxes);
                     setProduct((prev: any) => ({ ...prev, stock_quantity: prev.stock_quantity - totalQty }));
-                    alert(`Aggiunti ${totalQty} pezzi al carrello.`);
+                    alert(t('product_added_cart').replace('{quantity}', totalQty.toString()));
                 }}
                 className="w-full mt-2 py-2 text-[10px] uppercase tracking-[0.2em] border border-aluminum/40 hover:bg-aluminum/10 transition-colors"
              >

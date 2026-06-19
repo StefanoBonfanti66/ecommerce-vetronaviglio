@@ -12,18 +12,17 @@
 - Use `PROJECT_AI_NOTES.md` to track decisions, checkpoints, and pending items across sessions.
 - If you use custom commands in your OpenCode setup, document project-specific ones here or in the repository docs.
 
-## Current Focus — 2026-06-18 (Sessione 6 - Ottimizzazione UX & Fixes)
+## Current Focus — 2026-06-19 (Sessione 8 - Audit copertura bilingue DB)
 
 ### Completato
-- Ottimizzazione Mobile-first estesa (Header, Griglia accessori, Layout ProductPage).
-- Gestione listini personalizzati e prezzi dinamici (Fallback: Listino -> Tier -> Base).
-- Setup automatico accessori tramite tag Categoria.
-- Fix critici (ScrollToTop, RLS admin, parsing JS, stabilità carrello).
+- Fix AC050.0845: aggiunti `title_en` e `description_en`.
+- Audit completo copertura bilingue su 616 prodotti.
+- Scoperti 65 prodotti senza descrizione (IT né EN) e senza categoria assegnata.
 
 ### In corso
-- M3 completata.
+- (nessuno)
 
 ### Prossimo step concreto
-- Deploy in ambiente di test per validazione finale con il cliente.
+- Assegnare categorie ai 65 prodotti orfani (`category_id = NULL`) per renderli visibili nel catalogo, poi scrivere descrizioni IT+EN.
 
-### Data Ultimo Aggiornamento: 2026-06-18
+### Data Ultimo Aggiornamento: 2026-06-19

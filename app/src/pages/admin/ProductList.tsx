@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../../supabaseClient';
+import AdminWrapper from '../../components/admin/AdminWrapper';
 
 export default function ProductList() {
   const [products, setProducts] = useState<any[]>([]);
@@ -31,7 +32,7 @@ export default function ProductList() {
   }, [searchTerm, page]);
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-vs-16">
+    <AdminWrapper>
       <header className="mb-vs-16 border-b border-aluminum/20 pb-vs-8 flex justify-between items-end">
         <h1 className="font-serif text-sub-heading uppercase tracking-[0.05em]">Catalogo Prodotti</h1>
         <div className="flex gap-4">
@@ -96,6 +97,6 @@ export default function ProductList() {
             </button>
         </div>
       </div>
-    </div>
+    </AdminWrapper>
   );
 }

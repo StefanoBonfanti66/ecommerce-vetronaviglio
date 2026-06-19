@@ -1,3 +1,4 @@
+import AdminWrapper from "../../components/admin/AdminWrapper";
 import { useEffect, useState } from 'react';
 import { supabase } from '../../supabaseClient';
 
@@ -5,6 +6,7 @@ export default function UserManager() {
   const [users, setUsers] = useState<any[]>([]);
   const [priceLists, setPriceLists] = useState<any[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [newUser, setNewUser] = useState({ email: '', password: '', role: 'customer', price_list_id: null });
   const roles = ['admin', 'ceo', 'magazzino', 'acquisti', 'customer'];
 
@@ -30,22 +32,27 @@ export default function UserManager() {
 
 
   async function createUser() {
-      const { data, error } = await supabase.auth.signUp({
-          email: newUser.email,
-          password: newUser.password,
+      setLoading(true);
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/admin-create-user`, {
+          method: 'POST',
+          headers: { 
+              'Authorization': `Bearer ${session?.access_token}`,
+              'Content-Type': 'application/json' 
+          },
+          body: JSON.stringify(newUser)
       });
 
-      if (error) {
-          alert(error.message);
-          return;
-      }
-
-      if (data.user) {
-          await supabase.from('profiles').update({ role: newUser.role }).eq('id', data.user.id);
+      if (!response.ok) {
+          const error = await response.json();
+          alert(error.message || 'Errore nella creazione utente');
+      } else {
           setIsModalOpen(false);
-          setNewUser({ email: '', password: '', role: 'customer' });
+          setNewUser({ email: '', password: '', role: 'customer', price_list_id: null });
           fetchUsers();
       }
+      setLoading(false);
   }
 
   async function updateRole(id: string, newRole: string) {
@@ -80,7 +87,7 @@ export default function UserManager() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-6 py-vs-16">
+    <AdminWrapper><div className="max-w-4xl mx-auto px-6 py-vs-16">
       <header className="mb-12 border-b border-aluminum/20 pb-8 flex justify-between items-center">
         <h1 className="font-serif text-3xl uppercase tracking-[0.05em]">Gestione Ruoli Utenti</h1>
         <button 
@@ -136,6 +143,6 @@ export default function UserManager() {
             </div>
         ))}
       </div>
-    </div>
+    </div></AdminWrapper>
   );
 }

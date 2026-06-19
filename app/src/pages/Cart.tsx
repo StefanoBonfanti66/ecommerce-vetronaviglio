@@ -30,9 +30,8 @@ export default function Cart() {
   const handleQuantityChange = async (index: number, newQuantity: number) => {
     const item = cart[index];
     
-    // Controllo disponibilità
     if (newQuantity > item.stock_quantity) {
-        alert(`Disponibilità insufficiente. Massimo: ${item.stock_quantity} pezzi.`);
+        alert(`${t('availability')}: ${item.stock_quantity} ${t('pieces')}.`);
         newQuantity = item.stock_quantity;
     }
 

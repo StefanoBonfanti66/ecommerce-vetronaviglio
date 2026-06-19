@@ -1,3 +1,4 @@
+import AdminWrapper from "../../components/admin/AdminWrapper";
 import { useState, useEffect } from 'react';
 import { supabase } from '../../supabaseClient';
 
@@ -30,7 +31,7 @@ export default function Settings() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto px-6 py-vs-16">
+    <AdminWrapper><div className="max-w-3xl mx-auto px-6 py-vs-16">
       <header className="mb-12 border-b border-aluminum/20 pb-8">
         <h1 className="font-serif text-3xl uppercase tracking-[0.05em]">Impostazioni Generali</h1>
       </header>
@@ -85,6 +86,6 @@ export default function Settings() {
             {loading ? 'Salvataggio...' : 'Salva Impostazioni'}
         </button>
       </form>
-    </div>
+    </div></AdminWrapper>
   );
 }

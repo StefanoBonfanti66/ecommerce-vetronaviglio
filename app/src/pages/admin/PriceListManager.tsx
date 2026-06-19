@@ -1,6 +1,8 @@
+import AdminWrapper from "../../components/admin/AdminWrapper";
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../../supabaseClient';
+import Papa from 'papaparse';
 
 export default function PriceListManager() {
   const [priceLists, setPriceLists] = useState<any[]>([]);
@@ -27,8 +29,34 @@ export default function PriceListManager() {
       fetchPriceLists();
   }
 
+  async function exportPriceList(listId: string, listName: string) {
+      const { data } = await supabase
+          .from('price_list_items')
+          .select('sku, price')
+          .eq('price_list_id', listId);
+
+      if (!data || data.length === 0) {
+          alert('Listino vuoto');
+          return;
+      }
+
+      const csvData = data.map(item => ({
+          SKU: item.sku,
+          Prezzo: item.price
+      }));
+      const csv = Papa.unparse(csvData);
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `listino_${listName.replace(/\s+/g, '_')}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+  }
+
   return (
-    <div className="max-w-4xl mx-auto px-6 py-vs-16">
+    <AdminWrapper><div className="max-w-4xl mx-auto px-6 py-vs-16">
       <header className="mb-12 border-b border-aluminum/20 pb-8">
         <h1 className="font-serif text-3xl uppercase tracking-[0.05em]">Gestione Listini</h1>
       </header>
@@ -59,11 +87,12 @@ export default function PriceListManager() {
                         className="w-16 p-1 border border-aluminum/40 text-center"
                     />
                     <button onClick={() => duplicatePriceList(list)} className="text-xs uppercase underline text-aluminum hover:text-onyx">Duplica</button>
+                    <button onClick={() => exportPriceList(list.id, list.name)} className="text-xs uppercase underline text-aluminum hover:text-onyx">Esporta CSV</button>
                     <Link to={`/admin/price-lists/${list.id}`} className="text-xs uppercase underline">Gestisci Prodotti</Link>
                 </div>
             </div>
         ))}
       </div>
-    </div>
+    </div></AdminWrapper>
   );
 }

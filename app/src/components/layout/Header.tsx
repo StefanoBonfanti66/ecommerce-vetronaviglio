@@ -83,6 +83,9 @@ export default function Header() {
               {link.name}
             </Link>
           ))}
+          <button onClick={() => setLang(lang === 'it' ? 'en' : 'it')} className="text-sm uppercase tracking-widest font-bold">
+            {lang.toUpperCase()}
+          </button>
           {session ? (
             <button onClick={handleLogout} className="text-sm uppercase tracking-widest">{t('logout')}</button>
           ) : (

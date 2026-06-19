@@ -16,17 +16,17 @@ export function CartProvider({ children }: { children: ReactNode }) {
       const newTotalQuantity = existingItem.quantity + quantity;
 
       if (newTotalQuantity > product.stock_quantity) {
-        alert(`Disponibilità massima raggiunta: ${product.stock_quantity} pezzi.`);
+        alert(`${t('availability')}: ${product.stock_quantity} ${t('pieces')}.`);
         return;
       }
 
       const updatedCart = [...cart];
       updatedCart[existingIndex] = { ...existingItem, quantity: newTotalQuantity };
       setCart(updatedCart);
-      setNotification(`${product.title_it} (x${quantity}) aggiunto al carrello`);
+      setNotification(`${productTitle(product)} (x${quantity}) ${t('added_to_cart')}`);
     } else {
       setCart([...cart, { ...product, cartType: type, quantity, price }]);
-      setNotification(`${product.title_it} (x${quantity}) aggiunto ${type === 'sample' ? 'alla richiesta campioni' : 'al carrello'}`);
+      setNotification(`${productTitle(product)} (x${quantity}) ${type === 'sample' ? t('added_to_samples') : t('added_to_cart')}`);
     }
     
     setTimeout(() => setNotification(null), 3000);
@@ -41,6 +41,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const removeFromCart = (index: number) => {
     setCart(cart.filter((_, i) => i !== index));
   };
+
+  const productTitle = (product: any) => product[`title_${lang}`] || product.title_it;
 
   const clearCart = () => {
     setCart([]);

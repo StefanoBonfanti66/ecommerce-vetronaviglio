@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { translations } from '../constants/translations';
 
 type Lang = 'it' | 'en';
@@ -9,8 +9,12 @@ const LanguageContext = createContext<{ lang: Lang, setLang: (lang: Lang) => voi
 });
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLang] = useState<Lang>('it');
+  const [lang, setLang] = useState<Lang>(() => (localStorage.getItem('lang') as Lang) || 'it');
   
+  useEffect(() => {
+    localStorage.setItem('lang', lang);
+  }, [lang]);
+
   const t = (key: keyof typeof translations.it) => translations[lang][key] || key;
 
   return <LanguageContext.Provider value={{ lang, setLang, t }}>{children}</LanguageContext.Provider>;

@@ -1,5 +1,10 @@
 # Project AI Notes
 
+## Lesson Learned: immagini prodotto
+- Un URL presente in `products.image_urls` **non garantisce** che l'immagine sia valida.
+- Alcuni prodotti hanno URL con file finti (33 byte) caricati per motivi tecnici.
+- Per verificare se un'immagine è reale: controllare `content-length > 33` e `content-type` dalla response storage. Un 200 non basta.
+
 ## Obiettivi e Posizionamento
 - **Obiettivo:** Sostituzione e miglioramento dell’attuale e-commerce Vetronaviglio (non progetto greenfield).
 - **Dominio:** Il nuovo sito utilizzerà `vetronaviglio.eu`. Sarà implementato un redirect dal vecchio sito a questo nuovo dominio.
@@ -57,6 +62,12 @@
 - **Strumento:** Calendarizzazione documentale introdotta.
 - **Path:** `docs/admin/scadenze.md` (Master list).
 - **Azione:** Migrazione milestone correnti da `PROJECT_AI_NOTES.md` e `...-plan.md` verso `scadenze.md`.
+
+## Checkpoint Sessione 8 — Audit copertura bilingue (2026-06-19)
+- **Fix puntuale:** AC050.0845 — aggiunti `title_en` e `description_en`.
+- **Copertura bilingue:** 551/616 (89.4%) hanno IT+EN; 65/616 (10.6%) senza descrizione e senza categoria.
+- **Scoperta:** 65 prodotti orfani hanno `category_id = NULL` — non compaiono nel catalogo.
+- **Prossimo:** Assegnare categorie ai 65 prodotti orfani, poi scrivere descrizioni IT+EN.
 
 ## Decision Log
 - 2026-06-16: Creato il file `PROJECT_AI_NOTES.md` (unificato).
