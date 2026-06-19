@@ -108,7 +108,7 @@ export default function Catalog() {
       {/* Filter bar */}
       <div className="mb-8 space-y-4">
         {/* Primary: categories */}
-        <div className="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-hide">
+        <div className="flex flex-wrap items-center gap-3">
           {filters.categories.map(cat => (
             <button
               key={cat}
