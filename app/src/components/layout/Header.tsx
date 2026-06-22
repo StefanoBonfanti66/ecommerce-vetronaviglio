@@ -56,9 +56,14 @@ export default function Header() {
             {lang.toUpperCase()}
           </button>
           {session ? (
-            <button onClick={handleLogout} className="font-sans text-[10px] uppercase tracking-[0.2em] text-aluminum hover:text-onyx transition-colors hidden md:block">
-              {t('logout')}
-            </button>
+            <>
+              <Link to="/admin" className="font-sans text-[10px] uppercase tracking-[0.2em] text-amber-accent hover:text-onyx transition-colors hidden md:block">
+                Admin
+              </Link>
+              <button onClick={handleLogout} className="font-sans text-[10px] uppercase tracking-[0.2em] text-aluminum hover:text-onyx transition-colors hidden md:block">
+                {t('logout')}
+              </button>
+            </>
           ) : (
             <Link to="/login" className="font-sans text-[10px] uppercase tracking-[0.2em] text-onyx/60 hover:text-onyx transition-colors hidden md:block">
               {t('login')}
@@ -89,7 +94,10 @@ export default function Header() {
               {lang.toUpperCase()}
             </button>
             {session ? (
-              <button onClick={handleLogout} className="font-sans text-xs uppercase tracking-widest text-aluminum py-3 min-h-[44px]">{t('logout')}</button>
+              <>
+                <Link to="/admin" className="font-sans text-xs uppercase tracking-widest text-amber-accent py-3 min-h-[44px] flex items-center" onClick={() => setIsOpen(false)}>Admin</Link>
+                <button onClick={handleLogout} className="font-sans text-xs uppercase tracking-widest text-aluminum py-3 min-h-[44px]">{t('logout')}</button>
+              </>
             ) : (
               <Link to="/login" className="font-sans text-xs uppercase tracking-widest text-onyx/60 py-3 min-h-[44px] flex items-center" onClick={() => setIsOpen(false)}>{t('login')}</Link>
             )}

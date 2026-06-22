@@ -144,3 +144,26 @@
 - 3 colori più frequenti nel DB: `bianco` (246), `ghiera` (113), `bulbo` (96).
 - `trasparente`: 67 occorrenze, `satinato`: 76.
 - Parole con punteggiatura: `brillante,` (31), `satinato,` (28), `neutro,` (5) ecc. — gestite dallo stripping nella `translateColor()`.
+
+## Sessione 11 — Bug fix filtri homepage
+
+### Obiettivo
+Risolvere il bug: bottoni Vetro/Plastica/Accessori in Home aprivano il catalogo completo invece di filtrare.
+
+### Cosa è stato fatto
+- Home.tsx: cambiato `to="/catalog"` in `to="/catalog?filter=vetro|plastica|accessori"`
+- Catalog.tsx: aggiunta logica `?filter=` con raggruppamento custom:
+  - `vetro`: `materiale = 'Vetro'` o `categoria` contiene "vetro"
+  - `plastica`: set di materiali plastici (PE, PET, PP, SAN, etc.) o `categoria` contiene "plastica"/"pet"
+  - `accessori`: set di categorie note (Coperchi, Capsule, Dispenser, Contagocce, Cover)
+- Chip visivo attivo con pulsante ✕ per tornare al catalogo completo
+- Usato `setSearchParams` per pulizia URL sincronizzata
+
+### Decisioni
+- Non usato `?categoria=` perché le categorie DB sono specifiche (es. "Flaconi vetro", "Coperchi"), non broad ("Vetro", "Plastica", "Accessori")
+- Scelto raggruppamento frontend con regole invece di creare nuove collezioni DB
+
+### Dati utili
+- `attributes.categoria` ha 18 valori specifici (es. "Flaconi vetro", "Vasi plastica", "Coperchi", ecc.) — nessun valore broad
+- `attributes.materiale` ha 20 valori tra cui "Vetro", vari plastici (PE, PET, PP, SAN, etc.), "Alluminio", "Resina termoindurente"
+- 616 prodotti totali nel DB Supabase `vsqzxudijllpocrbqfbo`

@@ -12,7 +12,7 @@
 - Use `PROJECT_AI_NOTES.md` to track decisions, checkpoints, and pending items across sessions.
 - If you use custom commands in your OpenCode setup, document project-specific ones here or in the repository docs.
 
-## Current Focus — 2026-06-22 (Sessione 10 - Pricing Tiers, Color Translation, Accessory Gate)
+## Current Focus — 2026-06-22 (Sessione 10 - Pricing Tiers, Color Translation, Accessory Gate + Sessione 11)
 
 ### Completato
 - **Logica Prezzi:** Implementate fasce quantità (Prezzo Doppio + X%: 100-999/+40%, 1000-2999/+30%, 3000-4999/+20%, 5000+10%) in `resolvePrice()`.
@@ -20,11 +20,13 @@
 - **Traduzioni:** ~60 parole colore IT/EN aggiunte in `translations.ts` (base + tecnici: Ghiera/Collar, Bulbo/Bulb, Tasto/Stopper ecc.).
 - **Accessori:** Sezione "Accessori compatibili" nascosta per prodotti con `is_accessory = true`.
 - **Documentazione:** `docs/changelog.md` e `docs/admin-guide.md` aggiornate.
+- **Bug fix filtri homepage:** Bottoni Vetro/Plastica/Accessori ora filtrano il catalogo con raggruppamento custom via `?filter=` param.
+- **Deploy Vercel:** App live su `ecommerce-vetronaviglio.vercel.app`.
 
-### In corso
-- (nessuno)
+### Bloccato / Da decidere
+- Assegnare categorie ai 65 prodotti orfani (`category_id = NULL`) — **serve decisione CEO** su quali categorie assegnare.
 
 ### Prossimo step concreto
-- Assegnare categorie ai 65 prodotti orfani (`category_id = NULL`) per renderli visibili nel catalogo, poi scrivere descrizioni IT+EN.
+- Attendere decisione CEO sulle categorie dei prodotti orfani.
 
 ### Data Ultimo Aggiornamento: 2026-06-22
