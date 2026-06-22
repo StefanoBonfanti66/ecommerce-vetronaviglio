@@ -81,7 +81,7 @@ export default function Home() {
       <section className="max-w-7xl mx-auto px-6 py-16 md:py-24">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <Link
-            to="/catalog?categoria=Vetro"
+            to="/catalog?filter=vetro"
             className="group bg-surface p-8 md:p-10 flex flex-col justify-between min-h-[260px] md:min-h-[360px] border border-transparent hover:border-aluminum/20 transition-all"
           >
             <div className="self-end">{categoryBottle}</div>
@@ -100,7 +100,7 @@ export default function Home() {
             </div>
           </Link>
           <Link
-            to="/catalog?categoria=Plastica"
+            to="/catalog?filter=plastica"
             className="group bg-surface p-8 md:p-10 flex flex-col justify-between min-h-[260px] md:min-h-[360px] border border-transparent hover:border-aluminum/20 transition-all"
           >
             <div className="self-end">{categoryBottle}</div>
@@ -119,7 +119,7 @@ export default function Home() {
             </div>
           </Link>
           <Link
-            to="/catalog?categoria=Accessori"
+            to="/catalog?filter=accessori"
             className="group bg-surface p-8 md:p-10 flex flex-col justify-between min-h-[260px] md:min-h-[360px] border border-transparent hover:border-aluminum/20 transition-all"
           >
             <div className="self-end">{categoryBottle}</div>

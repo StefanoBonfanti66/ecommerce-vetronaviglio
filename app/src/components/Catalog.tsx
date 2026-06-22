@@ -17,9 +17,9 @@ export default function Catalog() {
   const [currentPage, setCurrentPage] = useState(1);
   const { lang, t } = useLang();
 
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const collectionSlug = searchParams.get('collection');
-  const initialCategory = searchParams.get('categoria');
+  const broadFilter = searchParams.get('filter');
 
   useEffect(() => {
     async function fetchProducts() {
@@ -47,10 +47,10 @@ export default function Catalog() {
   }, [collectionSlug]);
 
   useEffect(() => {
-    if (initialCategory) {
-      setActiveCategory(initialCategory);
+    if (broadFilter) {
+      setActiveCategory('Tutti');
     }
-  }, [initialCategory]);
+  }, [broadFilter]);
 
   const filters = useMemo(() => {
     const catsSet = new Set(products.map(p => p.attributes?.categoria || 'Varie'));
@@ -71,16 +71,40 @@ export default function Catalog() {
     };
   }, [products]);
 
+  const accessoryCategories = new Set([
+    'Capsule - Disctop', 'Capsule in Urea', 'Contagocce', 'Coperchi',
+    'Coperchi in urea', 'Cover', 'Dispenser'
+  ]);
+
+  const plasticMaterials = new Set([
+    'PE', 'PE HDLD soft touch', 'PEHD', 'PEHD PCR', 'PEHD soft touch',
+    'PEHDLD', 'PET', 'PETG', 'PIR PP', 'PP', 'PP + ghiera rivestita in alluminio',
+    'PP + SAN (LENS)', 'PP soft touch', 'PP+PE', 'SAN', 'SAN + ABS + PP', 'k resin + PP'
+  ]);
+
   const processedProducts = useMemo(() => {
     let list = products.filter(p => {
-      const catMatch = activeCategory === 'Tutti' || (p.attributes?.[`categoria_${lang}`] || p.attributes?.categoria || 'Varie') === activeCategory;
+      const cat = p.attributes?.categoria || 'Varie';
+      const mat = p.attributes?.materiale || '';
+
+      if (broadFilter === 'vetro') {
+        return mat === 'Vetro' || cat.toLowerCase().includes('vetro');
+      }
+      if (broadFilter === 'plastica') {
+        return plasticMaterials.has(mat) || cat.toLowerCase().includes('plastica') || cat.toLowerCase().includes('pet');
+      }
+      if (broadFilter === 'accessori') {
+        return accessoryCategories.has(cat);
+      }
+
+      const catMatch = activeCategory === 'Tutti' || (p.attributes?.[`categoria_${lang}`] || cat) === activeCategory;
       const capMatch = activeCapacity === 'Tutti' || (p.attributes?.ml ? `${p.attributes.ml}ml` : 'N/A') === activeCapacity;
-      const matMatch = activeMaterial === 'Tutti' || (p.attributes?.materiale || 'Varie') === activeMaterial;
+      const matMatch = activeMaterial === 'Tutti' || (mat || 'Varie') === activeMaterial;
       const skuMatch = skuSearch === '' || p.sku.toLowerCase().includes(skuSearch.toLowerCase());
       return catMatch && capMatch && matMatch && skuMatch;
     });
     return list.sort((a, b) => (a[`title_${lang}`] || a.title_it).localeCompare(b[`title_${lang}`] || b.title_it));
-  }, [products, activeCategory, activeCapacity, activeMaterial, skuSearch, lang]);
+  }, [products, activeCategory, activeCapacity, activeMaterial, skuSearch, lang, broadFilter]);
 
   const totalPages = Math.ceil(processedProducts.length / ITEMS_PER_PAGE);
   const paginatedProducts = useMemo(() => {
@@ -95,7 +119,11 @@ export default function Catalog() {
     setActiveMaterial('Tutti');
     setSkuSearch('');
     setCurrentPage(1);
-    window.history.replaceState({}, '', '/catalog');
+    setSearchParams({});
+  };
+
+  const clearBroadFilter = () => {
+    setSearchParams({});
   };
 
   return (
@@ -103,12 +131,20 @@ export default function Catalog() {
       {/* Header */}
       <div className="mb-8 md:mb-12">
         <h1 className="font-display text-4xl md:text-5xl font-semibold tracking-tight">
-          {collectionSlug ? collectionSlug.toUpperCase() : t('catalog_title')}
+          {collectionSlug ? collectionSlug.toUpperCase() : (broadFilter === 'vetro' ? t('glass') : broadFilter === 'plastica' ? t('plastic') : broadFilter === 'accessori' ? t('accessories') : t('catalog_title'))}
         </h1>
-        {!collectionSlug && (
+        {!collectionSlug && !broadFilter && (
           <p className="font-sans text-[11px] text-aluminum mt-2 uppercase tracking-[0.15em]">
             {processedProducts.length} {t('pieces')}
           </p>
+        )}
+        {broadFilter && (
+          <div className="flex flex-wrap items-center gap-2 mt-2">
+            <span className="inline-flex items-center gap-2 font-sans text-[10px] uppercase tracking-[0.15em] px-3 py-1.5 border border-amber-accent/30 text-amber-accent">
+              {broadFilter === 'vetro' ? t('glass') : broadFilter === 'plastica' ? t('plastic') : t('accessories')}
+              <button onClick={clearBroadFilter} className="hover:text-onyx transition-colors">✕</button>
+            </span>
+          </div>
         )}
       </div>
 
