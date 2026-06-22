@@ -19,6 +19,7 @@ export default function Catalog() {
 
   const [searchParams] = useSearchParams();
   const collectionSlug = searchParams.get('collection');
+  const initialCategory = searchParams.get('categoria');
 
   useEffect(() => {
     async function fetchProducts() {
@@ -44,6 +45,12 @@ export default function Catalog() {
     }
     fetchProducts();
   }, [collectionSlug]);
+
+  useEffect(() => {
+    if (initialCategory) {
+      setActiveCategory(initialCategory);
+    }
+  }, [initialCategory]);
 
   const filters = useMemo(() => {
     const catsSet = new Set(products.map(p => p.attributes?.categoria || 'Varie'));
