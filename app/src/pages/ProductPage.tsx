@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 import { useCart } from '../context/CartContext';
 import { useLang } from '../context/LanguageContext';
+import { translations } from '../constants/translations';
 
 export default function ProductPage() {
   const { sku } = useParams<{ sku: string }>();
@@ -17,6 +18,19 @@ export default function ProductPage() {
   const { addToCart } = useCart();
   const { lang, t } = useLang();
   const navigate = useNavigate();
+
+  const translateColor = (color: string): string => {
+    const exact = t(color as any);
+    if (exact !== color) return exact;
+    return color.split(' ').map(w => {
+      const punct = w.match(/[^a-zA-ZÀ-ÿ]+$/)?.[0] || '';
+      const base = punct ? w.slice(0, -punct.length) : w;
+      const tr = t(base as any);
+      if (tr !== base) return tr + punct;
+      const entry = Object.entries(translations.it).find(([k]) => k.toLowerCase() === base.toLowerCase());
+      return (entry ? (translations.en as any)[entry[0]] : w) + punct;
+    }).join(' ');
+  };
 
   const resolvePrice = (product: any, quantity: number, customPrice: number | null) => {
     let priceToConsider = customPrice !== null ? customPrice : product.price;
@@ -187,7 +201,7 @@ export default function ProductPage() {
           {/* Attributes subtitle */}
           {(attributes.ml || attributes.colore) && (
             <p className="font-sans text-sm text-aluminum mb-6">
-              {[attributes.ml && `${attributes.ml}ml`, attributes.colore].filter(Boolean).join(' · ')}
+              {[attributes.ml && `${attributes.ml}ml`, translateColor(attributes.colore)].filter(Boolean).join(' · ')}
             </p>
           )}
 
@@ -318,7 +332,7 @@ export default function ProductPage() {
           </div>
 
           {/* Compatible accessories */}
-          {accessories.length > 0 && (
+          {!product.is_accessory && accessories.length > 0 && (
             <div className="mb-10">
               <h2 className="font-display text-2xl font-semibold mb-5">{t('compatible_accessories')}</h2>
               <div className="flex gap-4 overflow-x-auto pb-2 snap-x">

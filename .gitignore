@@ -4,3 +4,4 @@ dist/
 *.local
 .vercel/
 opencode.local.json
+.playwright-mcp/

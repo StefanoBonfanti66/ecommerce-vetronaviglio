@@ -12,26 +12,14 @@
 - Use `PROJECT_AI_NOTES.md` to track decisions, checkpoints, and pending items across sessions.
 - If you use custom commands in your OpenCode setup, document project-specific ones here or in the repository docs.
 
-## Current Focus — 2026-06-19 (Sessione 9 - Admin UX, Auth, Content & Mobile Fixes)
+## Current Focus — 2026-06-22 (Sessione 10 - Pricing Tiers, Color Translation, Accessory Gate)
 
 ### Completato
-- Fix AC050.0845: aggiunti `title_en` e `description_en`.
-- Audit completo copertura bilingue su 616 prodotti (551/616 = 89.4% con IT+EN).
-- Scoperti 65 prodotti orfani (`category_id = NULL`) senza descrizione né categoria.
-- Admin User Management migrato a Edge Functions v2:
-  - `admin-create-user`: fix CORS (handler OPTIONS + headers)
-  - `admin-delete-user`: nuovo — cancella `profiles` + `auth.users` (prerequisito: no ordini attivi)
-  - Ruolo `ceo` abilitato in `AdminRoute.tsx` (accesso pari ad `admin`)
-- Auth: flusso reset password (`ResetPasswordPage.tsx`, `UpdatePasswordPage.tsx`, link in `LoginPage.tsx`)
-- Mobile UX: Cart & Checkout responsive (righe impilate, target tattili ingranditi, testi leggibili)
-- Content sync da vetronaviglio.it:
-  - About page: riscritta completa (intro, blockquote, certificazioni, timeline 1991→2022, customizzazione)
-  - Contact page: foto sede (`/img/dove-siamo-sede.jpg`) + Google Maps embed
-  - Footer: anno fondazione corretto 1966 → 1991
-- Product page: accessori compatibili — rimosso `scrollbar-hide`, scrollbar nativa visibile
-- Import catalogo: `scripts/import_catalog.py` upsert single-pass con `stock_quantity` e `box_quantity`
-- Documentazione aggiornata: `docs/changelog.md` + `docs/admin-guide.md` + `PROJECT_AI_NOTES.md`
-- Deferred SMTP confermato per produzione (Resend su `vetronaviglio.eu`)
+- **Logica Prezzi:** Implementate fasce quantità (Prezzo Doppio + X%: 100-999/+40%, 1000-2999/+30%, 3000-4999/+20%, 5000+10%) in `resolvePrice()`.
+- **Traduzione Colori:** `translateColor()` con match esatto + parola per parola case-insensitive + gestione punteggiatura.
+- **Traduzioni:** ~60 parole colore IT/EN aggiunte in `translations.ts` (base + tecnici: Ghiera/Collar, Bulbo/Bulb, Tasto/Stopper ecc.).
+- **Accessori:** Sezione "Accessori compatibili" nascosta per prodotti con `is_accessory = true`.
+- **Documentazione:** `docs/changelog.md` e `docs/admin-guide.md` aggiornate.
 
 ### In corso
 - (nessuno)
@@ -39,4 +27,4 @@
 ### Prossimo step concreto
 - Assegnare categorie ai 65 prodotti orfani (`category_id = NULL`) per renderli visibili nel catalogo, poi scrivere descrizioni IT+EN.
 
-### Data Ultimo Aggiornamento: 2026-06-19
+### Data Ultimo Aggiornamento: 2026-06-22

@@ -52,6 +52,7 @@
 - **Modello:** Sviluppo MVP incluso in attività correnti ZBN (costo zero per cliente).
 - **Infrastruttura:** Pass-through (costi vivi di hosting Pro a carico cliente).
 - **Stato:** Preventivo formale `docs/proposals/preventivo-ecommerce-vetronaviglio.md` creato.
+- **Nota Importante:** Implementata logica fasce prezzo basata su "Prezzo Doppio + %". Si nota un aumento del prezzo unitario all'aumentare della quantità. Da validare con CEO se la logica è corretta o se va invertita in sconto decrescente.
 
 ## Milestone M3: Catalog & Collo Gating (11-06-2026)
 - **Status:** Specifica tecnica creata (`docs/project/ecommerce-vetronaviglio-technical-spec-catalog.md`).
@@ -126,3 +127,20 @@
     - [x] Validazione importo minimo fatturabile (€250) nel carrello.
     - [ ] Visualizzazione prezzi dinamici e sconti nel carrello.
     - [ ] Logica note logistica Ex-Works in Checkout.
+
+## Sessione 10 — 22-06-2026: Pricing Tiers, Color Translation, Accessory Gate
+
+### Decisioni chiave
+- **`translateColor()`**: Prima match esatto su chiave unica, poi parola per parola con fallback case-insensitive + stripping punteggiatura. L'import di `translations` in `ProductPage.tsx` è necessario per la ricerca case-insensitive.
+- **`is_accessory` gate**: Usato `product.is_accessory` per nascondere la sezione "Accessori compatibili" — la query `get_compatible_accessories` RPC non filtra in base al tipo di prodotto principale.
+- **Aumento prezzo con quantità**: Logica "Prezzo Doppio + %" approvata ma segnalata come "da validare CEO" in `docs/admin-guide.md`.
+
+### Modifiche principali
+- `app/src/pages/ProductPage.tsx`: nuova `translateColor()`, condizione `!product.is_accessory` su sezione accessori, import `translations`.
+- `app/src/constants/translations.ts`: ~60 parole colore IT/EN aggiunte.
+- `docs/changelog.md`, `docs/admin-guide.md`, `AGENTS.md`: sincronizzati.
+
+### Dati utili
+- 3 colori più frequenti nel DB: `bianco` (246), `ghiera` (113), `bulbo` (96).
+- `trasparente`: 67 occorrenze, `satinato`: 76.
+- Parole con punteggiatura: `brillante,` (31), `satinato,` (28), `neutro,` (5) ecc. — gestite dallo stripping nella `translateColor()`.
