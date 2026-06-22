@@ -12,21 +12,19 @@
 - Use `PROJECT_AI_NOTES.md` to track decisions, checkpoints, and pending items across sessions.
 - If you use custom commands in your OpenCode setup, document project-specific ones here or in the repository docs.
 
-## Current Focus — 2026-06-22 (Sessione 10 - Pricing Tiers, Color Translation, Accessory Gate + Sessione 11)
+## Current Focus — 2026-06-22 (Sessione 11 — Bug fix filtri, Account CEO, Admin link in Header)
 
 ### Completato
-- **Logica Prezzi:** Implementate fasce quantità (Prezzo Doppio + X%: 100-999/+40%, 1000-2999/+30%, 3000-4999/+20%, 5000+10%) in `resolvePrice()`.
-- **Traduzione Colori:** `translateColor()` con match esatto + parola per parola case-insensitive + gestione punteggiatura.
-- **Traduzioni:** ~60 parole colore IT/EN aggiunte in `translations.ts` (base + tecnici: Ghiera/Collar, Bulbo/Bulb, Tasto/Stopper ecc.).
-- **Accessori:** Sezione "Accessori compatibili" nascosta per prodotti con `is_accessory = true`.
-- **Documentazione:** `docs/changelog.md` e `docs/admin-guide.md` aggiornate.
 - **Bug fix filtri homepage:** Bottoni Vetro/Plastica/Accessori ora filtrano il catalogo con raggruppamento custom via `?filter=` param.
-- **Deploy Vercel:** App live su `ecommerce-vetronaviglio.vercel.app`.
+- **Admin link in Header:** Aggiunto link "Admin" (arancione) nell'header dopo il login (desktop + mobile).
+- **Account CEO:** Creati due account CEO (`b.solitodesolis@vetronaviglio.it`, `f.rosi@vetronaviglio.it`) con password temporanee.
+- **Email di accesso:** Bozza salvata in `docs/proposals/email-accesso.md` con istruzioni non tecniche, costi zero, e offerta demo.
 
 ### Bloccato / Da decidere
 - Assegnare categorie ai 65 prodotti orfani (`category_id = NULL`) — **serve decisione CEO** su quali categorie assegnare.
 
 ### Prossimo step concreto
-- Attendere decisione CEO sulle categorie dei prodotti orfani.
+- Attendere riscontro da Bettina/Federico dopo aver girato il sito.
+- Successivamente: assegnare categorie ai prodotti orfani e agganciare dominio `www.vetronaviglio.eu`.
 
 ### Data Ultimo Aggiornamento: 2026-06-22
