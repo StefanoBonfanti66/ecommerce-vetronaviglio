@@ -1,6 +1,6 @@
 {
   "private": true,
   "scripts": {
-    "build": "cd app && npm ci && npm run build"
+    "build": "cd app && npm ci && npx vite build"
   }
 }
