@@ -5,7 +5,7 @@ export default function Home() {
   const { lang, t } = useLang();
 
   const categoryBottle = (
-    <svg viewBox="0 0 200 300" fill="none" stroke="currentColor" strokeWidth="1.2" className="w-20 h-28 opacity-[0.07]">
+    <svg viewBox="0 0 200 300" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-20 h-28 opacity-[0.15]">
       <rect x="65" y="20" width="70" height="40" rx="4" />
       <rect x="55" y="55" width="90" height="210" rx="8" />
     </svg>
@@ -33,8 +33,8 @@ export default function Home() {
             </Link>
           </div>
           <div className="md:col-span-6 bg-surface flex items-center justify-center min-h-[260px] md:min-h-[500px]">
-            <div className="text-onyx/5">
-              <svg viewBox="0 0 240 120" className="w-48 h-24 md:w-72 md:h-36" fill="none" stroke="currentColor" strokeWidth="0.5">
+            <div className="text-onyx/20">
+              <svg viewBox="0 0 240 120" className="w-48 h-24 md:w-72 md:h-36" fill="none" stroke="currentColor" strokeWidth="1.2">
                 <rect x="10" y="15" width="40" height="22" rx="3" />
                 <rect x="5" y="35" width="50" height="75" rx="4" />
                 <rect x="90" y="18" width="38" height="28" rx="4" />

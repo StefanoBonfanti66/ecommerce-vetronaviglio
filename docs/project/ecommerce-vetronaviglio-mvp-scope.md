@@ -31,14 +31,12 @@
 - Rischio: Complessità nella migrazione dei dati dal sito attuale (scrappable o da ricostruire).
 - Dipendenza: Necessità di definire i criteri di validazione delle campionature.
 
-## 7. Decisioni rimandate alla Fase 2
-- Integrazione completa con ERP aziendale.
-- Analisi approfondita dati di vendita storici.
 
-## 8. Decisioni rimandate alla Fase 2 (Aggiunte)
-
-## 10. Listini Personalizzati (Fase 2)
+## 7. Listini Personalizzati (Fase 2)
 - **Logica:** Gestione listini associati all'utente (Cliente).
-- **Priorità:** Il Listino Personalizzato ha priorità assoluta su `price` base e `price_tiers` (sconti quantità).
+- **Priorità:** Il Listino Personalizzato ha priorità assoluta su `price` base e `price_tiers` (sconti quantità scriviamo nel sito questi sconti?).
 - **Governance:** Solo Admin/CEO possono creare/modificare listini.
 
+## 8. Decisioni rimandate alla Fase 2
+- Integrazione completa con ERP aziendale.
+- Analisi approfondita dati di vendita storici.

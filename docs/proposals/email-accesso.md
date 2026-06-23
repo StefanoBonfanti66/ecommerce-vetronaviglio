@@ -24,16 +24,15 @@ Potete girare liberamente tra catalogo, vetro, plastica e accessori. Tutto funzi
 | Bettina | b.solitodesolis@vetronaviglio.it | `a8Nv6mf9hF/4lLcv` |
 | Federico | f.rosi@vetronaviglio.it | `PVZElad8Cep2P0a3` |
 
-Al primo accesso, andate su Admin → Impostazioni e cambiate la password.
 
 **Costi attuali:**
 - Hosting (Vercel) e database (Supabase): **zero** — siamo sui piani gratuiti, sufficienti per la fase di test
 - Dominio vetronaviglio.eu: già esistente, nessun costo extra
 
-Quando si passa in produzione con il dominio vero, valuteremo insieme se serve un upgrade (dipende dal traffico).
+Quando si passa in produzione con il dominio vero, andranno pagati i piani di abbonamento.
 
 **Una cosa da sapere:** 66 prodotti non hanno ancora una categoria assegnata e quindi non compaiono nel catalogo. Quando avete un attimo, mi serve un vostro parere su come classificarli.
 
-Se vi va, posso organizzarvi una demo veloce per vedervi le cose principali insieme. Fammi sapere.
+Se vi va, posso organizzarvi una demo veloce per vedervi le cose principali insieme. Fatemi sapere.
 
 Stefano
