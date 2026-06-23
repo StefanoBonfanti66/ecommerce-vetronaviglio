@@ -19,18 +19,86 @@ export default function ProductPage() {
   const { lang, t } = useLang();
   const navigate = useNavigate();
 
-  const translateColor = (color: string): string => {
-    const exact = t(color as any);
-    if (exact !== color) return exact;
-    return color.split(' ').map(w => {
-      const punct = w.match(/[^a-zA-ZÀ-ÿ]+$/)?.[0] || '';
-      const base = punct ? w.slice(0, -punct.length) : w;
-      const tr = t(base as any);
-      if (tr !== base) return tr + punct;
-      const entry = Object.entries(translations.it).find(([k]) => k.toLowerCase() === base.toLowerCase());
-      return (entry ? (translations.en as any)[entry[0]] : w) + punct;
-    }).join(' ');
+  const translateValue = (value: string): string => {
+    if (!value) return 'N/A';
+
+    // 1. Try direct translation (value is a key in translations for current language)
+    const tVal = translations[lang][value as keyof typeof translations.en];
+    if (tVal && tVal !== value) return tVal;
+
+    // 2. If value is itself a valid key for either language, get translation for current lang
+    const itVal = translations.it[value as keyof typeof translations.it];
+    if (itVal !== undefined) {
+      if (lang === 'en') {
+        const enVal = translations.en[value as keyof typeof translations.en];
+        if (enVal) return enVal;
+      }
+      return itVal;
+    }
+
+    // 3. Reverse lookup: value might be a translation value from the other language
+    if (lang === 'it') {
+      for (const [enKey, enVal] of Object.entries(translations.en)) {
+        if (enVal === value) {
+          const key = translations.it[enKey as keyof typeof translations.it];
+          if (key) return key;
+        }
+      }
+    } else {
+      for (const [itKey, itVal] of Object.entries(translations.it)) {
+        if (itVal === value || itKey === value) {
+          const enVal = translations.en[itKey as keyof typeof translations.en];
+          if (enVal) return enVal;
+        }
+      }
+    }
+
+    // 4. Case-insensitive match for the full value
+    for (const [key] of Object.entries(translations.it)) {
+      if (key.toLowerCase() === value.toLowerCase()) {
+        const result = translations[lang as keyof typeof translations][key as keyof typeof translations.en];
+        if (result) return result;
+      }
+    }
+
+    // 5. Word-by-word translation for compound values (e.g. "Marrone satinato")
+    const words = value.split(' ').filter(Boolean);
+    if (words.length > 1) {
+      const translatedWords = words.map(w => {
+        // Try direct translation of the word
+        const direct = translations[lang][w as keyof typeof translations.en];
+        if (direct && direct !== w) return direct;
+
+        // Try case-insensitive lookup
+        const itWordVal = translations.it[w as keyof typeof translations.it];
+        if (itWordVal !== undefined) {
+          if (lang === 'en') {
+            const enWordVal = translations.en[w as keyof typeof translations.en];
+            if (enWordVal) return enWordVal;
+          }
+          return itWordVal;
+        }
+
+        // Case-insensitive match on keys
+        for (const [key] of Object.entries(translations.it)) {
+          if (key.toLowerCase() === w.toLowerCase()) {
+            const result = translations[lang as keyof typeof translations][key as keyof typeof translations.en];
+            if (result) return result;
+          }
+        }
+
+        return w;
+      });
+
+      const joined = translatedWords.join(' ');
+      if (joined !== value) return joined;
+    }
+
+    // 6. Fallback
+    return value;
   };
+
+  const translateColor = (color: string): string => translateValue(color);
 
   const resolvePrice = (product: any, quantity: number, customPrice: number | null) => {
     let priceToConsider = customPrice !== null ? customPrice : product.price;
@@ -318,9 +386,9 @@ export default function ProductPage() {
             <div className="grid grid-cols-2 gap-y-6">
               {[
                 { label: t('capacity'), value: attributes.ml ? `${attributes.ml} ml` : 'N/A' },
-                { label: t('material'), value: t(attributes.materiale) || attributes.materiale || 'N/A' },
+                { label: t('material'), value: translateValue(attributes.materiale) },
                 { label: t('mouth'), value: attributes.imboccatura || 'N/A' },
-                { label: t('finish'), value: t(attributes.finitura) || attributes.finitura || 'N/A' },
+                { label: t('finish'), value: translateValue(attributes.finitura) },
                 { label: t('pieces_per_box'), value: `${product.box_quantity || 0}` },
               ].map(attr => (
                 <div key={attr.label}>
