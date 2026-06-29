@@ -3,6 +3,16 @@ import { Link } from 'react-router-dom';
 import { supabase } from '../../supabaseClient';
 import AdminWrapper from '../../components/admin/AdminWrapper';
 
+function stripHtml(s: string): string {
+  let prev = '';
+  let result = s;
+  while (result !== prev) {
+    prev = result;
+    result = result.replace(/<[^>]+>/g, '');
+  }
+  return result;
+}
+
 export default function ProductList() {
   const [products, setProducts] = useState<any[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -66,7 +76,7 @@ export default function ProductList() {
                 <td className="py-4 font-medium tabular-nums w-32">{p.sku}</td>
                 <td className="py-4 font-serif w-[120px] truncate">{p.title_it}</td>
                 <td className="py-4 text-aluminum text-sm whitespace-normal max-w-sm">
-                  {p.description_it ? p.description_it.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').replace(/&quot;/g, '"').substring(0, 100) + (p.description_it.length > 100 ? '...' : '') : '—'}
+                  {p.description_it ? stripHtml(p.description_it).replace(/&nbsp;/g, ' ').replace(/&quot;/g, '"').substring(0, 100) + (p.description_it.length > 100 ? '...' : '') : '—'}
                 </td>
                 <td className="py-4 tabular-nums">€{p.price}</td>
                 <td className="py-4 text-right">
