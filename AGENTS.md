@@ -12,18 +12,12 @@
 - Use `PROJECT_AI_NOTES.md` to track decisions, checkpoints, and pending items across sessions.
 - If you use custom commands in your OpenCode setup, document project-specific ones here or in the repository docs.
 
-## Current Focus — 2026-06-23 (Sessione 12 — Fix traduzione IT/EN attributi, visibilità SVG homepage, deploy Vercel)
+## Current Focus — 2026-06-29 (Sessione 13 — Fix CodeQL sanitization)
 
 ### Completato
-- **Bug fix filtri homepage:** Bottoni Vetro/Plastica/Accessori ora filtrano il catalogo con raggruppamento custom via `?filter=` param.
-- **Admin link in Header:** Aggiunto link "Admin" (arancione) nell'header dopo il login (desktop + mobile).
-- **Account CEO:** Creati due account CEO (`b.solitodesolis@vetronaviglio.it`, `f.rosi@vetronaviglio.it`) con password temporanee.
-- **Email di accesso:** Bozza salvata in `docs/proposals/email-accesso.md` con istruzioni non tecniche, costi zero, e offerta demo.
-- **Fix traduzione IT/EN:** Nuova funzione `translateValue()` in `ProductPage.tsx` che gestisce lookup diretto, reverse lookup, case-insensitive e word-by-word per attributi composti (es. "Marrone satinato" → "Brown Satin").
-- **Chiavi traduzione mancanti:** Aggiunte `Semitrasparente` e `Nessuna finitura` a `translations.ts`.
-- **Specifiche tecniche:** `materiale` e `finitura` ora usano `translateValue()` invece di `t()` diretto.
-- **Visibilità SVG homepage:** Aumentate opacity e strokeWidth delle illustrazioni decorative (card categorie e hero).
-- **Deploy Vercel:** Build e deploy su https://ecommerce-vetronaviglio.vercel.app con i fix.
+- **Fix CodeQL `js/incomplete-multi-character-sanitization`:** Estratto helper `stripHtml()` in `ProductList.tsx` (riga 6) che applica il replace `/<[^>]+>/g` in loop fino a consumare tutti i tag annidati, eliminando il bypass da nesting HTML.
+- **Git cleanup:** Committato `package-lock.json` e rimosso `assets/logo-azienda.png` (stale asset).
+- **Push & Deploy Vercel:** 3 commit pushati su `origin/main`, deploy automatico Vercel avviato.
 
 ### Bloccato / Da decidere
 - Assegnare categorie ai 65 prodotti orfani (`category_id = NULL`) — **serve decisione CEO** su quali categorie assegnare.
@@ -32,4 +26,4 @@
 - Attendere riscontro da Bettina/Federico dopo il giro sul sito aggiornato.
 - Successivamente: assegnare categorie ai prodotti orfani e agganciare dominio `www.vetronaviglio.eu`.
 
-### Data Ultimo Aggiornamento: 2026-06-23
+### Data Ultimo Aggiornamento: 2026-06-29
