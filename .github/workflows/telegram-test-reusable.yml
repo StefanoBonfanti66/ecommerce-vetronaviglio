@@ -3,6 +3,9 @@ name: Telegram Test Reusable
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   notify:
     uses: ./.github/workflows/telegram-notify-reusable.yml
