@@ -167,3 +167,31 @@ Risolvere il bug: bottoni Vetro/Plastica/Accessori in Home aprivano il catalogo 
 - `attributes.categoria` ha 18 valori specifici (es. "Flaconi vetro", "Vasi plastica", "Coperchi", ecc.) — nessun valore broad
 - `attributes.materiale` ha 20 valori tra cui "Vetro", vari plastici (PE, PET, PP, SAN, etc.), "Alluminio", "Resina termoindurente"
 - 616 prodotti totali nel DB Supabase `vsqzxudijllpocrbqfbo`
+
+## Sessione 12 — Migrazione Supabase (15-07-2026)
+
+### Obiettivo
+Migrazione controllata da source `ecommerceDB` (`vsqzxudijllpocrbqfbo`) a nuovo progetto Supabase su altro account. Nessuna modifica distruttiva sul source live.
+
+### Fase 1 — Audit Source (completata)
+- **Source:** `vsqzxudijllpocrbqfbo` — ACTIVE_HEALTHY, eu-west-1, Postgres 17.6.1.127, ORG `ccznwmozaiwopuahtgcy`
+- **Tabelle:** 17 (RLS abilitata su tutte; la `user_roles` esiste nel codice ma non appare nel dump MCP tabelle)
+- **RLS:** Molte tabelle con RLS enabled ma NO policies (accessory_rules, audit_logs, categories, collections, orders, price_lists, price_list_items, profiles, product_accessory_overrides, product_collections, products, sample_requests, settings, user_roles). Solo `legal_pages` ha 1 policy.
+- **Edge Functions:** 3 — `send-order-email` (v22, no JWT), `admin-create-user` (v2, JWT), `admin-delete-user` (v1, JWT)
+- **Storage:** bucket `ecommerceBUK`, 117 file
+- **Extensions:** 19 (standard Supabase)
+- **Migrations:** 19 (2026-06-16 → 2026-06-18)
+- **Security advisors:** 5 issue WARN (RLS no policy, function mutable search_path, RLS policy always true, SECURITY DEFINER callable by anon, leaked password protection off)
+
+### Fase 2 — Pianificazione (completata)
+- Piano dettagliato in `MIGRATION_VETRONAVIGLIO_SUPABASE.md`
+- **Remediation identificati:** MCP account-level non scoped; anon key hardcoded in `import_catalog.py`; URL hardcoded negli script Python
+
+### Fase 3 — Target fornito
+- **Target:** `wimhgbfaonkyqzcjehws` (altro account Supabase, token: `sbp_1e9e2640...`)
+- **MCP:** Aggiunto `supabase-target` in opencode.json (non ancora attivo — serve restart)
+- **Prossimo step:** Riavviare OpenCode → verificare accesso target → backup source → restore
+- Prima di ogni azione distruttiva, chiedere conferma
+
+### Fix sessione
+- MCP Supabase/Vercel fixati: sostituito `opencode.json` locale con versione globale (token hardcoded, .gitignore). Commit `d9cf910`.
