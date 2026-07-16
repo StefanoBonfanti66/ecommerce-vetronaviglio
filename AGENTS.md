@@ -12,22 +12,21 @@
 - Use `PROJECT_AI_NOTES.md` to track decisions, checkpoints, and pending items across sessions.
 - If you use custom commands in your OpenCode setup, document project-specific ones here or in the repository docs.
 
-## Current Focus — 2026-07-15 (Sessione 15 — Migrazione Supabase Completa + Test OK)
+## Current Focus — 2026-07-16 (Sessione 16 — Bug Fix + Admin UX)
 
 ### Completato
-- **Database Restore:** Tutte le tabelle migrati su target `cgvztkgbzecyregjrtsh` (products=616, attribute_options=292, product_collections=331, collections=21, profiles=4, orders=14, settings=5, legal_pages=3, price_lists=1, user_roles=1, order_items=23, categories=0).
-- **Storage Migration:** 607/607 file .jpg migrati. 610/610 image_urls aggiornati. Bucket `ecommerceBUK` pubblico con RLS service_role-write ✅.
-- **Auth Users:** 4 utenti creati + profili collegati. Fix bcrypt password + NULL token columns.
-- **Edge Functions:** 3 funzioni deployate (send-order-email, admin-create-user, admin-delete-user).
-- **Webhook + RESEND_API_KEY:** Configurati in Dashboard.
-- **Security Remediation:** ACL funzioni, RLS tabelle (incluse 3 nuove su accessory_rules, audit_logs, categories), storage bucket policy (4 policies). Aggiunta policy `product_accessory_overrides`.
-- **app/.env:** Aggiornato per target `cgvztkgbzecyregjrtsh`.
-- **Test Playwright:** Login ✅, Admin panel ✅, 616 prodotti ✅, 21 collezioni ✅, Impostazioni ✅.
+- **Go-live Vercel:** Sito live su `https://ecommerce-vetronaviglio.vercel.app` con target Supabase `cgvztkgbzecyregjrtsh` (commit `aed8d85`, deploy `dpl_BoHQhzHqvfiBLp9XENXjZ7Hse7Cr`).
+- **Bug fix: Product category persist** — RLS policies su `products` aggiunte (UPDATE/INSERT/DELETE per `authenticated`, ALL per `service_role`). Ora `attributes.categoria` si salva correttamente.
+- **Admin UX: Edit icon su card prodotto** — Hook `useIsAdmin.ts` + modifica `ProductCard.tsx`. Icona matita (hover, solo admin/ceo) → `/admin/products/edit/{SKU}`. Deployato commit `21b677d`.
+- **Audit logs verificati** — 1.916 righe, trigger funzionante, cambio categoria tracciato con user_id admin.
 
 ### Bloccato / Da decidere
 - Assegnare categorie ai 65 prodotti orfani (`category_id = NULL`) — **serve decisione CEO**.
+- `audit_logs` batches 005-012 pending — utente ha detto skip salvo richiesta esplicita.
+- Leaked password protection — limitazione piano free Supabase.
 
 ### Prossimi step
-1. **Go-live target** — switch DNS/Vercel al target `cgvztkgbzecyregjrtsh`
+1. **Decisione CEO** su 65 prodotti senza categoria → poi eventualmente script di assegnazione bulk.
+2. **Eventuale** migrazione audit_logs batch 005-012 se richiesto.
 
 ### Data Ultimo Aggiornamento: 2026-07-16
