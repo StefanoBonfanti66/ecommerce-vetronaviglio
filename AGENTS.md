@@ -30,4 +30,4 @@
 ### Prossimi step
 1. **Go-live target** — switch DNS/Vercel al target `cgvztkgbzecyregjrtsh`
 
-### Data Ultimo Aggiornamento: 2026-07-15
+### Data Ultimo Aggiornamento: 2026-07-16

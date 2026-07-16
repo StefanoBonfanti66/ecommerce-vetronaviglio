@@ -7,4 +7,19 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('supabase')) return 'vendor-supabase'
+            if (id.includes('tiptap')) return 'vendor-tiptap'
+            if (id.includes('paypal')) return 'vendor-paypal'
+            if (id.includes('react')) return 'vendor-react'
+            return 'vendor'
+          }
+        },
+      },
+    },
+  },
 })
