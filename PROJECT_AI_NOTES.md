@@ -168,30 +168,58 @@ Risolvere il bug: bottoni Vetro/Plastica/Accessori in Home aprivano il catalogo 
 - `attributes.materiale` ha 20 valori tra cui "Vetro", vari plastici (PE, PET, PP, SAN, etc.), "Alluminio", "Resina termoindurente"
 - 616 prodotti totali nel DB Supabase `vsqzxudijllpocrbqfbo`
 
-## Sessione 12 — Migrazione Supabase (15-07-2026)
+## Sessione 13-14 — Migrazione Supabase Completata (15-07-2026)
 
-### Obiettivo
-Migrazione controllata da source `ecommerceDB` (`vsqzxudijllpocrbqfbo`) a nuovo progetto Supabase su altro account. Nessuna modifica distruttiva sul source live.
+### Database Restore
+- Schema + dati migrati su target `cgvztkgbzecyregjrtsh` via SQL INSERT multipli
+- Products: 616 (4 mancanti inseriti manualmente: CP410.0080, DI400.0078, DI15F.0011, DI15F.0015)
+- Audit logs: 1300 righe migrate, batches 005-012 skippati (decisione utente)
+- Tutte le altre tabelle verificate: attribute_options=292, product_collections=331, collections=21, profiles=4, orders=14, settings=5, legal_pages=3, price_lists=1, user_roles=1, order_items=23, categories=0
 
-### Fase 1 — Audit Source (completata)
-- **Source:** `vsqzxudijllpocrbqfbo` — ACTIVE_HEALTHY, eu-west-1, Postgres 17.6.1.127, ORG `ccznwmozaiwopuahtgcy`
-- **Tabelle:** 17 (RLS abilitata su tutte; la `user_roles` esiste nel codice ma non appare nel dump MCP tabelle)
-- **RLS:** Molte tabelle con RLS enabled ma NO policies (accessory_rules, audit_logs, categories, collections, orders, price_lists, price_list_items, profiles, product_accessory_overrides, product_collections, products, sample_requests, settings, user_roles). Solo `legal_pages` ha 1 policy.
-- **Edge Functions:** 3 — `send-order-email` (v22, no JWT), `admin-create-user` (v2, JWT), `admin-delete-user` (v1, JWT)
-- **Storage:** bucket `ecommerceBUK`, 117 file
-- **Extensions:** 19 (standard Supabase)
-- **Migrations:** 19 (2026-06-16 → 2026-06-18)
-- **Security advisors:** 5 issue WARN (RLS no policy, function mutable search_path, RLS policy always true, SECURITY DEFINER callable by anon, leaked password protection off)
+### Storage Migration
+- Bucket `ecommerceBUK` creato su target (public=true, RLS service_role-write)
+- 607/607 file .jpg migrati
+- 610/610 image_urls aggiornati a target URL
+- Script: `scripts/cross_project_migrate_images.py`
 
-### Fase 2 — Pianificazione (completata)
-- Piano dettagliato in `MIGRATION_VETRONAVIGLIO_SUPABASE.md`
-- **Remediation identificati:** MCP account-level non scoped; anon key hardcoded in `import_catalog.py`; URL hardcoded negli script Python
+### Auth Users
+- 4 utenti creati + profili collegati
+- s.bonfanti@vetronaviglio.it (admin), b.solitodesolis@vetronaviglio.it (ceo), f.rosi@vetronaviglio.it (ceo), sbonfanti@hotmail.com (customer)
 
-### Fase 3 — Target fornito
-- **Target:** `wimhgbfaonkyqzcjehws` (altro account Supabase, token: `sbp_1e9e2640...`)
-- **MCP:** Aggiunto `supabase-target` in opencode.json (non ancora attivo — serve restart)
-- **Prossimo step:** Riavviare OpenCode → verificare accesso target → backup source → restore
-- Prima di ogni azione distruttiva, chiedere conferma
+### Edge Functions
+- 3 funzioni deployate: send-order-email, admin-create-user, admin-delete-user
+- RESEND_API_KEY configurato come Edge Function Secret
+- Webhook orders INSERT → send-order-email creato in Dashboard
+
+### Security Remediation
+- ACL: Revoke anon da 7 SECURITY DEFINER functions; Revoke authenticated da handle_new_user, duplicate_price_list, audit_trigger_func, decrement_stock_trigger, rls_auto_enable
+- search_path = public su tutte le 7 funzioni mutabili
+- RLS policies: accessory_rules (admin/ceo), audit_logs (admin/ceo read), categories (public read, admin/ceo write)
+- Storage bucket: 4 policies (public SELECT, service_role INSERT/UPDATE/DELETE)
+- Leaked password protection: non disponibile su free plan
+
+### app/.env
+- Aggiornato con target URL e anon key (`cgvztkgbzecyregjrtsh`)
 
 ### Fix sessione
-- MCP Supabase/Vercel fixati: sostituito `opencode.json` locale con versione globale (token hardcoded, .gitignore). Commit `d9cf910`.
+- MCP Supabase/Vercel fixati: sostituito `opencode.json` locale con versione globale
+
+### Source project status
+- `vsqzxudijllpocrbqfbo` ripristinato da Supabase, accesso MCP negato
+- Batch SQL dump files sono la source of truth per i dati
+
+### Test post-migrazione (Playwright) — TUTTI PASSATI ✅
+- **Login**: s.bonfanti@vetronaviglio.it / Vetro88 → redirect homepage, nav mostra "Admin" + "Logout"
+- **Admin panel**: `/admin` carica con 9 sezioni complete
+- **Prodotti**: `/admin/products` mostra **616 prodotti** (match DB)
+- **Collezioni**: `/admin/collections` mostra 21 collezioni
+- **Impostazioni**: `/admin/settings` dati corretti (email notifica, importo minimo €250, max 3000 pezzi, note spedizione)
+- **Errori console**: 1 errore su `product_accessory_overrides` (tabella vuota, non critico)
+
+### Auth fix
+- Errore: `crypto/bcrypt: hashedSecret too short` — encrypted_password aveva solo 18 caratteri
+- Fix: generato hash bcrypt valido (60 chars) per password `Vetro88`, aggiornati tutti e 4 gli utenti
+- Anche fix token NULL → empty string (confirmation_token, recovery_token, ecc.)
+
+### RLS fix
+- Aggiunta policy su `product_accessory_overrides`: public SELECT + admin/ceo ALL

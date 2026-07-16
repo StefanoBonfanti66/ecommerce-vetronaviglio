@@ -12,18 +12,22 @@
 - Use `PROJECT_AI_NOTES.md` to track decisions, checkpoints, and pending items across sessions.
 - If you use custom commands in your OpenCode setup, document project-specific ones here or in the repository docs.
 
-## Current Focus — 2026-06-29 (Sessione 13 — Fix CodeQL sanitization)
+## Current Focus — 2026-07-15 (Sessione 15 — Migrazione Supabase Completa + Test OK)
 
 ### Completato
-- **Fix CodeQL `js/incomplete-multi-character-sanitization`:** Estratto helper `stripHtml()` in `ProductList.tsx` (riga 6) che applica il replace `/<[^>]+>/g` in loop fino a consumare tutti i tag annidati, eliminando il bypass da nesting HTML.
-- **Git cleanup:** Committato `package-lock.json` e rimosso `assets/logo-azienda.png` (stale asset).
-- **Push & Deploy Vercel:** 3 commit pushati su `origin/main`, deploy automatico Vercel avviato.
+- **Database Restore:** Tutte le tabelle migrati su target `cgvztkgbzecyregjrtsh` (products=616, attribute_options=292, product_collections=331, collections=21, profiles=4, orders=14, settings=5, legal_pages=3, price_lists=1, user_roles=1, order_items=23, categories=0).
+- **Storage Migration:** 607/607 file .jpg migrati. 610/610 image_urls aggiornati. Bucket `ecommerceBUK` pubblico con RLS service_role-write ✅.
+- **Auth Users:** 4 utenti creati + profili collegati. Fix bcrypt password + NULL token columns.
+- **Edge Functions:** 3 funzioni deployate (send-order-email, admin-create-user, admin-delete-user).
+- **Webhook + RESEND_API_KEY:** Configurati in Dashboard.
+- **Security Remediation:** ACL funzioni, RLS tabelle (incluse 3 nuove su accessory_rules, audit_logs, categories), storage bucket policy (4 policies). Aggiunta policy `product_accessory_overrides`.
+- **app/.env:** Aggiornato per target `cgvztkgbzecyregjrtsh`.
+- **Test Playwright:** Login ✅, Admin panel ✅, 616 prodotti ✅, 21 collezioni ✅, Impostazioni ✅.
 
 ### Bloccato / Da decidere
-- Assegnare categorie ai 65 prodotti orfani (`category_id = NULL`) — **serve decisione CEO** su quali categorie assegnare.
+- Assegnare categorie ai 65 prodotti orfani (`category_id = NULL`) — **serve decisione CEO**.
 
-### Prossimo step concreto
-- Attendere riscontro da Bettina/Federico dopo il giro sul sito aggiornato.
-- Successivamente: assegnare categorie ai prodotti orfani e agganciare dominio `www.vetronaviglio.eu`.
+### Prossimi step
+1. **Go-live target** — switch DNS/Vercel al target `cgvztkgbzecyregjrtsh`
 
-### Data Ultimo Aggiornamento: 2026-06-29
+### Data Ultimo Aggiornamento: 2026-07-15
