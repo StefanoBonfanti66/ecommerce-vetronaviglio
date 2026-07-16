@@ -100,7 +100,12 @@
 - 2026-06-16: Implementazione architettura DB flessibile (JSONB) e migrazione immagini.
 - 2026-06-16: Evoluzione Governance: introdotto controllo granulare ruoli (admin, ceo, magazzino, acquisti) e tabella Audit Log.
 
-## TODOs
+## Checkpoint Sessione 15 — Bug Fix: Product Category Not Persisting (2026-07-16)
+
+- **Bug:** Modifiche all'attributo `categoria` (es. "Vasi vetro" → "Vasi colorati") sembravano salvarsi ma non persistevano al reload
+- **Causa radice:** Tabella `products` aveva RLS abilitato ma **solo policy SELECT pubblica** — nessuna policy UPDATE/INSERT/DELETE per authenticated
+- **Fix:** Applicate 4 policy RLS su `products`: UPDATE/INSERT/DELETE per authenticated, ALL per service_role
+- **Verifica:** Test SQL diretto conferma update `attributes.categoria` funzionante
 - [x] Admin Interface: Sviluppo pannello base.
 - [x] Admin Interface: Master Control Editor (attributi, collezioni, audit).
 - [x] Implementazione ruoli Magazzino/Acquisti nell'interfaccia.
@@ -223,3 +228,26 @@ Risolvere il bug: bottoni Vetro/Plastica/Accessori in Home aprivano il catalogo 
 
 ### RLS fix
 - Aggiunta policy su `product_accessory_overrides`: public SELECT + admin/ceo ALL
+- Aggiunte policy `UPDATE`, `INSERT`, `DELETE` per authenticated + `ALL` per service_role su `products` table
+
+### Fix salvataggio categoria prodotto (2026-07-16)
+- **Bug**: Modifiche all'attributo `categoria` (es. da "Vasi vetro" a "Vasi colorati") in ProductEditor non persistevano
+- **Causa**: Mancava policy RLS `UPDATE` sulla tabella `products` — solo `SELECT` pubblica
+- **Fix**: Applicate policy `UPDATE`/`INSERT`/`DELETE` per `authenticated` e `ALL` per `service_role` su `products`
+- **Verificato**: Update categoria ora funziona correttamente
+
+## Da chiedere alla CEO
+
+### 6 prodotti senza immagine (2026-07-16)
+SKU composti/complessi con `image_urls = []` — il sito vecchio (vetronaviglio.eu) blocca l'accesso (403), non erano nello storage Supabase:
+1. `CC410.0003 + DC410.0008` — Charme
+2. `LC030.0003 - HH0S1.0041 - HH0S1.0040` — Florence
+3. `LC050.0003 - HH0S1.0032` — Elena
+4. `LC050.0005 - HHS1.0038` — Florence
+5. `SE200.0240S / SE200.0246S` — Luna
+6. `WA100.0001 - WC100.0001` — Arctic
+
+**Da decidere:** caricare foto manualmente, nascondere dal catalogo, o accettare placeholder?
+
+### 65 prodotti senza categoria (dalla migrazione)
+Prodotti con `category_id = NULL` — serve assegnamento categorie da parte della CEO.

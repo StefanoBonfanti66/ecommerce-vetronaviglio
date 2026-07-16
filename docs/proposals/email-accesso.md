@@ -35,4 +35,11 @@ Quando si passa in produzione con il dominio vero, andranno pagati i piani di ab
 
 Se vi va, posso organizzarvi una demo veloce per vedervi le cose principali insieme. Fatemi sapere.
 
+**Costi del progetto:**
+Ho preparato il preventivo completo per il lavoro svolto. In sintesi:
+- Sviluppo e-commerce custom (React + Supabase): **€26.600 + IVA**
+- Questo include: progettazione, sviluppo backend/frontend, migrazione dati, testing, deploy e go-live
+- Costi operativi mensili: ~€50 (piani gratuiti Supabase + Vercel)
+- Dettagli nel preventivo che vi allego
+
 Stefano
